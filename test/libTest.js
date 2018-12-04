@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {extractInputs,createHeadLines} = require('../src/lib.js');
+const {extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
 
 describe( 'extractInputs' , function() {
   it( 'should return headDetails including option when option is given' , function() {
@@ -35,8 +35,21 @@ describe( 'extractInputs' , function() {
 })
 
 describe( 'createHeadLines' , function() {
-  it('should return the heading for the given function' , function() {
+  it( 'should return the heading for the given function' , function() {
     assert.deepEqual(createHeadLines('mars'),'==> mars <==');
     assert.deepEqual(createHeadLines('sample'),'==> sample <==');
+  });
+})
+
+describe( 'extractLines' , function() {
+  it( 'should return the head with given number of lines' , function() {
+
+    let data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    let expectedOutput = 'fhash\nhsakh\nfkdsh'
+    assert.deepEqual(extractLines(data,3),expectedOutput);
+
+    data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    expectedOutput = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    assert.deepEqual(extractLines(data,7),expectedOutput);
   });
 })

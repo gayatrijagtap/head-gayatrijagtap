@@ -27,4 +27,14 @@ const createHeadLines = function(filename) {
   return heading;
 }
 
+const extractLines = function(text,noOfLines) {
+  text = text.split('\n');
+  let head = text.slice(0,noOfLines).join('\n');
+  return head;
+}
+
+exports.extractLines = extractLines;
+
 exports.createHeadLines = createHeadLines;
+
+
