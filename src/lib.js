@@ -27,6 +27,8 @@ const createHeadLines = function(filename) {
   return heading;
 }
 
+exports.createHeadLines = createHeadLines;
+
 const extractLines = function(text,noOfLines) {
   text = text.split('\n');
   let head = text.slice(0,noOfLines).join('\n');
@@ -35,6 +37,10 @@ const extractLines = function(text,noOfLines) {
 
 exports.extractLines = extractLines;
 
-exports.createHeadLines = createHeadLines;
+const extractCharacters = function(text,noOfChars) {
+  text = text.split('');
+  let head = text.slice(0,noOfChars).join('');
+  return head;
+}
 
-
+exports.extractCharacters = extractCharacters;
