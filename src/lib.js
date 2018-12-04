@@ -33,16 +33,14 @@ exports.createHeadLines = createHeadLines;
 
 const extractLines = function(text,noOfLines) {
   text = text.split('\n');
-  let head = text.slice(0,noOfLines).join('\n');
-  return head;
+  return text.slice(0,noOfLines).join('\n');
 }
 
 exports.extractLines = extractLines;
 
 const extractCharacters = function(text,noOfChars) {
   text = text.split('');
-  let head = text.slice(0,noOfChars).join('');
-  return head;
+  return text.slice(0,noOfChars).join('');
 }
 
 exports.extractCharacters = extractCharacters;
