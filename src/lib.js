@@ -21,3 +21,10 @@ const extractInputs = function(userArgs) {
 }
 
 exports.extractInputs = extractInputs;
+
+const createHeadLines = function(filename) {
+  let heading = '==> '+filename+' <==';
+  return heading;
+}
+
+exports.createHeadLines = createHeadLines;

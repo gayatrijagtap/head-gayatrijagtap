@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {extractInputs} = require('../src/lib.js');
+const {extractInputs,createHeadLines} = require('../src/lib.js');
 
 describe( 'extractInputs' , function() {
   it( 'should return headDetails including option when option is given' , function() {
@@ -31,5 +31,12 @@ describe( 'extractInputs' , function() {
     let userArgs = [,,'file1','file2'];
     let expectedOutput = {noOfLines:10,files:['file1','file2']};
     assert.deepEqual(extractInputs(userArgs),expectedOutput);
+  });
+})
+
+describe( 'createHeadLines' , function() {
+  it('should return the heading for the given function' , function() {
+    assert.deepEqual(createHeadLines('mars'),'==> mars <==');
+    assert.deepEqual(createHeadLines('sample'),'==> sample <==');
   });
 })
