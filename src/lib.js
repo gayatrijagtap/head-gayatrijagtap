@@ -26,8 +26,7 @@ const extractNoOfLines = function(userArgs) {
 exports.extractNoOfLines = extractNoOfLines;
 
 const createHeadLines = function(filename) {
-  let heading = '==> '+filename+' <==';
-  return heading;
+  return '==> '+filename+' <==';
 }
 
 exports.createHeadLines = createHeadLines;
