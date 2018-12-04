@@ -1,26 +1,29 @@
 const extractInputs = function(userArgs) {
   let headDetails = new Object;
-  let index = 2;
-  let option = userArgs[2].split('')[1];
-  headDetails.noOfLines = 10;
-  if(option == 'n' || option == 'c') {
-    headDetails.option = option;
-    headDetails.noOfLines = userArgs[3];
-    index = 4;
-    if(userArgs[2].split('')[2]) {
-      headDetails.noOfLines = userArgs[2].split('')[2];
-      index = 3;
-    }
-  }
-  if(parseInt(option)) {
-    headDetails.noOfLines = parseInt(option);
-    index = 3;
-  }
+  headDetails.option = extractOption(userArgs[2]);
+  let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
+  headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index,userArgs.length);
   return headDetails;
 }
 
 exports.extractInputs = extractInputs;
+
+const extractOption = function(userArgs) {
+  return userArgs.match(/-c/) ? 'c' : 'n';
+}
+
+exports.extractOption = extractOption;
+
+const extractNoOfLines = function(userArgs) {
+  let array = userArgs[0].split('');
+  if(userArgs[0].match(/^-.*[0-9]$/)) {
+    return {lines:array[array.length-1],index:3};
+  }
+  return userArgs[1].match(/^[0-9]$/) ? {lines:userArgs[1],index:4} : {lines:10,index:2};
+}
+
+exports.extractNoOfLines = extractNoOfLines;
 
 const createHeadLines = function(filename) {
   let heading = '==> '+filename+' <==';
