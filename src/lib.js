@@ -13,6 +13,11 @@ exports.extractInputs = extractInputs;
 
 //--------------------------extractOption--------------    -
 const extractOption = function(userArgs) {
+  let option = userArgs.split('')[1];
+  if(userArgs.match(/[a-b d-m o-z A-B D-M O-Z]/)) {
+    console.log('head: illegal option -- '+option+'\nusage: head [-n lines | -c bytes] [file ...]')
+    process.exit();
+  }
   return userArgs.match(/-c/) ? 'c' : 'n';
 }
 
