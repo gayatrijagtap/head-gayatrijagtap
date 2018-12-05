@@ -48,11 +48,11 @@ describe( 'createHeadLines' , function() {
 describe( 'extractLines' , function() {
   it( 'should return the head with given number of lines' , function() {
 
-    let data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    let data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n'
     let expectedOutput = 'fhash\nhsakh\nfkdsh'
     assert.deepEqual(extractLines(data,3),expectedOutput);
 
-    data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n'
     expectedOutput = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
     assert.deepEqual(extractLines(data,7),expectedOutput);
   });

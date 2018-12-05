@@ -31,13 +31,14 @@ exports.extractOption = extractOption;
 //-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
   let array = userArgs[0].split('');
-  if(userArgs[0].match(/^-.*[0-9]$/)) {
-    return {lines:array[array.length-1],index:3};
+  let lines = parseInt(array[1]) || parseInt(array[1]) == 0 ? {lines:array[1],index:3} : {lines:10,index:2};
+  if(parseInt(array[2])) {
+    return {lines:array[2],index:3};
   }
-  if(userArgs[1]) {
-    return userArgs[1].match(/^[0-9]$/) ? {lines:userArgs[1],index:4} : {lines:10,index:2};
+  if(parseInt(userArgs[1])) {
+    return {lines:userArgs[1],index:4};
   }
-  return {lines:10,index:2};
+  return lines;
 }
 
 exports.extractNoOfLines = extractNoOfLines;
@@ -52,7 +53,7 @@ exports.createHeadLines = createHeadLines;
 //-----------------------------extractLines------------
 const extractLines = function(text,noOfLines) {
   let lines = text.split('\n');
-  if(noOfLines == 10) {
+  if(lines.length <= noOfLines) {
     noOfLines = lines.length-1;
   }
   return lines.slice(0,noOfLines).join('\n');
