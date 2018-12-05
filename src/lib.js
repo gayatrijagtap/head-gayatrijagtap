@@ -3,6 +3,7 @@ const extractInputs = function(userArgs) {
   let headDetails = new Object;
   headDetails.option = extractOption(userArgs[2]);
   let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
+  if(lines == 0) { console.log('head: illegal line count -- 0'); process.exit();}
   headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index,userArgs.length);
   return headDetails;
@@ -12,7 +13,7 @@ exports.extractInputs = extractInputs;
 
 //--------------------------extractOption--------------    -
 const extractOption = function(userArgs) {
-  return userArgs.split('')[1]=='c' ? 'c' : 'n';
+  return userArgs.match(/-c/) ? 'c' : 'n';
 }
 
 exports.extractOption = extractOption;
@@ -20,14 +21,13 @@ exports.extractOption = extractOption;
 //-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
   let array = userArgs[0].split('');
-  let lines = parseInt(array[1]) ? {lines:array[1],index:3} : {lines:10,index:2};
-  if(parseInt(array[2])) {
-    return {lines:array[2],index:3};
+  if(userArgs[0].match(/^-.*[0-9]$/)) {
+    return {lines:array[array.length-1],index:3};
   }
-  if(parseInt(userArgs[1])) {
-    return {lines:userArgs[1],index:4};
+  if(userArgs[1]) {
+    return userArgs[1].match(/^[0-9]$/) ? {lines:userArgs[1],index:4} : {lines:10,index:2};
   }
-  return lines;
+  return {lines:10,index:2};
 }
 
 exports.extractNoOfLines = extractNoOfLines;
@@ -56,13 +56,17 @@ const extractCharacters = function(text,noOfChars) {
 exports.extractCharacters = extractCharacters;
 
 //--------------------------getHead---------------------
-const getHead = function(file,headDetails,fs) {
-  let {option,noOfLines} = headDetails;
+const getHead = function(headDetails,fs) {
+  let {files,option,noOfLines} = headDetails;
   let type = {};
-  let data = readFile(file,fs);
-  type['n'] = extractLines(data,noOfLines);
-  type['c'] = extractCharacters(data,noOfLines);
-  let head = '\n'+createHeadLines(file)+'\n'+type[option];
+  let head = '';
+  for(let file of files) {
+    let data = readFile(file,fs);
+    type['n'] = extractLines(data,noOfLines);
+    type['c'] = extractCharacters(data,noOfLines);
+    if(files.length == 1) { return type[option]; }
+    head = head+'\n'+createHeadLines(file)+'\n'+type[option]+'\n';
+  }
   return head;
 }
 
@@ -70,6 +74,7 @@ exports.getHead = getHead;
 
 //----------------------------readFile-------------------
 const readFile = function(file,fs) {
+  if(!fs.existsSync(file)) { return 'head: '+file+': No such file or directory'  }
   const read = fs.readFileSync;
   let data = read('./'+file,'utf8');
   return data;
