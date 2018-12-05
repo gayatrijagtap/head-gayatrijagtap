@@ -61,7 +61,8 @@ const extractCharacters = function(text,noOfChars) {
 exports.extractCharacters = extractCharacters;
 
 //--------------------------getHead---------------------
-const getHead = function(headDetails,fs) {
+const getHead = function(userArgs,fs) {
+  let headDetails = extractInputs(userArgs);
   let {files,option,noOfLines} = headDetails;
   let type = {};
   let head = '';
