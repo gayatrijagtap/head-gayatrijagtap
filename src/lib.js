@@ -12,7 +12,7 @@ exports.extractInputs = extractInputs;
 
 //--------------------------extractOption--------------    -
 const extractOption = function(userArgs) {
-  return userArgs.match(/-c/) ? 'c' : 'n';
+  return userArgs.split('')[1]=='c' ? 'c' : 'n';
 }
 
 exports.extractOption = extractOption;
@@ -20,13 +20,14 @@ exports.extractOption = extractOption;
 //-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
   let array = userArgs[0].split('');
-  if(userArgs[0].match(/^-.*[0-9]$/)) {
-    return {lines:array[array.length-1],index:3};
+  let lines = parseInt(array[1]) ? {lines:array[1],index:3} : {lines:10,index:2};
+  if(parseInt(array[2])) {
+    return {lines:array[2],index:3};
   }
-  if(userArgs[1]) {
-    return userArgs[1].match(/^[0-9]$/) ? {lines:userArgs[1],index:4} : {lines:10,index:2};
+  if(parseInt(userArgs[1])) {
+    return {lines:userArgs[1],index:4};
   }
-  return {lines:10,index:2};
+  return lines;
 }
 
 exports.extractNoOfLines = extractNoOfLines;
