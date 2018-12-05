@@ -4,10 +4,7 @@ const fs = require('fs');
 const main = function() {
   let userArgs = process.argv;
   let headDetails = extractInputs(userArgs);
-  let {files} = headDetails;
-  for(let file of files) {
-    console.log(getHead(file,headDetails,fs));
-  } 
+  console.log(getHead(headDetails,fs));
 }
 
 main();
