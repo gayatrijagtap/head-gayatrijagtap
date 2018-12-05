@@ -52,6 +52,9 @@ exports.createHeadLines = createHeadLines;
 //-----------------------------extractLines------------
 const extractLines = function(text,noOfLines) {
   let lines = text.split('\n');
+  if(noOfLines == 10) {
+    noOfLines = lines.length-1;
+  }
   return lines.slice(0,noOfLines).join('\n');
 }
 
@@ -71,6 +74,7 @@ const getHead = function(userArgs,fs) {
   let {files,option,noOfLines} = headDetails;
   let type = { 'n':extractLines , 'c':extractCharacters };
   let head = '';
+  let delimeter = '';
   for(let file of files) {
     if(!fs.existsSync(file)) {
       let error = 'head: '+file+': No such file or directory';
@@ -81,7 +85,8 @@ const getHead = function(userArgs,fs) {
     if(files.length == 1) { 
       return type[option](data,noOfLines); 
     }
-    head = head+'\n'+createHeadLines(file)+'\n'+type[option](data,noOfLines)+'\n';
+    head = head+delimeter+createHeadLines(file)+'\n'+type[option](data,noOfLines);
+    delimeter = '\n\n';
   }
   return head;
 }
