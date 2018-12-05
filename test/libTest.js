@@ -1,6 +1,7 @@
 const assert = require('assert');
-const {extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
+const {getHead,readFile,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
 
+//---------------------extractInputs tests-------------------
 describe( 'extractInputs' , function() {
   it( 'should return headDetails including option when option is given' , function() {
 
@@ -35,6 +36,7 @@ describe( 'extractInputs' , function() {
   });
 })
 
+//-------------------------createHeadLines tests--------------
 describe( 'createHeadLines' , function() {
   it( 'should return the heading for the given function' , function() {
     assert.deepEqual(createHeadLines('mars'),'==> mars <==');
@@ -42,6 +44,7 @@ describe( 'createHeadLines' , function() {
   });
 })
 
+//-----------------------------extractLines tests------------
 describe( 'extractLines' , function() {
   it( 'should return the head with given number of lines' , function() {
 
@@ -55,6 +58,7 @@ describe( 'extractLines' , function() {
   });
 })
 
+//----------------------extractCharacters tests---------------
 describe( 'extractCharacters' , function() {
   it( 'should return the head with the given number of characters' , function() {
     let data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
@@ -65,6 +69,7 @@ describe( 'extractCharacters' , function() {
   });
 })
 
+//--------------------------extractOption tests---------------
 describe( 'extractOption' , function() {
   it( 'should extract the -c or -n option for given input' , function() {
     assert.deepEqual(extractOption('-c5'),'c');
@@ -73,11 +78,14 @@ describe( 'extractOption' , function() {
   });
 })
 
+//-------------------------extractNoOfLines tests-------------------
 describe( 'extractNoOfLines' , function() {
   it( 'should extract the no of lines from the given input' , function() {
     assert.deepEqual(extractNoOfLines(['-c5','']),{lines:5,index:3});
-   assert.deepEqual(extractNoOfLines(['-5','']),{lines:5,index:3});
+    assert.deepEqual(extractNoOfLines(['-5','']),{lines:5,index:3});
     assert.deepEqual(extractNoOfLines(['-c','2']),{lines:2,index:4});
     assert.deepEqual(extractNoOfLines(['file1','file2']),{lines:10,index:2});
   });
 })
+
+//--------------------------getHead tests---------------------

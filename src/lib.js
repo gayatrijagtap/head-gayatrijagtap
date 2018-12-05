@@ -1,3 +1,4 @@
+//---------------------extractInputs-------------------
 const extractInputs = function(userArgs) {
   let headDetails = new Object;
   headDetails.option = extractOption(userArgs[2]);
@@ -9,12 +10,14 @@ const extractInputs = function(userArgs) {
 
 exports.extractInputs = extractInputs;
 
+//--------------------------extractOption---------------
 const extractOption = function(userArgs) {
   return userArgs.match(/-c/) ? 'c' : 'n';
 }
 
 exports.extractOption = extractOption;
 
+//-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
   let array = userArgs[0].split('');
   if(userArgs[0].match(/^-.*[0-9]$/)) {
@@ -25,12 +28,14 @@ const extractNoOfLines = function(userArgs) {
 
 exports.extractNoOfLines = extractNoOfLines;
 
+ //-------------------------createHeadLines--------------
 const createHeadLines = function(filename) {
   return '==> '+filename+' <==';
 }
 
 exports.createHeadLines = createHeadLines;
 
+//-----------------------------extractLines------------
 const extractLines = function(text,noOfLines) {
   text = text.split('\n');
   return text.slice(0,noOfLines).join('\n');
@@ -38,9 +43,32 @@ const extractLines = function(text,noOfLines) {
 
 exports.extractLines = extractLines;
 
+//----------------------extractCharacters---------------
 const extractCharacters = function(text,noOfChars) {
   text = text.split('');
   return text.slice(0,noOfChars).join('');
 }
 
 exports.extractCharacters = extractCharacters;
+
+//--------------------------getHead---------------------
+const getHead = function(file,headDetails,fs) {
+  let {option,noOfLines} = headDetails;
+  let type = {};
+  let data = readFile(file,fs);
+  type['n'] = extractLines(data,noOfLines);
+  type['c'] = extractCharacters(data,noOfLines);
+  let head = '\n'+createHeadLines(file)+'\n'+type[option];
+  return head;
+}
+
+exports.getHead = getHead;
+
+//----------------------------readFile-------------------
+const readFile = function(file,fs) {
+  const read = fs.readFileSync;
+  let data = read('./'+file,'utf8');
+  return data;
+}
+
+exports.readFile = readFile;
