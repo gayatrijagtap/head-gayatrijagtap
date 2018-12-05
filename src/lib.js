@@ -14,7 +14,7 @@ exports.extractInputs = extractInputs;
 //--------------------------extractOption--------------    -
 const extractOption = function(userArgs) {
   let option = userArgs.split('')[1];
-  if(userArgs.match(/[a-b d-m o-z A-B D-M O-Z]/)) {
+  if(userArgs.match(/^-[a-b d-m o-z A-B D-M O-Z]/)) {
     console.log('head: illegal option -- '+option+'\nusage: head [-n lines | -c bytes] [file ...]')
     process.exit();
   }
@@ -46,16 +46,16 @@ exports.createHeadLines = createHeadLines;
 
 //-----------------------------extractLines------------
 const extractLines = function(text,noOfLines) {
-  text = text.split('\n');
-  return text.slice(0,noOfLines).join('\n');
+  let lines = text.split('\n');
+  return lines.slice(0,noOfLines).join('\n');
 }
 
 exports.extractLines = extractLines;
 
 //----------------------extractCharacters---------------
 const extractCharacters = function(text,noOfChars) {
-  text = text.split('');
-  return text.slice(0,noOfChars).join('');
+  let lines = text.split('');
+  return lines.slice(0,noOfChars).join('');
 }
 
 exports.extractCharacters = extractCharacters;
