@@ -1,9 +1,13 @@
 //---------------------extractInputs-------------------
 const extractInputs = function(userArgs) {
   let headDetails = new Object;
+  let error = 'head: illegal line count -- 0';
   headDetails.option = extractOption(userArgs[2]);
   let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
-  if(lines == 0) { console.log('head: illegal line count -- 0'); process.exit();}
+  if(lines == 0) {
+    console.log(error)
+    process.exit();
+  }
   headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index,userArgs.length);
   return headDetails;
@@ -14,8 +18,9 @@ exports.extractInputs = extractInputs;
 //--------------------------extractOption--------------    -
 const extractOption = function(userArgs) {
   let option = userArgs.split('')[1];
+  let error = 'head: illegal option -- '+option+'\nusage:head [-n lines | -c bytes] [file ...]'
   if(userArgs.match(/^-[a-b d-m o-z A-B D-M O-Z]/)) {
-    console.log('head: illegal option -- '+option+'\nusage: head [-n lines | -c bytes] [file ...]')
+    console.log(error);
     process.exit();
   }
   return userArgs.match(/-c/) ? 'c' : 'n';
@@ -64,14 +69,12 @@ exports.extractCharacters = extractCharacters;
 const getHead = function(userArgs,fs) {
   let headDetails = extractInputs(userArgs);
   let {files,option,noOfLines} = headDetails;
-  let type = {};
+  let type = { 'n':extractLines , 'c':extractCharacters };
   let head = '';
   for(let file of files) {
     let data = readFile(file,fs);
-    type['n'] = extractLines(data,noOfLines);
-    type['c'] = extractCharacters(data,noOfLines);
-    if(files.length == 1) { return type[option]; }
-    head = head+'\n'+createHeadLines(file)+'\n'+type[option]+'\n';
+    if(files.length == 1) { return type[option](data,noOfLines); }
+    head = head+'\n'+createHeadLines(file)+'\n'+type[option](data,noOfLines)+'\n';
   }
   return head;
 }
@@ -80,7 +83,10 @@ exports.getHead = getHead;
 
 //----------------------------readFile-------------------
 const readFile = function(file,fs) {
-  if(!fs.existsSync(file)) { return 'head: '+file+': No such file or directory'  }
+  let error = 'head: '+file+': No such file or directory';
+  if(!fs.existsSync(file)) { 
+    return error;
+  }
   const read = fs.readFileSync;
   let data = read('./'+file,'utf8');
   return data;
