@@ -72,24 +72,18 @@ const getHead = function(userArgs,fs) {
   let type = { 'n':extractLines , 'c':extractCharacters };
   let head = '';
   for(let file of files) {
-    let data = readFile(file,fs);
-    if(files.length == 1) { return type[option](data,noOfLines); }
+    if(!fs.existsSync(file)) {
+      let error = 'head: '+file+': No such file or directory';
+      head = head + error+'\n';
+      continue;
+    }
+    let data = fs.readFileSync(file,'utf8');
+    if(files.length == 1) { 
+      return type[option](data,noOfLines); 
+    }
     head = head+'\n'+createHeadLines(file)+'\n'+type[option](data,noOfLines)+'\n';
   }
   return head;
 }
 
 exports.getHead = getHead;
-
-//----------------------------readFile-------------------
-const readFile = function(file,fs) {
-  let error = 'head: '+file+': No such file or directory';
-  if(!fs.existsSync(file)) { 
-    return error;
-  }
-  const read = fs.readFileSync;
-  let data = read('./'+file,'utf8');
-  return data;
-}
-
-exports.readFile = readFile;

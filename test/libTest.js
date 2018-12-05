@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {getHead,readFile,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
+const {getHead,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
 
 //---------------------extractInputs tests-------------------
 describe( 'extractInputs' , function() {
@@ -89,3 +89,20 @@ describe( 'extractNoOfLines' , function() {
 })
 
 //--------------------------getHead tests---------------------
+
+describe( 'getHead' , function() {
+
+  let readFileSync = file => file;
+  let existsSync = file => true;
+  let fs = {readFileSync,existsSync};
+
+  it( 'should return head of the file with given specifications' , function() {
+    let data = 'fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs';
+    let userArgs = [,,'-n2',data]
+    assert.deepEqual(getHead(userArgs,fs),'fsdjfhsdh\ndfjkshjk');
+
+    data = 'grldfjd';
+  userArgs = [,,'-c','4',data];
+    assert.deepEqual(getHead(userArgs,fs),'grld');
+  });
+})
