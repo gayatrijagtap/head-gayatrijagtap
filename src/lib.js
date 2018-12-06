@@ -98,7 +98,8 @@ const getHead = function(userArgs,fs) {
   for(let file of files) {
     if(!fs.existsSync(file)) {
       let error = 'head: '+file+': No such file or directory';
-      head = head + error+'\n';
+      head = head +delimeter+ error;
+      delimeter = '\n'
       continue;
     }
     let data = fs.readFileSync(file,'utf8');
