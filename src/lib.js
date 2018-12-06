@@ -4,11 +4,11 @@ const extractInputs = function(userArgs) {
   headDetails.option = extractOption(userArgs[2]);
   let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
   let error = 'head: illegal line count -- '+lines;
-  if(lines <=0 && headDetails.option == 'c') {
+  if((lines <=0 || lines.match(/[a-z A-Z]/)) && headDetails.option == 'c') {
     console.log('head: illegal byte count -- '+lines);
     process.exit();
   }
-  if(lines <= 0 && headDetails.option == 'n') {
+  if((lines <= 0 || lines.match(/[a-z A-Z]/)) && headDetails.option == 'n') {
     console.log(error)
     process.exit();
   }
@@ -38,7 +38,7 @@ const extractNoOfLines = function(userArgs) {
     return extractNumber(userArgs);
   }
   let array = userArgs[0].split('');
-  let lines = parseInt(array[1]) || parseInt(array[1]) == 0 ? {lines:array[1],index:3} : {lines:10,index:2};
+  let lines = parseInt(array[1]) || parseInt(array[1]) == 0 ? {lines:array[1],index:3} : {lines:'10',index:2};
   if(parseInt(array[2]) || parseInt(array[2]) == 0) {
     return {lines:array[2],index:3};
   }
