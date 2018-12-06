@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {getHead,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
+const {extractNumber,getHead,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
 
 //---------------------extractInputs tests-------------------
 describe( 'extractInputs' , function() {
@@ -104,5 +104,14 @@ describe( 'getHead' , function() {
     data = 'grldfjd';
   userArgs = [,,'-c','4',data];
     assert.deepEqual(getHead(userArgs,fs),'grld');
+  });
+})
+
+//----------------------validateNoOfLines tests--------------
+describe( 'extractNumber' , function() {
+  it( 'should extract Number from the given input' , function() {
+    assert.deepEqual(extractNumber(['-n','1']));
+    assert.deepEqual(extractNumber(['-n12','temp.js']),{lines:'12',index:3});
+    assert.deepEqual(extractNumber(['-100','temp.js']),{lines:'100',index:3});
   });
 })
