@@ -1,10 +1,10 @@
 //---------------------extractInputs-------------------
 const extractInputs = function(userArgs) {
   let headDetails = new Object;
-  let error = 'head: illegal line count -- 0';
   headDetails.option = extractOption(userArgs[2]);
   let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
-  if(lines == 0) {
+  let error = 'head: illegal line count -- '+lines;
+  if(lines <= 0) {
     console.log(error)
     process.exit();
   }
