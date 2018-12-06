@@ -4,7 +4,11 @@ const extractInputs = function(userArgs) {
   headDetails.option = extractOption(userArgs[2]);
   let {lines,index} = extractNoOfLines(userArgs.slice(2,4));
   let error = 'head: illegal line count -- '+lines;
-  if(lines <= 0) {
+  if(lines <=0 && headDetails.option == 'c') {
+    console.log('head: illegal byte count -- '+lines);
+    process.exit();
+  }
+  if(lines <= 0 && headDetails.option == 'n') {
     console.log(error)
     process.exit();
   }
