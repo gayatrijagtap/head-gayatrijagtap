@@ -53,7 +53,7 @@ describe( 'extractLines' , function() {
     assert.deepEqual(extractLines(data,3),expectedOutput);
 
     data = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n'
-    expectedOutput = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk'
+    expectedOutput = 'fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n'
     assert.deepEqual(extractLines(data,7),expectedOutput);
   });
 })
