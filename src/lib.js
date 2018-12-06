@@ -73,7 +73,7 @@ exports.createHeadLines = createHeadLines;
 const extractLines = function(text,noOfLines) {
   let lines = text.split('\n');
   if(lines.length <= noOfLines) {
-    noOfLines = lines.length-1;
+    noOfLines = lines.length;
   }
   return lines.slice(0,noOfLines).join('\n');
 }
