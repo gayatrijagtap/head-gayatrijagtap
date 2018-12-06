@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {extractNumber,getHead,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
+const {handleErrors,extractNumber,getHead,extractOption,extractNoOfLines,extractCharacters,extractLines,extractInputs,createHeadLines} = require('../src/lib.js');
 
 //---------------------extractInputs tests-------------------
 describe( 'extractInputs' , function() {
@@ -113,5 +113,28 @@ describe( 'extractNumber' , function() {
     assert.deepEqual(extractNumber(['-n','1']));
     assert.deepEqual(extractNumber(['-n12','temp.js']),{lines:'12',index:3});
     assert.deepEqual(extractNumber(['-100','temp.js']),{lines:'100',index:3});
+  });
+})
+
+//-------------------------handleErrors tests----------------
+describe( 'handleErrors' , function() {
+  it( 'should return error message for illegal option' , function() {
+  let optionError = 'head: illegal option -- ' + 's' + '\nusage:head [-n lines | -c bytes] [file ...]'
+    assert.deepEqual( handleErrors('s','12'),optionError);
+    assert.deepEqual( handleErrors('sd','1'),optionError);
+  });
+
+  it( 'should return error message for illegal line count' , function() {
+  let lineError = 'head: illegal line count -- ' + '0';
+    assert.deepEqual( handleErrors('n',0),lineError);
+  lineError = 'head: illegal line count -- ' + '-1';
+    assert.deepEqual( handleErrors('n',-1),lineError);
+  });
+
+  it( 'should return error message for illegal byte count' , function() {
+  let byteError = 'head: illegal byte count -- ' + '0';
+    assert.deepEqual( handleErrors('c',0),byteError);
+  byteError = 'head: illegal byte count -- ' + '-1';
+    assert.deepEqual( handleErrors('c',-1),byteError);
   });
 })
