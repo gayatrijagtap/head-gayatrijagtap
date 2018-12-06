@@ -31,11 +31,17 @@ exports.extractOption = extractOption;
 //-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
   let array = userArgs[0].split('');
+  if(parseInt(userArgs[0].split('').slice(1,4).join(''))) {
+    return {lines:userArgs[0].split('').slice(1,4).join(''),index:3};
+  }
+  if(parseInt(userArgs[0].split('').slice(2,5).join(''))) {
+    return {lines:userArgs[0].split('').slice(2,5).join(''),index:3};
+  }
   let lines = parseInt(array[1]) || parseInt(array[1]) == 0 ? {lines:array[1],index:3} : {lines:10,index:2};
-  if(parseInt(array[2])) {
+  if(parseInt(array[2]) || parseInt(array[2]) == 0) {
     return {lines:array[2],index:3};
   }
-  if(parseInt(userArgs[1])) {
+  if(parseInt(userArgs[1]) || parseInt(userArgs[1]) == 0) {
     return {lines:userArgs[1],index:4};
   }
   return lines;
