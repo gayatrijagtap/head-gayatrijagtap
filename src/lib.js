@@ -2,23 +2,20 @@
 const extractInputs = function(userArgs) {
   let headDetails = new Object();
   headDetails.option = extractOption(userArgs[2]);
-
   let { lines, index } = extractNoOfLines(userArgs.slice(2, 4));
-
   headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index, userArgs.length);
-
   return headDetails;
 };
 
 exports.extractInputs = extractInputs;
 
 //--------------------------extractOption--------------    -
-const extractOption = function(userArgs) {
-  if (userArgs.match(/^-[a-b d-m o-z A-B D-M O-Z]/)) {
-    return userArgs[1];
+const extractOption = function(optionCandidate) {
+  if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
+    return optionCandidate[1];
   }
-  return userArgs.match(/^-c/) ? "c" : "n";
+  return 'n';
 };
 
 exports.extractOption = extractOption;
