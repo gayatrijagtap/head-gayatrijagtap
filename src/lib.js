@@ -10,7 +10,7 @@ const extractInputs = function(userArgs) {
 
 exports.extractInputs = extractInputs;
 
-//--------------------------extractOption--------------    -
+//--------------------------extractOption---------------
 const extractOption = function(optionCandidate) {
   if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
     return optionCandidate[1];
@@ -34,6 +34,8 @@ const extractNoOfLines = function(userArgs) {
 };
 
 exports.extractNoOfLines = extractNoOfLines;
+
+//--------------------------------noOfLines---------------------
 
 const noOfLines = function(firstNumber,secondNumber,firstIndex,secondIndex) {
   if(parseInt(firstNumber) || parseInt(firstNumber) == 0) {
@@ -131,20 +133,12 @@ const getHead = function(userArgs, fs) {
     }
 
     let data = fs.readFileSync(file, "utf8");
-
     if (files.length == 1) {
       return type[option](data, noOfLines);
     }
-
-    head =
-      head +
-      delimeter +
-      createHeadLines(file) +
-      "\n" +
-      type[option](data, noOfLines);
+    head = head + delimeter + createHeadLines(file) + "\n" + type[option](data, noOfLines);
     delimeter = "\n\n";
   }
-
   return head;
 };
 
