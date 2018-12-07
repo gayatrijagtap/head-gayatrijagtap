@@ -30,19 +30,18 @@ const extractNoOfLines = function(userArgs) {
     parseInt(array[1]) || parseInt(array[1]) == 0
       ? { lines: array[1], index: 3 }
       : { lines: "10", index: 2 };
-
   if (parseInt(array[2]) || parseInt(array[2]) == 0) {
     return { lines: array[2], index: 3 };
   }
-
   if (parseInt(userArgs[1]) || parseInt(userArgs[1]) == 0) {
     return { lines: userArgs[1], index: 4 };
   }
-
   return lines;
 };
 
 exports.extractNoOfLines = extractNoOfLines;
+
+//--------------------------isNumber-------------------------
 
 const isNumber = function(numberCandidate,index) {
   if(parseInt(numberCandidate)) {
@@ -51,6 +50,8 @@ const isNumber = function(numberCandidate,index) {
 }
 
 exports.isNumber = isNumber;
+
+//---------------------------extractNumber-------------------
 
 const extractNumber = function(userArgs) {
   let array = userArgs[0].split("");
@@ -72,11 +73,9 @@ exports.createHeadLines = createHeadLines;
 //-----------------------------extractLines------------
 const extractLines = function(text, noOfLines) {
   let lines = text.split("\n");
-
   if (lines.length <= noOfLines) {
     noOfLines = lines.length;
   }
-
   return lines.slice(0, noOfLines).join("\n");
 };
 
@@ -84,8 +83,8 @@ exports.extractLines = extractLines;
 
 //----------------------extractCharacters---------------
 const extractCharacters = function(text, noOfChars) {
-  let lines = text.split("");
-  return lines.slice(0, noOfChars).join("");
+  let characters = text.split("");
+  return characters.slice(0, noOfChars).join("");
 };
 
 exports.extractCharacters = extractCharacters;
@@ -93,22 +92,15 @@ exports.extractCharacters = extractCharacters;
 //----------------------handleErrors---------------------
 
 const handleErrors = function(option, noOfLines) {
-  let optionError =
-    "head: illegal option -- " +
-    option[0] +
-    "\nusage:head [-n lines | -c bytes] [file ...]";
+  let optionError = "head: illegal option -- " + option[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
   if (option != "c" && option != "n") {
     return optionError;
   }
-  let lineError = "head: illegal line count -- " + noOfLines;
-  let byteError = "head: illegal byte count -- " + noOfLines;
-
-  if ((noOfLines <= 0 || noOfLines.match(/[a-z A-Z]/)) && option == "c") {
-    return byteError;
-  }
-
-  if ((noOfLines <= 0 || noOfLines.match(/[a-z A-Z]/)) && option == "n") {
-    return lineError;
+  let errorMessage = new Object;
+  errorMessage['n'] = "head: illegal line count -- " + noOfLines;
+  errorMessage['c'] = "head: illegal byte count -- " + noOfLines;
+  if ((noOfLines <= 0 || noOfLines.match(/[a-z A-Z]/))) {
+    return errorMessage[option];
   }
 };
 
