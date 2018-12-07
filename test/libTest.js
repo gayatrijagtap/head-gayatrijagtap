@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  isNumber,
   handleErrors,
   extractNumber,
   getHead,
@@ -160,3 +161,10 @@ describe("handleErrors", function() {
     assert.deepEqual(handleErrors("c", -1), byteError);
   });
 });
+
+describe( 'isNumber' , function() {
+  it( 'should return number and index if the given input is a number' , function() {
+    assert.deepEqual(isNumber('12',3),{lines:'12',index:3});
+    assert.deepEqual(isNumber('1',3),{lines:'1',index:3});
+  });
+})

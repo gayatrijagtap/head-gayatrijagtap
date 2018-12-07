@@ -25,7 +25,6 @@ const extractNoOfLines = function(userArgs) {
   if (extractNumber(userArgs)) {
     return extractNumber(userArgs);
   }
-
   let array = userArgs[0].split("");
   let lines =
     parseInt(array[1]) || parseInt(array[1]) == 0
@@ -45,16 +44,20 @@ const extractNoOfLines = function(userArgs) {
 
 exports.extractNoOfLines = extractNoOfLines;
 
+const isNumber = function(numberCandidate,index) {
+  if(parseInt(numberCandidate)) {
+    return {lines:numberCandidate , index:index};
+  }
+}
+
+exports.isNumber = isNumber;
+
 const extractNumber = function(userArgs) {
   let array = userArgs[0].split("");
-
-  if (parseInt(array.slice(1, 4).join(""))) {
-    return { lines: array.slice(1, 4).join(""), index: 3 };
-  }
-
-  if (parseInt(array.slice(2, 5).join(""))) {
-    return { lines: array.slice(2, 5).join(""), index: 3 };
-  }
+  let numberCandidate1 = array.slice(1,4).join('');
+  let numberCandidate2 = array.slice(2,5).join('');
+  let number = isNumber(numberCandidate1,3) || isNumber(numberCandidate2,3);
+  return number;
 };
 
 exports.extractNumber = extractNumber;
