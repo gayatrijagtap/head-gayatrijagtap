@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  noOfLines,
   isNumber,
   handleErrors,
   extractNumber,
@@ -162,9 +163,17 @@ describe("handleErrors", function() {
   });
 });
 
-describe("isNumber", function() {
-  it("should return number and index if the given input is a number", function() {
-    assert.deepEqual(isNumber("12", 3), { lines: "12", index: 3 });
-    assert.deepEqual(isNumber("1", 3), { lines: "1", index: 3 });
+describe( 'isNumber' , function() {
+  it( 'should return number and index if the given input is a number' , function() {
+    assert.deepEqual(isNumber('12',3),{lines:'12',index:3});
+    assert.deepEqual(isNumber('1',3),{lines:'1',index:3});
   });
-});
+})
+
+describe( 'noOfLines' , function() {
+  it( 'should return noOfLines from the given input' , function() {
+    assert.deepEqual(noOfLines('5','',3,4), { lines:'5', index: 3 });
+    assert.deepEqual(noOfLines("c", "5",3,4), { lines:'5', index: 4 });
+    assert.deepEqual(noOfLines("d", "0",3,4), { lines:'0', index: 4 });
+  });
+})

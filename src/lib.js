@@ -30,16 +30,21 @@ const extractNoOfLines = function(userArgs) {
     parseInt(array[1]) || parseInt(array[1]) == 0
       ? { lines: array[1], index: 3 }
       : { lines: "10", index: 2 };
-  if (parseInt(array[2]) || parseInt(array[2]) == 0) {
-    return { lines: array[2], index: 3 };
-  }
-  if (parseInt(userArgs[1]) || parseInt(userArgs[1]) == 0) {
-    return { lines: userArgs[1], index: 4 };
-  }
-  return lines;
+  return noOfLines(array[2],userArgs[1],3,4) || lines;
 };
 
 exports.extractNoOfLines = extractNoOfLines;
+
+const noOfLines = function(firstNumber,secondNumber,firstIndex,secondIndex) {
+  if(parseInt(firstNumber) || parseInt(firstNumber) == 0) {
+    return { lines:firstNumber,index:firstIndex};
+  }
+  if(parseInt(secondNumber) || parseInt(secondNumber) == 0) {
+    return { lines:secondNumber,index:secondIndex};
+  }
+}
+
+exports.noOfLines = noOfLines;
 
 //--------------------------isNumber-------------------------
 
