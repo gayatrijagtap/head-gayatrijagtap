@@ -1,5 +1,7 @@
 const assert = require("assert");
 const {
+  isInvalidCount,
+  isInvalidOption,
   getOption,
   getNoOfLines,
   getTail,
@@ -175,6 +177,27 @@ describe("handleErrors", function () {
     assert.deepEqual(handleErrors("c", -1), byteError);
   });
 });
+
+//--------------------------------------isInvalidOption tests----------------------
+
+describe( 'isInvalidOption' , function() {
+  let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
+  it( 'should return error for the invalid error option' , function() {
+    assert.deepEqual(isInvalidOption('s'),optionError);
+    assert.deepEqual(isInvalidOption('n'),);
+  });
+})
+
+//---------------------------------------isInvalidCount tests------------------------
+
+describe( 'isInvalidCount' , function() {
+  it( 'should return illegal count error for invalid count' , function() {
+    let byteError = "head: illegal byte count -- " + "0";
+    assert.deepEqual(isInvalidCount(0,'c'),byteError);
+    let lineError = "head: illegal line count -- " + "-1";
+    assert.deepEqual(isInvalidCount(-1,'n'),lineError);
+  });
+})
 
 //-------------------------------------isNumber tests-------------------------
 

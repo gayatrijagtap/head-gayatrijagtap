@@ -111,19 +111,34 @@ exports.extractCharacters = extractCharacters;
 //----------------------handleErrors---------------------
 
 const handleErrors = function(option, noOfLines) {
-  let optionError = "head: illegal option -- " + option[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
-  if (option != "c" && option != "n") {
-    return optionError;
-  }
-  let errorMessage = new Object;
-  errorMessage['n'] = "head: illegal line count -- " + noOfLines;
-  errorMessage['c'] = "head: illegal byte count -- " + noOfLines;
-  if ((noOfLines <= 0 || noOfLines.match(/[a-z A-Z]/))) {
-    return errorMessage[option];
-  }
+  return isInvalidOption(option) || isInvalidCount(noOfLines,option);
 };
 
 exports.handleErrors = handleErrors;
+
+//-------------------------------isInvalidOption---------------------
+
+const isInvalidOption = function(optionCandidate) {
+  let optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
+  if(optionCandidate != 'c' && optionCandidate != 'n') {
+    return optionError;
+  }
+}
+
+exports.isInvalidOption = isInvalidOption;
+
+//------------------------------isInvalidCount-------------------------
+
+const isInvalidCount = function(count,option) {
+  let countError = new Object;
+  countError['n'] = "head: illegal line count -- " + count;
+  countError['c'] = "head: illegal byte count -- " + count;
+  if ((count <= 0 || count.match(/[a-z A-Z]/))) {
+    return countError[option];
+  }
+}
+
+exports.isInvalidCount = isInvalidCount;
 
 //--------------------------getHead---------------------
 
