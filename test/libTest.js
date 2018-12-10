@@ -102,10 +102,7 @@ describe("extractNoOfLines", function () {
     assert.deepEqual(extractNoOfLines(["-c5", ""]), { lines: 5, index: 3 });
     assert.deepEqual(extractNoOfLines(["-5", ""]), { lines: 5, index: 3 });
     assert.deepEqual(extractNoOfLines(["-c", "2"]), { lines: 2, index: 4 });
-    assert.deepEqual(extractNoOfLines(["file1", "file2"]), {
-      lines: 10,
-      index: 2
-    });
+    assert.deepEqual(extractNoOfLines(["file1", "file2"]), { lines: 10, index: 2 });
   });
 });
 

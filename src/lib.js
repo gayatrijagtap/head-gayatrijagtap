@@ -22,15 +22,9 @@ exports.extractOption = extractOption;
 
 //-------------------------extractNoOfLines-------------------
 const extractNoOfLines = function(userArgs) {
-  if (extractNumber(userArgs)) {
-    return extractNumber(userArgs);
-  }
   let array = userArgs[0].split("");
-  let lines =
-    parseInt(array[1]) || parseInt(array[1]) == 0
-      ? { lines: array[1], index: 3 }
-      : { lines: "10", index: 2 };
-  return noOfLines(array[2],userArgs[1],3,4) || lines;
+  let lines = { lines: "10", index: 2 };
+  return extractNumber(userArgs) || getNoOfLines(array[1],3) || noOfLines(array[2],userArgs[1],3,4) || lines;
 };
 
 exports.extractNoOfLines = extractNoOfLines;
