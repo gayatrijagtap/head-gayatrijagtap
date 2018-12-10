@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  handleTailErrors,
   extractTailingChars,
   extractTailingLines,
   noOfLines,
@@ -196,5 +197,19 @@ describe( 'extractTailingChars' , function() {
     assert.deepEqual(extractTailingChars(text,5),' fdhj');
     assert.deepEqual(extractTailingChars(text,8),'kfd fdhj');
     assert.deepEqual(extractTailingChars(text,20),text);
+  });
+})
+
+describe( 'handleTailErrors' , function() {
+  it( 'should give error for illegal option' , function() {
+  let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+    assert.deepEqual(handleTailErrors('s',1),optionError);
+  });
+  it('should give error for illegal offset', function () {
+    let errorMessage = 'tail: illegal offset -- ' + '5d';
+    assert.deepEqual(handleTailErrors('n','5d'),errorMessage);
+  });
+  it( 'should return nothing if the number of lines is 0' , function() {
+    assert.deepEqual(handleTailErrors('n',0),);
   });
 })

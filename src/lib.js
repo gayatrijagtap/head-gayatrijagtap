@@ -168,3 +168,22 @@ const extractTailingChars = function (text, noOfChars) {
 }
 
 exports.extractTailingChars = extractTailingChars;
+
+//------------------------------handleTailErrors------------------------
+  
+const handleTailErrors = function(option, noOfLines) {
+  let optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+  if (option != "c" && option != "n") {
+    return optionError;
+  }
+  if(noOfLines == 0) {
+    return;
+  }
+  
+  let errorMessage = 'tail: illegal offset -- ' + noOfLines;
+  if (noOfLines.match(/[a-z A-Z]/)) {
+    return errorMessage;
+  }
+};
+
+exports.handleTailErrors = handleTailErrors;
