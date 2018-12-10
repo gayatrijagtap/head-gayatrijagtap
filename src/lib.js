@@ -146,7 +146,7 @@ exports.getHead = getHead;
 
 //-----------------------------------extractTailingLines---------------------------
   
-extractTailingLines = function (text, noOfLines) {
+const extractTailingLines = function (text, noOfLines) {
   let lines = text.split('\n')
   let trailingLines = Math.abs(lines.length - noOfLines);
   if (lines.length <= noOfLines) {
@@ -155,3 +155,16 @@ extractTailingLines = function (text, noOfLines) {
   return lines.slice(trailingLines, lines.length).join('\n');
 }
 exports.extractTailingLines = extractTailingLines;
+
+//----------------------extractCharacters---------------
+  
+const extractTailingChars = function (text, noOfChars) {
+  let characters = text.split('')
+  let trailingChars = Math.abs(characters.length - noOfChars);
+  if (characters.length <= noOfChars) {
+    trailingChars = 0;
+  }
+  return characters.slice(trailingChars, characters.length).join('')
+}
+
+exports.extractTailingChars = extractTailingChars;

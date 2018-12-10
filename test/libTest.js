@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  extractTailingChars,
   extractTailingLines,
   noOfLines,
   isNumber,
@@ -185,5 +186,15 @@ describe( 'extractTailingLines' , function() {
     assert.deepEqual(extractTailingLines(text,2),'gre\ngfe');
     assert.deepEqual(extractTailingLines(text,1),'gfe');
     assert.deepEqual(extractTailingLines(text,6),text);
+  });
+})
+
+describe( 'extractTailingChars' , function() {
+  let text = 'jd djf \n kfd fdhj';
+  it( 'should return given number of tailing characters from the text' , function() {
+    assert.deepEqual(extractTailingChars(text,2),'hj');
+    assert.deepEqual(extractTailingChars(text,5),' fdhj');
+    assert.deepEqual(extractTailingChars(text,8),'kfd fdhj');
+    assert.deepEqual(extractTailingChars(text,20),text);
   });
 })
