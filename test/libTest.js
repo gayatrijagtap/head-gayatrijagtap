@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getOption,
   getNoOfLines,
   getTail,
   handleTailErrors,
@@ -95,6 +96,16 @@ describe("extractOption", function () {
     assert.deepEqual(extractOption("-5"), "n");
   });
 });
+
+//----------------------------getOption tests--------------------
+
+describe( 'getOption' , function() {
+  it( 'should return option from the given input' , function() {
+    assert.deepEqual(getOption('-s5'),'s');
+    assert.deepEqual(getOption('-s'),'s');
+    assert.deepEqual(getOption('-5'));
+  });
+})
 
 //-------------------------extractNoOfLines tests-------------------
 describe("extractNoOfLines", function () {

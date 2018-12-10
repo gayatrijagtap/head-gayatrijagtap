@@ -1,4 +1,5 @@
 //---------------------extractInputs-------------------
+
 const extractInputs = function(userArgs) {
   let headDetails = new Object();
   headDetails.option = extractOption(userArgs[2]);
@@ -11,18 +12,27 @@ const extractInputs = function(userArgs) {
 exports.extractInputs = extractInputs;
 
 //--------------------------extractOption---------------
+
 const extractOption = function(optionCandidate) {
-  if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
-    return optionCandidate[1];
-  }
-  return 'n';
+  return getOption(optionCandidate) || 'n';
 };
 
 exports.extractOption = extractOption;
 
+//----------------------------getOption----------------------
+
+const getOption = function(optionCandidate) {
+  if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
+    return optionCandidate[1];
+  }
+}
+
+exports.getOption = getOption;
+
 //-------------------------extractNoOfLines-------------------
+
 const extractNoOfLines = function(userArgs) {
-  let array = userArgs[0].split("");
+   let array = userArgs[0].split("");
   let lines = { lines: "10", index: 2 };
   return extractNumber(userArgs) || getNoOfLines(array[1],3) || noOfLines(array[2],userArgs[1],3,4) || lines;
 };
@@ -70,6 +80,7 @@ const extractNumber = function(userArgs) {
 exports.extractNumber = extractNumber;
 
 //-------------------------createHeadLines--------------
+
 const createHeadLines = function(filename) {
   return "==> " + filename + " <==";
 };
@@ -77,6 +88,7 @@ const createHeadLines = function(filename) {
 exports.createHeadLines = createHeadLines;
 
 //-----------------------------extractLines------------
+
 const extractLines = function(text, noOfLines) {
   let lines = text.split("\n");
   if (lines.length <= noOfLines) {
@@ -88,6 +100,7 @@ const extractLines = function(text, noOfLines) {
 exports.extractLines = extractLines;
 
 //----------------------extractCharacters---------------
+
 const extractCharacters = function(text, noOfChars) {
   let characters = text.split("");
   return characters.slice(0, noOfChars).join("");
@@ -113,6 +126,7 @@ const handleErrors = function(option, noOfLines) {
 exports.handleErrors = handleErrors;
 
 //--------------------------getHead---------------------
+
 const getHead = function(userArgs, fs) {
   let headDetails = extractInputs(userArgs);
   let { files, option, noOfLines } = headDetails;
