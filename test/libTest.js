@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  extractTailingLines,
   noOfLines,
   isNumber,
   handleErrors,
@@ -175,5 +176,14 @@ describe( 'noOfLines' , function() {
     assert.deepEqual(noOfLines('5','',3,4), { lines:'5', index: 3 });
     assert.deepEqual(noOfLines("c", "5",3,4), { lines:'5', index: 4 });
     assert.deepEqual(noOfLines("d", "0",3,4), { lines:'0', index: 4 });
+  });
+})
+
+describe( 'extractTailingLines' , function() {
+  let text = 'dfs\ndfs\nfd\ngre\ngfe';
+  it( 'should return given number of tailing lines from the text' , function() {
+    assert.deepEqual(extractTailingLines(text,2),'gre\ngfe');
+    assert.deepEqual(extractTailingLines(text,1),'gfe');
+    assert.deepEqual(extractTailingLines(text,6),text);
   });
 })

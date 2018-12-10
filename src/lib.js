@@ -143,3 +143,15 @@ const getHead = function(userArgs, fs) {
 };
 
 exports.getHead = getHead;
+
+//-----------------------------------extractTailingLines---------------------------
+  
+extractTailingLines = function (text, noOfLines) {
+  let lines = text.split('\n')
+  let trailingLines = Math.abs(lines.length - noOfLines);
+  if (lines.length <= noOfLines) {
+    trailingLines = 0;
+  }
+  return lines.slice(trailingLines, lines.length).join('\n');
+}
+exports.extractTailingLines = extractTailingLines;
