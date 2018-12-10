@@ -187,3 +187,35 @@ const handleTailErrors = function(option, noOfLines) {
 };
 
 exports.handleTailErrors = handleTailErrors;
+
+//-------------------------------------getTail--------------------------------------
+
+const getTail = function (userArgs,fs) {
+  let tailDetails = extractInputs(userArgs);
+  let { files, option, noOfLines } = tailDetails;
+  if (handleTailErrors(option, noOfLines)) {
+    return handleTailErrors(option, noOfLines);
+  }
+  let type = { n: extractTailingLines, c: extractTailingChars };
+  let tail = "";
+  let delimeter = "";
+
+  for (let file of files) {
+    if (!fs.existsSync(file)) {
+      let error = "tail: " + file + ": No such file or directory";
+      tail = tail + delimeter + error;
+      delimeter = "\n";
+      continue;
+    }
+
+    let data = fs.readFileSync(file, "utf8");
+    if (files.length == 1) {
+      return type[option](data, noOfLines);
+    }
+    tail = tail + delimeter + createHeadLines(file) + "\n" + type[option](data, noOfLines);
+    delimeter = "\n\n";
+  }
+  return tail;    
+};
+
+exports.getTail = getTail;
