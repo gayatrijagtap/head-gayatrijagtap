@@ -1,3 +1,12 @@
+const {getTail} = require('./src/lib.js');
+const fs = require('fs');
+
+const main = function() {
+  console.log(getTail(process.argv,fs));
+}
+
+main();
+
 /* 
   Usage:
   node ./tail.js file1
