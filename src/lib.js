@@ -38,15 +38,20 @@ exports.extractNoOfLines = extractNoOfLines;
 //--------------------------------noOfLines---------------------
 
 const noOfLines = function(firstNumber,secondNumber,firstIndex,secondIndex) {
-  if(parseInt(firstNumber) || parseInt(firstNumber) == 0) {
-    return { lines:firstNumber,index:firstIndex};
-  }
-  if(parseInt(secondNumber) || parseInt(secondNumber) == 0) {
-    return { lines:secondNumber,index:secondIndex};
-  }
+  return getNoOfLines(firstNumber,firstIndex) || getNoOfLines(secondNumber,secondIndex);
 }
 
 exports.noOfLines = noOfLines;
+
+//-----------------------------getNoOfLines-------------------------------
+
+const getNoOfLines = function(number,index) {
+  if(parseInt(number) || parseInt(number) == 0) {
+    return {lines:number,index:index};
+  } 
+}
+
+exports.getNoOfLines = getNoOfLines;
 
 //--------------------------isNumber-------------------------
 

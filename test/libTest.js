@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getNoOfLines,
   getTail,
   handleTailErrors,
   extractTailingChars,
@@ -167,12 +168,16 @@ describe("handleErrors", function () {
   });
 });
 
+//-------------------------------------isNumber tests-------------------------
+
 describe('isNumber', function () {
   it('should return number and index if the given input is a number', function () {
     assert.deepEqual(isNumber('12', 3), { lines: '12', index: 3 });
     assert.deepEqual(isNumber('1', 3), { lines: '1', index: 3 });
   });
 })
+
+//----------------------------------noOfLines tests----------------------------
 
 describe('noOfLines', function () {
   it('should return noOfLines from the given input', function () {
@@ -181,6 +186,8 @@ describe('noOfLines', function () {
     assert.deepEqual(noOfLines("d", "0", 3, 4), { lines: '0', index: 4 });
   });
 })
+
+//--------------------------------------extractTailingLines tests------------------------
 
 describe('extractTailingLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
@@ -191,6 +198,8 @@ describe('extractTailingLines', function () {
   });
 })
 
+//-------------------------------------extractTailingChars------------------------------
+
 describe('extractTailingChars', function () {
   let text = 'jd djf \n kfd fdhj';
   it('should return given number of tailing characters from the text', function () {
@@ -200,6 +209,8 @@ describe('extractTailingChars', function () {
     assert.deepEqual(extractTailingChars(text, 20), text);
   });
 })
+
+//----------------------------------handleTailErrors tests---------------------------------
 
 describe('handleTailErrors', function () {
   it('should give error for illegal option', function () {
@@ -215,6 +226,8 @@ describe('handleTailErrors', function () {
   });
 })
 
+//---------------------------------getTail tests----------------------------------
+
 describe('getTail', function () {
 
   let readFileSync = file => file;
@@ -229,5 +242,14 @@ describe('getTail', function () {
     data = "grldfjd";
     userArgs = [, , "-c", "4", data];
     assert.deepEqual(getTail(userArgs, fs), "dfjd"); 
+  });
+})
+
+//-------------------------------------getNoOfLines tests---------------------------
+
+describe( 'getNoOfLines' , function() {
+  it( 'should return number of the lines from the given input' , function() {
+    assert.deepEqual(getNoOfLines('5',3),{lines:'5',index:3});
+    assert.deepEqual(getNoOfLines('fd',3),);
   });
 })
