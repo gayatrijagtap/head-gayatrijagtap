@@ -200,10 +200,7 @@ exports.getTrailingLines = getTrailingLines;
   
 const extractTailingChars = function (text, noOfChars) {
   let characters = text.split('')
-  let trailingChars = Math.abs(characters.length - noOfChars);
-  if (characters.length <= noOfChars) {
-    trailingChars = 0;
-  }
+  let trailingChars = getTrailingLines(noOfChars,characters.length);
   return characters.slice(trailingChars, characters.length).join('')
 }
 

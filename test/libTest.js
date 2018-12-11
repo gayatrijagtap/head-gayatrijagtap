@@ -70,13 +70,15 @@ describe("createHeadLines", function () {
 
 //-----------------------------extractLines tests------------
 describe("extractLines", function () {
-  it("should return the head with given number of lines", function () {
+  it("should return the head with given number of lines if the length of file is greater than number of lines", function () {
     let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
     let expectedOutput = "fhash\nhsakh\nfkdsh";
     assert.deepEqual(extractLines(data, 3), expectedOutput);
+  });
 
-    data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
-    expectedOutput = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
+  it( 'should return whole file if the length of file is smaller than or equal to given number of lines' , function() {
+    let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
+    let expectedOutput = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
     assert.deepEqual(extractLines(data, 7), expectedOutput);
   });
 });
@@ -86,8 +88,14 @@ describe("extractLines", function () {
 describe( 'isNoOfLinesGreater' , function() {
   it( 'should modify noOfLines to given length if the noOfLines is greater than length' , function() {
     assert.deepEqual(isNoOfLinesGreater(10,6),6);
+  });
+
+  it( 'should return noOfLines if the noOfLines is less than the given length' , function() {
     assert.deepEqual(isNoOfLinesGreater(2,6),2);
-    assert.deepEqual(isNoOfLinesGreater(6,6),6);
+  });
+
+  it( 'should return noOfLines if the noOf lines and length are equal' , function() {
+  assert.deepEqual(isNoOfLinesGreater(6, 6), 6);
   });
 })
 
