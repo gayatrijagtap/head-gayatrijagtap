@@ -97,6 +97,8 @@ const extractLines = function(text, noOfLines) {
 
 exports.extractLines = extractLines;
 
+//-----------------------------isNoOfLinesGreater------------------
+
 const isNoOfLinesGreater = function(noOfLines,length) {
   return noOfLines >= length ? length : noOfLines;
 }
@@ -180,13 +182,19 @@ exports.getHead = getHead;
   
 const extractTailingLines = function (text, noOfLines) {
   let lines = text.split('\n')
-  let trailingLines = Math.abs(lines.length - noOfLines);
-  if (lines.length <= noOfLines) {
-    trailingLines = 0;
-  }
+  let trailingLines = getTrailingLines(noOfLines,lines.length);
   return lines.slice(trailingLines, lines.length).join('\n');
 }
+
 exports.extractTailingLines = extractTailingLines;
+
+//---------------------------getTrailingLines-------------------------
+
+const getTrailingLines = function(noOfLines,length) {
+  return noOfLines >= length ? 0 : Math.abs( length-noOfLines );
+}
+
+exports.getTrailingLines = getTrailingLines;
 
 //----------------------extractCharacters---------------
   

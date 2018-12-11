@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getTrailingLines,
   isNoOfLinesGreater,
   isInvalidCount,
   isInvalidOption,
@@ -237,6 +238,16 @@ describe('extractTailingLines', function () {
     assert.deepEqual(extractTailingLines(text, 2), 'gre\ngfe');
     assert.deepEqual(extractTailingLines(text, 1), 'gfe');
     assert.deepEqual(extractTailingLines(text, 6), text);
+  });
+})
+
+//------------------------------------------getTrailingLines tests-------------------------
+
+describe( 'getTrailingLines' , function() {
+  it( 'should return number of trailing lines for given length and number of lines' , function() {
+    assert.deepEqual(getTrailingLines(5,4),0);
+    assert.deepEqual(getTrailingLines(5,6),1);
+    assert.deepEqual(getTrailingLines(6,6),0);
   });
 })
 
