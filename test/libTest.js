@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  isNoOfLinesGreater,
   isInvalidCount,
   isInvalidOption,
   getOption,
@@ -78,6 +79,16 @@ describe("extractLines", function () {
     assert.deepEqual(extractLines(data, 7), expectedOutput);
   });
 });
+
+//------------------------------isNoOfLinesGreater tests--------------
+
+describe( 'isNoOfLinesGreater' , function() {
+  it( 'should modify noOfLines to given length if the noOfLines is greater than length' , function() {
+    assert.deepEqual(isNoOfLinesGreater(10,6),6);
+    assert.deepEqual(isNoOfLinesGreater(2,6),2);
+    assert.deepEqual(isNoOfLinesGreater(6,6),6);
+  });
+})
 
 //----------------------extractCharacters tests---------------
 describe("extractCharacters", function () {

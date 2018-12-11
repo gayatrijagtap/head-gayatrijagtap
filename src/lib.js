@@ -21,7 +21,7 @@ exports.extractOption = extractOption;
 
 //----------------------------getOption----------------------
 
-const getOption = function(optionCandidate) {
+const getOption = function (optionCandidate) {
   if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
     return optionCandidate[1];
   }
@@ -31,10 +31,10 @@ exports.getOption = getOption;
 
 //-------------------------extractNoOfLines-------------------
 
-const extractNoOfLines = function(userArgs) {
-   let array = userArgs[0].split("");
+const extractNoOfLines = function (userArgs) {
+  let array = userArgs[0].split("");
   let lines = { lines: "10", index: 2 };
-  return extractNumber(userArgs) || getNoOfLines(array[1],3) || noOfLines(array[2],userArgs[1],3,4) || lines;
+  return extractNumber(userArgs) || getNoOfLines(array[1], 3) || noOfLines(array[2], userArgs[1], 3, 4) || lines;
 };
 
 exports.extractNoOfLines = extractNoOfLines;
@@ -91,13 +91,17 @@ exports.createHeadLines = createHeadLines;
 
 const extractLines = function(text, noOfLines) {
   let lines = text.split("\n");
-  if (lines.length <= noOfLines) {
-    noOfLines = lines.length;
-  }
+  noOfLines = isNoOfLinesGreater(noOfLines,lines.length);
   return lines.slice(0, noOfLines).join("\n");
 };
 
 exports.extractLines = extractLines;
+
+const isNoOfLinesGreater = function(noOfLines,length) {
+  return noOfLines >= length ? length : noOfLines;
+}
+
+exports.isNoOfLinesGreater = isNoOfLinesGreater;
 
 //----------------------extractCharacters---------------
 
