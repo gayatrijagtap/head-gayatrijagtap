@@ -209,21 +209,42 @@ exports.extractTailingChars = extractTailingChars;
 //------------------------------handleTailErrors------------------------
   
 const handleTailErrors = function(option, noOfLines) {
+  return isInvalidTailOption(option) || isNoOfLinesZero(noOfLines) || isIllegalOffset(noOfLines);
+};
+
+exports.handleTailErrors = handleTailErrors;
+
+//-----------------------------------isInvalidTailOption--------------------
+
+const isInvalidTailOption = function(option) {
   let optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-  if (option != "c" && option != "n") {
+  if(option != 'c' && option != 'n') {
     return optionError;
   }
+}
+
+exports.isInvalidTailOption = isInvalidTailOption;
+
+//--------------------------------isNoOfLinesZero-----------------------------
+
+const isNoOfLinesZero = function(noOfLines) {
   if(noOfLines == 0) {
     return;
   }
-  
+}
+
+exports.isNoOfLinesZero = isNoOfLinesZero;
+
+//---------------------------------isIllegalOffset-----------------------
+
+const isIllegalOffset = function(noOfLines) {
   let errorMessage = 'tail: illegal offset -- ' + noOfLines;
   if (noOfLines.match(/[a-z A-Z]/)) {
     return errorMessage;
   }
-};
+}
 
-exports.handleTailErrors = handleTailErrors;
+exports.isIllegalOffset = isIllegalOffset;
 
 //-------------------------------------getTail--------------------------------------
 

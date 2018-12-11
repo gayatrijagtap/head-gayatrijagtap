@@ -1,5 +1,8 @@
 const assert = require("assert");
 const {
+  isIllegalOffset,
+  isNoOfLinesZero,
+  isInvalidTailOption,
   getTrailingLines,
   isNoOfLinesGreater,
   isInvalidCount,
@@ -283,7 +286,34 @@ describe('handleTailErrors', function () {
     assert.deepEqual(handleTailErrors('n', '5d'), errorMessage);
   });
   it('should return nothing if the number of lines is 0', function () {
-    assert.deepEqual(handleTailErrors('n', 0));
+    assert.deepEqual(handleTailErrors('n', '0'));
+  });
+})
+
+//----------------------------------isInvalidTailOption tests----------------------
+
+describe( 'isInvalidTailOption' , function() {
+  it( 'should give error for illegal option' , function() {
+    let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+    assert.deepEqual(isInvalidTailOption('s'),optionError);
+  });
+})
+
+//----------------------------------isNoOfLinesZero tests------------------------------
+
+describe( 'isNoOfLinesZero' , function() {
+  it( 'should return if given number of lines is zero' , function() {
+    assert.deepEqual(isNoOfLinesZero('0'));
+    assert.deepEqual(isNoOfLinesZero('1'));
+  });
+})
+
+//------------------------------------isIllegalOffset tests--------------------------
+
+describe( 'isIllegalOffset' , function() {
+  it( 'should return error for the given illegal offset' , function() {
+    let errorMessage = 'tail: illegal offset -- ' + '5d';
+    assert.deepEqual(isIllegalOffset('5d'),errorMessage);
   });
 })
 
