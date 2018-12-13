@@ -146,38 +146,6 @@ const isInvalidCount = function(count,option) {
 
 exports.isInvalidCount = isInvalidCount;
 
-//--------------------------getHead---------------------
-
-const getHead = function(userArgs, fs) {
-  let headDetails = extractInputs(userArgs);
-  let { files, option, noOfLines } = headDetails;
-  if (handleErrors(option, noOfLines)) {
-    return handleErrors(option, noOfLines);
-  }
-  let type = { n: extractLines, c: extractCharacters };
-  let head = "";
-  let delimeter = "";
-
-  for (let file of files) {
-    if (!fs.existsSync(file)) {
-      let error = "head: " + file + ": No such file or directory";
-      head = head + delimeter + error;
-      delimeter = "\n";
-      continue;
-    }
-
-    let data = fs.readFileSync(file, "utf8");
-    if (files.length == 1) {
-      return type[option](data, noOfLines);
-    }
-    head = head + delimeter + createHeadLines(file) + "\n" + type[option](data, noOfLines);
-    delimeter = "\n\n";
-  }
-  return head;
-};
-
-exports.getHead = getHead;
-
 //-----------------------------------extractTailingLines---------------------------
   
 const extractTailingLines = function (text, noOfLines) {
@@ -295,3 +263,23 @@ const getSingleFileHead = function(headDetails,type,fs) {
 }
 
 exports.getSingleFileHead = getSingleFileHead;
+
+const getHead = function(userArgs,fs) {
+  let headDetails = extractInputs(userArgs);
+  let {files,option,noOfLines} = headDetails;
+  return handleErrors(option,noOfLines) || head(headDetails,fs);
+};
+
+exports.getHead = getHead;
+
+const head = function(headDetails,fs) {
+  let {files,option,noOfLines} = headDetails;  
+  let type = {n:extractLines , c:extractCharacters};
+  let linesAtTop = "";
+  for(let file of files) { 
+    linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync) || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
+  }
+  return getSingleFileHead(headDetails,type,fs) || linesAtTop;
+}
+
+exports.head = head;
