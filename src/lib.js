@@ -214,51 +214,21 @@ const isIllegalOffset = function(noOfLines) {
 
 exports.isIllegalOffset = isIllegalOffset;
 
-//-------------------------------------getTail--------------------------------------
-
-const getTail = function (userArgs,fs) {
-  let tailDetails = extractInputs(userArgs);
-  let { files, option, noOfLines } = tailDetails;
-  if (handleTailErrors(option, noOfLines)) {
-    return handleTailErrors(option, noOfLines);
-  }
-  let type = { n: extractTailingLines, c: extractTailingChars };
-  let tail = "";
-  let delimeter = "";
-
-  for (let file of files) {
-    if (!fs.existsSync(file)) {
-      let error = "tail: " + file + ": No such file or directory";
-      tail = tail + delimeter + error;
-      delimeter = "\n";
-      continue;
-    }
-
-    let data = fs.readFileSync(file, "utf8");
-    if (files.length == 1) {
-      return type[option](data, noOfLines);
-    }
-    tail = tail + delimeter + createHeadLines(file) + "\n" + type[option](data, noOfLines);
-    delimeter = "\n\n";
-  }
-  return tail;    
-};
-
-exports.getTail = getTail;
-
-const getMissingFileError = function(file,existsSync) {
-  let error = "head: " + file + ": No such file or directory";
+const getMissingFileError = function(file,existsSync,command) {
+  let head = "head: " + file + ": No such file or directory";
+  let tail = 'tail: ' + file + ": No such file or directory";
+  let error = {head,tail};
   if(!existsSync(file)) {
-    return error;
+    return error[command];
   }
 };
 
 exports.getMissingFileError = getMissingFileError;
 
-const getSingleFileHead = function(headDetails,type,fs) {
+const getSingleFileHead = function(headDetails,type,fs,command) {
   let {files,option,noOfLines} = headDetails;
   if(files.length == 1 && fs.existsSync(files[0])) {
-    return getMissingFileError(files[0],fs.existsSync) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
+    return getMissingFileError(files[0],fs.existsSync,command) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
   }
 }
 
@@ -277,9 +247,29 @@ const head = function(headDetails,fs) {
   let type = {n:extractLines , c:extractCharacters};
   let linesAtTop = "";
   for(let file of files) { 
-    linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync) || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
+    linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
   }
-  return getSingleFileHead(headDetails,type,fs) || linesAtTop;
+  return getSingleFileHead(headDetails,type,fs,'head') || linesAtTop;
 }
 
 exports.head = head;
+
+const getTail = function(userArgs,fs) {
+  let tailDetails = extractInputs(userArgs);
+  let {files,option,noOfLines} = tailDetails;
+  return handleTailErrors(option,noOfLines) || tail(tailDetails,fs);
+};
+
+exports.getTail = getTail;
+
+const tail = function(tailDetails,fs) {
+  let {files,option,noOfLines} = tailDetails;  
+  let type = {n:extractTailingLines , c:extractTailingChars};
+  let linesAtBottom = "";
+  for(let file of files) { 
+    linesAtBottom = linesAtBottom + (getMissingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
+  }
+  return getSingleFileHead(tailDetails,type,fs,'tail') || linesAtBottom;
+}
+
+exports.tail = tail;

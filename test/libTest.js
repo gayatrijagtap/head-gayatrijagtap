@@ -386,9 +386,13 @@ describe('getMissingFileError' , function() {
     }
   }
   let data = false;
-  let error = "head: " + data + ": No such file or directory";
-  it('should return error for missing file' , function() {
-    assert.deepEqual(getMissingFileError(data,isExists),error);
+  let headError = "head: " + data + ": No such file or directory";
+  let tailError = "tail: " + data + ": No such file or directory";
+  it('should return error for missing file for head' , function() {
+    assert.deepEqual(getMissingFileError(data,isExists,'head'),headError);
+  });
+  it('should return error for missing file for tail' , function() {
+    assert.deepEqual(getMissingFileError(data,isExists,'tail'),tailError);  
   });
 })
 
@@ -399,6 +403,6 @@ describe('getSingleFileHead' , function() {
   let content;
   let fs = {existsSync:x=>false};
   it('should return head without headline if there is only one file in user inputs' , function() {
-    assert.deepEqual(getSingleFileHead({files:[data,content],option:'n',noOfLines:1},fs),);
+    assert.deepEqual(getSingleFileHead({files:[data,content],option:'n',noOfLines:1},fs,'head'),);
   });
 })
