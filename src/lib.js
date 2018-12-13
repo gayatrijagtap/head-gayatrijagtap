@@ -277,3 +277,12 @@ const getTail = function (userArgs,fs) {
 };
 
 exports.getTail = getTail;
+
+const getMissingFileError = function(file,existsSync) {
+  let error = "head: " + file + ": No such file or directory";
+  if(!existsSync(file)) {
+    return error;
+  }
+};
+
+exports.getMissingFileError = getMissingFileError;

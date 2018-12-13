@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getMissingFileError,
   isIllegalOffset,
   isNoOfLinesZero,
   isInvalidTailOption,
@@ -342,5 +343,20 @@ describe( 'getNoOfLines' , function() {
   it( 'should return number of the lines from the given input' , function() {
     assert.deepEqual(getNoOfLines('5',3),{lines:'5',index:3});
     assert.deepEqual(getNoOfLines('fd',3),);
+  });
+})
+
+//------------------------------------getMissingFileError tests----------------------
+
+describe('getMissingFileError' , function() {
+  const isExists = function(data) {
+    if(data) {
+      return true;
+    }
+  }
+  let data = false;
+  let error = "head: " + data + ": No such file or directory";
+  it('should return error for missing file' , function() {
+    assert.deepEqual(getMissingFileError(data,isExists),error);
   });
 })
