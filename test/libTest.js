@@ -106,40 +106,54 @@ describe( 'isNoOfLinesGreater' , function() {
 
 //----------------------extractCharacters tests---------------
 describe("extractCharacters", function () {
+  let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk";
   it("should return the head with the given number of characters", function () {
-    let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk";
     let expectedOutput = "fha";
     assert.deepEqual(extractCharacters(data, 3), expectedOutput);
-    expectedOutput = "fhash\nh";
+  });  
+  it( 'should work for new line also' , function() {
+    let expectedOutput = "fhash\nh";
     assert.deepEqual(extractCharacters(data, 7), expectedOutput);
   });
 });
 
 //--------------------------extractOption tests---------------
 describe("extractOption", function () {
-  it("should extract the -c or -n option for given input", function () {
+  it("should extract option when option is given with number of lines", function () {
     assert.deepEqual(extractOption("-c5"), "c");
+  });
+  it('should extract option when option is given alone' , function() {
     assert.deepEqual(extractOption("-c"), "c");
-    assert.deepEqual(extractOption("-5"), "n");
+  });
+  it('should return default option when no option is given' , function() {
+      assert.deepEqual(extractOption("-5"), "n");
   });
 });
 
 //----------------------------getOption tests--------------------
 
 describe( 'getOption' , function() {
-  it( 'should return option from the given input' , function() {
+  it( 'should return option if the option is given with number' , function() {
     assert.deepEqual(getOption('-s5'),'s');
+  });
+  it( 'should return option if the option is given alone' , function() {
     assert.deepEqual(getOption('-s'),'s');
+  });
+  it( 'should return nothing if the option is not there' , function() {
     assert.deepEqual(getOption('-5'));
   });
 })
 
 //-------------------------extractNoOfLines tests-------------------
 describe("extractNoOfLines", function () {
-  it("should extract the no of lines from the given input", function () {
+  it("should extract no of lines if it is given along with character", function () {
     assert.deepEqual(extractNoOfLines(["-c5", ""]), { lines: 5, index: 3 });
+  });
+  it( 'should extract no of lines if no of lines is given alone' , function() {
     assert.deepEqual(extractNoOfLines(["-5", ""]), { lines: 5, index: 3 });
     assert.deepEqual(extractNoOfLines(["-c", "2"]), { lines: 2, index: 4 });
+  });
+  it( 'should return default no of lines if it is not given' , function() {
     assert.deepEqual(extractNoOfLines(["file1", "file2"]), { lines: 10, index: 2 });
   });
 });
@@ -151,25 +165,31 @@ describe("getHead", function () {
   let existsSync = file => true;
   let fs = { readFileSync, existsSync };
 
-  it("should return head of the file with given specifications", function () {
+  it("should return head of the file for option n with given no of lines", function () {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
     let userArgs = [, , "-n2", data];
     assert.deepEqual(getHead(userArgs, fs), "fsdjfhsdh\ndfjkshjk");
+  });
 
-    data = "grldfjd";
-    userArgs = [, , "-c", "4", data];
+  it( 'should return head of the file for option c with given no of characters' , function() {
+    let data = "grldfjd";
+    let userArgs = [, , "-c", "4", data];
     assert.deepEqual(getHead(userArgs, fs), "grld");
   });
 });
 
 //----------------------validateNoOfLines tests--------------
 describe("extractNumber", function () {
-  it("should extract Number from the given input", function () {
+  it("should extract Number from list when number is given at first index", function () {
     assert.deepEqual(extractNumber(["-n", "1"]));
+  });
+  it( 'should extract number from list when number is given along with character' , function() {
     assert.deepEqual(extractNumber(["-n12", "temp.js"]), {
       lines: "12",
       index: 3
     });
+  });
+  it( 'should extract number from list when number is given at 0th index' , function() {
     assert.deepEqual(extractNumber(["-100", "temp.js"]), {
       lines: "100",
       index: 3
@@ -207,8 +227,10 @@ describe("handleErrors", function () {
 
 describe( 'isInvalidOption' , function() {
   let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
-  it( 'should return error for the invalid error option' , function() {
+  it( 'should return error for the invalid option' , function() {
     assert.deepEqual(isInvalidOption('s'),optionError);
+  });
+  it( 'should return undefined for the valid option' , function() {
     assert.deepEqual(isInvalidOption('n'),);
   });
 })
@@ -216,9 +238,11 @@ describe( 'isInvalidOption' , function() {
 //---------------------------------------isInvalidCount tests------------------------
 
 describe( 'isInvalidCount' , function() {
-  it( 'should return illegal count error for invalid count' , function() {
+  it( 'should return illegal byte count error for invalid byte count' , function() {
     let byteError = "head: illegal byte count -- " + "0";
     assert.deepEqual(isInvalidCount(0,'c'),byteError);
+  });
+  it( 'should return illegal line count error for invalid line count' , function() {
     let lineError = "head: illegal line count -- " + "-1";
     assert.deepEqual(isInvalidCount(-1,'n'),lineError);
   });
@@ -247,9 +271,11 @@ describe('noOfLines', function () {
 
 describe('extractTailingLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
-  it('should return given number of tailing lines from the text', function () {
+  it('should return given number of tailing lines when the file is larger than no of lines', function () {
     assert.deepEqual(extractTailingLines(text, 2), 'gre\ngfe');
     assert.deepEqual(extractTailingLines(text, 1), 'gfe');
+  });
+  it( 'should return whole file when no of lines is greater than or equal to lines in file' , function() {
     assert.deepEqual(extractTailingLines(text, 6), text);
   });
 })
@@ -258,8 +284,10 @@ describe('extractTailingLines', function () {
 
 describe( 'getTrailingLines' , function() {
   it( 'should return number of trailing lines for given length and number of lines' , function() {
-    assert.deepEqual(getTrailingLines(5,4),0);
     assert.deepEqual(getTrailingLines(5,6),1);
+  });
+  it( 'should return 0 if length is greater than or equal to no of lines' , function() {
+    assert.deepEqual(getTrailingLines(5,4),0);
     assert.deepEqual(getTrailingLines(6,6),0);
   });
 })
@@ -271,7 +299,11 @@ describe('extractTailingChars', function () {
   it('should return given number of tailing characters from the text', function () {
     assert.deepEqual(extractTailingChars(text, 2), 'hj');
     assert.deepEqual(extractTailingChars(text, 5), ' fdhj');
+  });
+  it( 'should return given no of characters and should work for blank characters also' , function() {
     assert.deepEqual(extractTailingChars(text, 8), 'kfd fdhj');
+  });
+  it( 'should return whole file if no of characters is greater than or equal to no of characters in file' , function() {
     assert.deepEqual(extractTailingChars(text, 20), text);
   });
 })
