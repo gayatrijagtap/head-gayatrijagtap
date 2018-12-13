@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getSingleFileHead,
   getMissingFileError,
   isIllegalOffset,
   isNoOfLinesZero,
@@ -320,12 +321,10 @@ describe( 'isIllegalOffset' , function() {
 
 //---------------------------------getTail tests----------------------------------
 
-describe('getTail', function () {
-
+describe('getTail', function () {  
   let readFileSync = file => file;
   let existsSync = file => true;
   let fs = { readFileSync, existsSync };
-
   it('should return tail of the file with given specifications' , function() {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
     let userArgs = [, , "-n2", data];
@@ -358,5 +357,16 @@ describe('getMissingFileError' , function() {
   let error = "head: " + data + ": No such file or directory";
   it('should return error for missing file' , function() {
     assert.deepEqual(getMissingFileError(data,isExists),error);
+  });
+})
+
+//----------------------------------getSingleFileHead tests----------------------
+
+describe('getSingleFileHead' , function() {
+  let data;
+  let content;
+  let fs = {existsSync:x=>false};
+  it('should return head without headline if there is only one file in user inputs' , function() {
+    assert.deepEqual(getSingleFileHead({files:[data,content],option:'n',noOfLines:1},fs),);
   });
 })

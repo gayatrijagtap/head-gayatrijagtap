@@ -286,3 +286,12 @@ const getMissingFileError = function(file,existsSync) {
 };
 
 exports.getMissingFileError = getMissingFileError;
+
+const getSingleFileHead = function(headDetails,type,fs) {
+  let {files,option,noOfLines} = headDetails;
+  if(files.length == 1 && fs.existsSync(files[0])) {
+    return getMissingFileError(files[0],fs.existsSync) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
+  }
+}
+
+exports.getSingleFileHead = getSingleFileHead;
