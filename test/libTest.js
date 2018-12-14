@@ -4,7 +4,7 @@ const {
   getMissingFileError,
   isIllegalOffset,
   isNoOfLinesZero,
-  isInvalidTailOption,
+  getInvalidTailOptionError,
   getTrailingLines,
   greaterNumber,
   getInvalidCountError,
@@ -324,12 +324,12 @@ describe('handleTailErrors', function () {
   });
 })
 
-//----------------------------------isInvalidTailOption tests----------------------
+//----------------------------------getInvalidTailOptionError tests----------------------
 
-describe( 'isInvalidTailOption' , function() {
+describe( 'getInvalidTailOptionError' , function() {
   it( 'should give error for illegal option' , function() {
     let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-    assert.deepEqual(isInvalidTailOption('s'),optionError);
+    assert.deepEqual(getInvalidTailOptionError('s'),optionError);
   });
 })
 
