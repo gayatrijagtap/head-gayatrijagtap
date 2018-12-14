@@ -21,7 +21,7 @@ const {
   extractNumber,
   getHead,
   extractOption,
-  extractNoOfLines,
+  extractNoOfLinesWithIndex,
   extractCharacters,
   extractLines,
   extractInputs,
@@ -144,17 +144,17 @@ describe( 'getOption' , function() {
   });
 })
 
-//-------------------------extractNoOfLines tests-------------------
-describe("extractNoOfLines", function () {
+//-------------------------extractNoOfLinesWithIndex tests-------------------
+describe("extractNoOfLinesWithIndex", function () {
   it("should extract no of lines if it is given along with character", function () {
-    assert.deepEqual(extractNoOfLines(["-c5", ""]), { lines: 5, index: 3 });
+    assert.deepEqual(extractNoOfLinesWithIndex(["-c5", ""]), { lines: 5, index: 3 });
   });
   it( 'should extract no of lines if no of lines is given alone' , function() {
-    assert.deepEqual(extractNoOfLines(["-5", ""]), { lines: 5, index: 3 });
-    assert.deepEqual(extractNoOfLines(["-c", "2"]), { lines: 2, index: 4 });
+    assert.deepEqual(extractNoOfLinesWithIndex(["-5", ""]), { lines: 5, index: 3 });
+    assert.deepEqual(extractNoOfLinesWithIndex(["-c", "2"]), { lines: 2, index: 4 });
   });
   it( 'should return default no of lines if it is not given' , function() {
-    assert.deepEqual(extractNoOfLines(["file1", "file2"]), { lines: 10, index: 2 });
+    assert.deepEqual(extractNoOfLinesWithIndex(["file1", "file2"]), { lines: 10, index: 2 });
   });
 });
 

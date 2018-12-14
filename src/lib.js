@@ -3,7 +3,7 @@
 const extractInputs = function(userArgs) {
   let headDetails = new Object();
   headDetails.option = extractOption(userArgs[2]);
-  let { lines, index } = extractNoOfLines(userArgs.slice(2, 4));
+  let { lines, index } = extractNoOfLinesWithIndex(userArgs.slice(2, 4));
   headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index, userArgs.length);
   return headDetails;
@@ -29,15 +29,15 @@ const getOption = function (optionCandidate) {
 
 exports.getOption = getOption;
 
-//-------------------------extractNoOfLines-------------------
+//-------------------------extractNoOfLinesWithIndex-------------------
 
-const extractNoOfLines = function (userArgs) {
+const extractNoOfLinesWithIndex = function (userArgs) {
   let array = userArgs[0].split("");
   let lines = { lines: "10", index: 2 };
   return extractNumber(userArgs) || getNoOfLines(array[1], 3) || noOfLines(array[2], userArgs[1], 3, 4) || lines;
 };
 
-exports.extractNoOfLines = extractNoOfLines;
+exports.extractNoOfLinesWithIndex = extractNoOfLinesWithIndex;
 
 //--------------------------------noOfLines---------------------
 
