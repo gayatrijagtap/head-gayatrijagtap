@@ -2,7 +2,7 @@ const assert = require("assert");
 const {
   getSingleFileHead,
   getMissingFileError,
-  isIllegalOffset,
+  getIllegalOffsetError,
   isNoOfLinesZero,
   getInvalidTailOptionError,
   getTrailingLines,
@@ -342,12 +342,12 @@ describe( 'isNoOfLinesZero' , function() {
   });
 })
 
-//------------------------------------isIllegalOffset tests--------------------------
+//------------------------------------getIllegalOffsetError tests--------------------------
 
-describe( 'isIllegalOffset' , function() {
+describe( 'getIllegalOffsetError' , function() {
   it( 'should return error for the given illegal offset' , function() {
     let errorMessage = 'tail: illegal offset -- ' + '5d';
-    assert.deepEqual(isIllegalOffset('5d'),errorMessage);
+    assert.deepEqual(getIllegalOffsetError('5d'),errorMessage);
   });
 })
 
