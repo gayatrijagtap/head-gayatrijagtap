@@ -118,7 +118,7 @@ exports.extractHeadCharacters = extractHeadCharacters;
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function(option, noOfLines) {
-  return getInvalidHeadOptionError(option) || isInvalidCount(noOfLines,option);
+  return getInvalidHeadOptionError(option) || getInvalidCountError(noOfLines,option);
 };
 
 exports.handleHeadErrors = handleHeadErrors;
@@ -134,9 +134,9 @@ const getInvalidHeadOptionError = function(optionCandidate) {
 
 exports.getInvalidHeadOptionError = getInvalidHeadOptionError;
 
-//------------------------------isInvalidCount-------------------------
+//------------------------------getInvalidCountError-------------------------
 
-const isInvalidCount = function(count,option) {
+const getInvalidCountError = function(count,option) {
   let countError = new Object;
   countError['n'] = "head: illegal line count -- " + count;
   countError['c'] = "head: illegal byte count -- " + count;
@@ -145,7 +145,7 @@ const isInvalidCount = function(count,option) {
   }
 }
 
-exports.isInvalidCount = isInvalidCount;
+exports.getInvalidCountError = getInvalidCountError;
 
 //-----------------------------------extractTailingLines---------------------------
   
