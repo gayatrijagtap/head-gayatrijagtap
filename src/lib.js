@@ -106,14 +106,14 @@ const greaterNumber = function(noOfLines,length) {
 
 exports.greaterNumber = greaterNumber;
 
-//----------------------extractCharacters---------------
+//----------------------extractHeadCharacters---------------
 
-const extractCharacters = function(text, noOfChars) {
+const extractHeadCharacters = function(text, noOfChars) {
   let characters = text.split("");
   return characters.slice(0, noOfChars).join("");
 };
 
-exports.extractCharacters = extractCharacters;
+exports.extractHeadCharacters = extractHeadCharacters;
 
 //----------------------handleErrors---------------------
 
@@ -165,7 +165,7 @@ const getTrailingLines = function(noOfLines,length) {
 
 exports.getTrailingLines = getTrailingLines;
 
-//----------------------extractCharacters---------------
+//----------------------extractHeadCharacters---------------
   
 const extractTailingChars = function (text, noOfChars) {
   let characters = text.split('')
@@ -245,7 +245,7 @@ exports.getHead = getHead;
 
 const head = function(headDetails,fs) {
   let {files,option,noOfLines} = headDetails;  
-  let type = {n:extractHeadLines , c:extractCharacters};
+  let type = {n:extractHeadLines , c:extractHeadCharacters};
   let linesAtTop = "";
   for(let file of files) { 
     linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';

@@ -22,7 +22,7 @@ const {
   getHead,
   extractOption,
   extractNoOfLinesWithIndex,
-  extractCharacters,
+  extractHeadCharacters,
   extractHeadLines,
   extractInputs,
   createHeadLines
@@ -104,16 +104,16 @@ describe( 'greaterNumber' , function() {
   });
 })
 
-//----------------------extractCharacters tests---------------
-describe("extractCharacters", function () {
+//----------------------extractHeadCharacters tests---------------
+describe("extractHeadCharacters", function () {
   let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk";
   it("should return the head with the given number of characters", function () {
     let expectedOutput = "fha";
-    assert.deepEqual(extractCharacters(data, 3), expectedOutput);
+    assert.deepEqual(extractHeadCharacters(data, 3), expectedOutput);
   });  
   it( 'should work for new line also' , function() {
     let expectedOutput = "fhash\nh";
-    assert.deepEqual(extractCharacters(data, 7), expectedOutput);
+    assert.deepEqual(extractHeadCharacters(data, 7), expectedOutput);
   });
 });
 
