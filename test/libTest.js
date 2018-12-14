@@ -6,7 +6,7 @@ const {
   isNoOfLinesZero,
   isInvalidTailOption,
   getTrailingLines,
-  isNoOfLinesGreater,
+  greaterNumber,
   isInvalidCount,
   isInvalidOption,
   getOption,
@@ -88,19 +88,19 @@ describe("extractHeadLines", function () {
   });
 });
 
-//------------------------------isNoOfLinesGreater tests--------------
+//------------------------------greaterNumber tests--------------
 
-describe( 'isNoOfLinesGreater' , function() {
+describe( 'greaterNumber' , function() {
   it( 'should modify noOfLines to given length if the noOfLines is greater than length' , function() {
-    assert.deepEqual(isNoOfLinesGreater(10,6),6);
+    assert.deepEqual(greaterNumber(10,6),6);
   });
 
   it( 'should return noOfLines if the noOfLines is less than the given length' , function() {
-    assert.deepEqual(isNoOfLinesGreater(2,6),2);
+    assert.deepEqual(greaterNumber(2,6),2);
   });
 
   it( 'should return noOfLines if the noOf lines and length are equal' , function() {
-  assert.deepEqual(isNoOfLinesGreater(6, 6), 6);
+  assert.deepEqual(greaterNumber(6, 6), 6);
   });
 })
 

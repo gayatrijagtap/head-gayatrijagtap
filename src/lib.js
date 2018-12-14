@@ -87,23 +87,24 @@ const createHeadLines = function(filename) {
 
 exports.createHeadLines = createHeadLines;
 
+
 //-----------------------------extractHeadLines------------
 
 const extractHeadLines = function(text, noOfLines) {
   let lines = text.split("\n");
-  noOfLines = isNoOfLinesGreater(noOfLines,lines.length);
+  noOfLines = greaterNumber(noOfLines,lines.length);
   return lines.slice(0, noOfLines).join("\n");
 };
 
 exports.extractHeadLines = extractHeadLines;
 
-//-----------------------------isNoOfLinesGreater------------------
+//-----------------------------greaterNumber------------------
 
-const isNoOfLinesGreater = function(noOfLines,length) {
+const greaterNumber = function(noOfLines,length) {
   return noOfLines >= length ? length : noOfLines;
 }
 
-exports.isNoOfLinesGreater = isNoOfLinesGreater;
+exports.greaterNumber = greaterNumber;
 
 //----------------------extractCharacters---------------
 
