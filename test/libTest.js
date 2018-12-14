@@ -23,7 +23,7 @@ const {
   extractOption,
   extractNoOfLinesWithIndex,
   extractCharacters,
-  extractLines,
+  extractHeadLines,
   extractInputs,
   createHeadLines
 } = require("../src/lib.js");
@@ -73,18 +73,18 @@ describe("createHeadLines", function () {
   });
 });
 
-//-----------------------------extractLines tests------------
-describe("extractLines", function () {
+//-----------------------------extractHeadLines tests------------
+describe("extractHeadLines", function () {
   it("should return the head with given number of lines if the length of file is greater than number of lines", function () {
     let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
     let expectedOutput = "fhash\nhsakh\nfkdsh";
-    assert.deepEqual(extractLines(data, 3), expectedOutput);
+    assert.deepEqual(extractHeadLines(data, 3), expectedOutput);
   });
 
   it( 'should return whole file if the length of file is smaller than or equal to given number of lines' , function() {
     let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
     let expectedOutput = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
-    assert.deepEqual(extractLines(data, 7), expectedOutput);
+    assert.deepEqual(extractHeadLines(data, 7), expectedOutput);
   });
 });
 

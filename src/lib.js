@@ -87,15 +87,15 @@ const createHeadLines = function(filename) {
 
 exports.createHeadLines = createHeadLines;
 
-//-----------------------------extractLines------------
+//-----------------------------extractHeadLines------------
 
-const extractLines = function(text, noOfLines) {
+const extractHeadLines = function(text, noOfLines) {
   let lines = text.split("\n");
   noOfLines = isNoOfLinesGreater(noOfLines,lines.length);
   return lines.slice(0, noOfLines).join("\n");
 };
 
-exports.extractLines = extractLines;
+exports.extractHeadLines = extractHeadLines;
 
 //-----------------------------isNoOfLinesGreater------------------
 
@@ -244,7 +244,7 @@ exports.getHead = getHead;
 
 const head = function(headDetails,fs) {
   let {files,option,noOfLines} = headDetails;  
-  let type = {n:extractLines , c:extractCharacters};
+  let type = {n:extractHeadLines , c:extractCharacters};
   let linesAtTop = "";
   for(let file of files) { 
     linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
