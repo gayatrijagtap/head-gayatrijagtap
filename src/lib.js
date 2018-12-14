@@ -167,13 +167,13 @@ exports.getTrailingLines = getTrailingLines;
 
 //----------------------extractHeadCharacters---------------
   
-const extractTailingChars = function (text, noOfChars) {
+const extractTailCharacters = function (text, noOfChars) {
   let characters = text.split('')
   let trailingChars = getTrailingLines(noOfChars,characters.length);
   return characters.slice(trailingChars, characters.length).join('')
 }
 
-exports.extractTailingChars = extractTailingChars;
+exports.extractTailCharacters = extractTailCharacters;
 
 //------------------------------handleTailErrors------------------------
   
@@ -265,7 +265,7 @@ exports.getTail = getTail;
 
 const tail = function(tailDetails,fs) {
   let {files,option,noOfLines} = tailDetails;  
-  let type = {n:extractTailLines , c:extractTailingChars};
+  let type = {n:extractTailLines , c:extractTailCharacters};
   let linesAtBottom = "";
   for(let file of files) { 
     linesAtBottom = linesAtBottom + (getMissingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';

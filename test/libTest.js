@@ -13,7 +13,7 @@ const {
   getNoOfLines,
   getTail,
   handleTailErrors,
-  extractTailingChars,
+  extractTailCharacters,
   extractTailLines,
   noOfLinesWithFileIndex,
   getNumberWithIndex,
@@ -292,19 +292,19 @@ describe( 'getTrailingLines' , function() {
   });
 })
 
-//-------------------------------------extractTailingChars------------------------------
+//-------------------------------------extractTailCharacters------------------------------
 
-describe('extractTailingChars', function () {
+describe('extractTailCharacters', function () {
   let text = 'jd djf \n kfd fdhj';
   it('should return given number of tailing characters from the text', function () {
-    assert.deepEqual(extractTailingChars(text, 2), 'hj');
-    assert.deepEqual(extractTailingChars(text, 5), ' fdhj');
+    assert.deepEqual(extractTailCharacters(text, 2), 'hj');
+    assert.deepEqual(extractTailCharacters(text, 5), ' fdhj');
   });
   it( 'should return given no of characters and should work for blank characters also' , function() {
-    assert.deepEqual(extractTailingChars(text, 8), 'kfd fdhj');
+    assert.deepEqual(extractTailCharacters(text, 8), 'kfd fdhj');
   });
   it( 'should return whole file if no of characters is greater than or equal to no of characters in file' , function() {
-    assert.deepEqual(extractTailingChars(text, 20), text);
+    assert.deepEqual(extractTailCharacters(text, 20), text);
   });
 })
 
