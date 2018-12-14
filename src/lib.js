@@ -118,21 +118,21 @@ exports.extractHeadCharacters = extractHeadCharacters;
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function(option, noOfLines) {
-  return isInvalidOption(option) || isInvalidCount(noOfLines,option);
+  return getInvalidHeadOptionError(option) || isInvalidCount(noOfLines,option);
 };
 
 exports.handleHeadErrors = handleHeadErrors;
 
-//-------------------------------isInvalidOption---------------------
+//-------------------------------getInvalidHeadOptionError---------------------
 
-const isInvalidOption = function(optionCandidate) {
+const getInvalidHeadOptionError = function(optionCandidate) {
   let optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
   if(optionCandidate != 'c' && optionCandidate != 'n') {
     return optionError;
   }
 }
 
-exports.isInvalidOption = isInvalidOption;
+exports.getInvalidHeadOptionError = getInvalidHeadOptionError;
 
 //------------------------------isInvalidCount-------------------------
 

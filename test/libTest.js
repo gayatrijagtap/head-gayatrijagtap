@@ -8,7 +8,7 @@ const {
   getTrailingLines,
   greaterNumber,
   isInvalidCount,
-  isInvalidOption,
+  getInvalidHeadOptionError,
   getOption,
   getNoOfLines,
   getTail,
@@ -223,15 +223,15 @@ describe("handleHeadErrors", function () {
   });
 });
 
-//--------------------------------------isInvalidOption tests----------------------
+//--------------------------------------getInvalidHeadOptionError tests----------------------
 
-describe( 'isInvalidOption' , function() {
+describe( 'getInvalidHeadOptionError' , function() {
   let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
   it( 'should return error for the invalid option' , function() {
-    assert.deepEqual(isInvalidOption('s'),optionError);
+    assert.deepEqual(getInvalidHeadOptionError('s'),optionError);
   });
   it( 'should return undefined for the valid option' , function() {
-    assert.deepEqual(isInvalidOption('n'),);
+    assert.deepEqual(getInvalidHeadOptionError('n'),);
   });
 })
 
