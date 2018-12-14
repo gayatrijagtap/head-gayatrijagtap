@@ -34,18 +34,18 @@ exports.getOption = getOption;
 const extractNoOfLinesWithIndex = function (userArgs) {
   let array = userArgs[0].split("");
   let lines = { lines: "10", index: 2 };
-  return extractNumber(userArgs) || getNoOfLines(array[1], 3) || noOfLines(array[2], userArgs[1], 3, 4) || lines;
+  return extractNumber(userArgs) || getNoOfLines(array[1], 3) || noOfLinesWithFileIndex(array[2], userArgs[1], 3, 4) || lines;
 };
 
 exports.extractNoOfLinesWithIndex = extractNoOfLinesWithIndex;
 
 //--------------------------------noOfLines---------------------
 
-const noOfLines = function(firstNumber,secondNumber,firstIndex,secondIndex) {
+const noOfLinesWithFileIndex = function(firstNumber,secondNumber,firstIndex,secondIndex) {
   return getNoOfLines(firstNumber,firstIndex) || getNoOfLines(secondNumber,secondIndex);
 }
 
-exports.noOfLines = noOfLines;
+exports.noOfLinesWithFileIndex = noOfLinesWithFileIndex;
 
 //-----------------------------getNoOfLines-------------------------------
 

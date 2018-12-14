@@ -15,7 +15,7 @@ const {
   handleTailErrors,
   extractTailingChars,
   extractTailingLines,
-  noOfLines,
+  noOfLinesWithFileIndex,
   isNumber,
   handleErrors,
   extractNumber,
@@ -259,11 +259,11 @@ describe('isNumber', function () {
 
 //----------------------------------noOfLines tests----------------------------
 
-describe('noOfLines', function () {
+describe('noOfLinesWithFileIndex', function () {
   it('should return noOfLines from the given input', function () {
-    assert.deepEqual(noOfLines('5', '', 3, 4), { lines: '5', index: 3 });
-    assert.deepEqual(noOfLines("c", "5", 3, 4), { lines: '5', index: 4 });
-    assert.deepEqual(noOfLines("d", "0", 3, 4), { lines: '0', index: 4 });
+    assert.deepEqual(noOfLinesWithFileIndex('5', '', 3, 4), { lines: '5', index: 3 });
+    assert.deepEqual(noOfLinesWithFileIndex("c", "5", 3, 4), { lines: '5', index: 4 });
+    assert.deepEqual(noOfLinesWithFileIndex("d", "0", 3, 4), { lines: '0', index: 4 });
   });
 })
 
