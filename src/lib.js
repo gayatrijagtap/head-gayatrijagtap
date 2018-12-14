@@ -147,15 +147,15 @@ const getInvalidCountError = function(count,option) {
 
 exports.getInvalidCountError = getInvalidCountError;
 
-//-----------------------------------extractTailingLines---------------------------
+//-----------------------------------extractTailLines---------------------------
   
-const extractTailingLines = function (text, noOfLines) {
+const extractTailLines = function (text, noOfLines) {
   let lines = text.split('\n')
   let trailingLines = getTrailingLines(noOfLines,lines.length);
   return lines.slice(trailingLines, lines.length).join('\n');
 }
 
-exports.extractTailingLines = extractTailingLines;
+exports.extractTailLines = extractTailLines;
 
 //---------------------------getTrailingLines-------------------------
 
@@ -265,7 +265,7 @@ exports.getTail = getTail;
 
 const tail = function(tailDetails,fs) {
   let {files,option,noOfLines} = tailDetails;  
-  let type = {n:extractTailingLines , c:extractTailingChars};
+  let type = {n:extractTailLines , c:extractTailingChars};
   let linesAtBottom = "";
   for(let file of files) { 
     linesAtBottom = linesAtBottom + (getMissingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';

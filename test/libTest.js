@@ -14,7 +14,7 @@ const {
   getTail,
   handleTailErrors,
   extractTailingChars,
-  extractTailingLines,
+  extractTailLines,
   noOfLinesWithFileIndex,
   getNumberWithIndex,
   handleHeadErrors,
@@ -267,16 +267,16 @@ describe('noOfLinesWithFileIndex', function () {
   });
 })
 
-//--------------------------------------extractTailingLines tests------------------------
+//--------------------------------------extractTailLines tests------------------------
 
-describe('extractTailingLines', function () {
+describe('extractTailLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
   it('should return given number of tailing lines when the file is larger than no of lines', function () {
-    assert.deepEqual(extractTailingLines(text, 2), 'gre\ngfe');
-    assert.deepEqual(extractTailingLines(text, 1), 'gfe');
+    assert.deepEqual(extractTailLines(text, 2), 'gre\ngfe');
+    assert.deepEqual(extractTailLines(text, 1), 'gfe');
   });
   it( 'should return whole file when no of lines is greater than or equal to lines in file' , function() {
-    assert.deepEqual(extractTailingLines(text, 6), text);
+    assert.deepEqual(extractTailLines(text, 6), text);
   });
 })
 
