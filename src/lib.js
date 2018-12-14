@@ -57,15 +57,15 @@ const getNoOfLines = function(number,index) {
 
 exports.getNoOfLines = getNoOfLines;
 
-//--------------------------isNumber-------------------------
+//--------------------------getNumberWithIndex-------------------------
 
-const isNumber = function(numberCandidate,index) {
+const getNumberWithIndex = function(numberCandidate,index) {
   if(parseInt(numberCandidate)) {
     return {lines:numberCandidate , index:index};
   }
 }
 
-exports.isNumber = isNumber;
+exports.getNumberWithIndex = getNumberWithIndex;
 
 //---------------------------extractNumber-------------------
 
@@ -73,7 +73,7 @@ const extractNumber = function(userArgs) {
   let array = userArgs[0].split("");
   let numberCandidate1 = array.slice(1,4).join('');
   let numberCandidate2 = array.slice(2,5).join('');
-  let number = isNumber(numberCandidate1,3) || isNumber(numberCandidate2,3);
+  let number = getNumberWithIndex(numberCandidate1,3) || getNumberWithIndex(numberCandidate2,3);
   return number;
 };
 

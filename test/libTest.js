@@ -16,7 +16,7 @@ const {
   extractTailingChars,
   extractTailingLines,
   noOfLinesWithFileIndex,
-  isNumber,
+  getNumberWithIndex,
   handleErrors,
   extractNumber,
   getHead,
@@ -248,12 +248,12 @@ describe( 'isInvalidCount' , function() {
   });
 })
 
-//-------------------------------------isNumber tests-------------------------
+//-------------------------------------getNumberWithIndex tests-------------------------
 
-describe('isNumber', function () {
+describe('getNumberWithIndex', function () {
   it('should return number and index if the given input is a number', function () {
-    assert.deepEqual(isNumber('12', 3), { lines: '12', index: 3 });
-    assert.deepEqual(isNumber('1', 3), { lines: '1', index: 3 });
+    assert.deepEqual(getNumberWithIndex('12', 3), { lines: '12', index: 3 });
+    assert.deepEqual(getNumberWithIndex('1', 3), { lines: '1', index: 3 });
   });
 })
 
