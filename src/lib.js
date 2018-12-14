@@ -115,13 +115,13 @@ const extractHeadCharacters = function(text, noOfChars) {
 
 exports.extractHeadCharacters = extractHeadCharacters;
 
-//----------------------handleErrors---------------------
+//----------------------handleHeadErrors---------------------
 
-const handleErrors = function(option, noOfLines) {
+const handleHeadErrors = function(option, noOfLines) {
   return isInvalidOption(option) || isInvalidCount(noOfLines,option);
 };
 
-exports.handleErrors = handleErrors;
+exports.handleHeadErrors = handleHeadErrors;
 
 //-------------------------------isInvalidOption---------------------
 
@@ -238,7 +238,7 @@ exports.getSingleFileHead = getSingleFileHead;
 const getHead = function(userArgs,fs) {
   let headDetails = extractInputs(userArgs);
   let {files,option,noOfLines} = headDetails;
-  return handleErrors(option,noOfLines) || head(headDetails,fs);
+  return handleHeadErrors(option,noOfLines) || head(headDetails,fs);
 };
 
 exports.getHead = getHead;

@@ -17,7 +17,7 @@ const {
   extractTailingLines,
   noOfLinesWithFileIndex,
   getNumberWithIndex,
-  handleErrors,
+  handleHeadErrors,
   extractNumber,
   getHead,
   extractOption,
@@ -197,29 +197,29 @@ describe("extractNumber", function () {
   });
 });
 
-//-------------------------handleErrors tests----------------
-describe("handleErrors", function () {
+//-------------------------handleHeadErrors tests----------------
+describe("handleHeadErrors", function () {
   it("should return error message for illegal option", function () {
     let optionError =
       "head: illegal option -- " +
       "s" +
       "\nusage:head [-n lines | -c bytes] [file ...]";
-    assert.deepEqual(handleErrors("s", "12"), optionError);
-    assert.deepEqual(handleErrors("sd", "1"), optionError);
+    assert.deepEqual(handleHeadErrors("s", "12"), optionError);
+    assert.deepEqual(handleHeadErrors("sd", "1"), optionError);
   });
 
   it("should return error message for illegal line count", function () {
     let lineError = "head: illegal line count -- " + "0";
-    assert.deepEqual(handleErrors("n", 0), lineError);
+    assert.deepEqual(handleHeadErrors("n", 0), lineError);
     lineError = "head: illegal line count -- " + "-1";
-    assert.deepEqual(handleErrors("n", -1), lineError);
+    assert.deepEqual(handleHeadErrors("n", -1), lineError);
   });
 
   it("should return error message for illegal byte count", function () {
     let byteError = "head: illegal byte count -- " + "0";
-    assert.deepEqual(handleErrors("c", 0), byteError);
+    assert.deepEqual(handleHeadErrors("c", 0), byteError);
     byteError = "head: illegal byte count -- " + "-1";
-    assert.deepEqual(handleErrors("c", -1), byteError);
+    assert.deepEqual(handleHeadErrors("c", -1), byteError);
   });
 });
 
