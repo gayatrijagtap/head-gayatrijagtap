@@ -198,7 +198,7 @@ exports.getInvalidTailOptionError = getInvalidTailOptionError;
 
 const isNoOfLinesZero = function(noOfLines) {
   if(noOfLines == 0) {
-    return;
+    return ' ';
   }
 }
 

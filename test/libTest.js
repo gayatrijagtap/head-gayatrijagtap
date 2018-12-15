@@ -320,7 +320,7 @@ describe('handleTailErrors', function () {
     assert.deepEqual(handleTailErrors('n', '5d'), errorMessage);
   });
   it('should return nothing if the number of lines is 0', function () {
-    assert.deepEqual(handleTailErrors('n', '0'));
+    assert.deepEqual(handleTailErrors('n', '0'),' ');
   });
 })
 
@@ -337,7 +337,7 @@ describe( 'getInvalidTailOptionError' , function() {
 
 describe( 'isNoOfLinesZero' , function() {
   it( 'should return if given number of lines is zero' , function() {
-    assert.deepEqual(isNoOfLinesZero('0'));
+    assert.deepEqual(isNoOfLinesZero('0'),' ');
     assert.deepEqual(isNoOfLinesZero('1'));
   });
 })
