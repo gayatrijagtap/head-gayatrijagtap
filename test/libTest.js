@@ -319,7 +319,7 @@ describe('handleTailErrors', function () {
     let errorMessage = 'tail: illegal offset -- ' + '5d';
     assert.deepEqual(handleTailErrors('n', '5d'), errorMessage);
   });
-  it('should return nothing if the number of lines is 0', function () {
+  it('should return empty string if the number of lines is 0', function () {
     assert.deepEqual(handleTailErrors('n', '0'),' ');
   });
 })
@@ -336,7 +336,7 @@ describe( 'getInvalidTailOptionError' , function() {
 //----------------------------------isNoOfLinesZero tests------------------------------
 
 describe( 'isNoOfLinesZero' , function() {
-  it( 'should return if given number of lines is zero' , function() {
+  it( 'should return empty string if given number of lines is zero' , function() {
     assert.deepEqual(isNoOfLinesZero('0'),' ');
     assert.deepEqual(isNoOfLinesZero('1'));
   });
