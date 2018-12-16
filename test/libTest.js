@@ -64,7 +64,7 @@ describe("extractInputs", function () {
 
 //-------------------------createHeadLines tests--------------
 describe("createHeadLines", function () {
-  it("should return the heading for the given function", function () {
+  it("should return the heading for the given file name", function () {
     assert.deepEqual(createHeadLines("mars"), "==> mars <==");
     assert.deepEqual(createHeadLines("sample"), "==> sample <==");
   });
