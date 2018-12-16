@@ -144,14 +144,23 @@ describe( 'userOption' , function() {
 //-------------------------noOfLinesWithFileIndex tests-------------------
 describe("noOfLinesWithFileIndex", function () {
   it("should extract no of lines with file starting index if it is given along with character", function () {
-    assert.deepEqual(noOfLinesWithFileIndex(["-c5", ""]), { lines: 5, index: 1 });
+    let actualOutput = noOfLinesWithFileIndex(["-c5", ""]);
+    let expectedOutput = { lines: 5, index: 1 };
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it( 'should extract no of lines with file starting index from the given input' , function() {
-    assert.deepEqual(noOfLinesWithFileIndex(["-5", ""]), { lines: 5, index: 1 });
-    assert.deepEqual(noOfLinesWithFileIndex(["-c", "2"]), { lines: 2, index: 2 });
+    let actualOutput = noOfLinesWithFileIndex(["-5", ""]);
+    let expectedOutput = { lines: 5, index: 1 }; 
+    assert.deepEqual(actualOutput,expectedOutput);
+
+    actualOutput = noOfLinesWithFileIndex(["-c", "2"]);
+    expectedOutput = { lines: 2, index: 2 };
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it( 'should return default no of lines if it is not given' , function() {
-    assert.deepEqual(noOfLinesWithFileIndex(["file1", "file2"]), { lines: 10, index: 0 });
+    let actualOutput = noOfLinesWithFileIndex(["file1", "file2"]);
+    let expectedOutput = { lines: 10, index: 0 };
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 });
 
