@@ -133,10 +133,10 @@ describe( 'userOption' , function() {
   it( 'should return option if the option is given with number' , function() {
     assert.deepEqual(userOption('-s5'),'s');
   });
-  it( 'should return option if the option is given alone' , function() {
+  it( 'should return option from the given input' , function() {
     assert.deepEqual(userOption('-s'),'s');
   });
-  it( 'should return nothing if the option is not there' , function() {
+  it( 'should not return if option is not passed' , function() {
     assert.deepEqual(userOption('-5'));
   });
 })
