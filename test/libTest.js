@@ -288,7 +288,7 @@ describe( 'getTrailingLines' , function() {
   it( 'should return number of trailing lines for given length and number of lines' , function() {
     assert.deepEqual(getTrailingLines(5,6),1);
   });
-  it( 'should return 0 if length is greater than or equal to no of lines' , function() {
+  it( 'should return 0 if there are no trailing lines' , function() {
     assert.deepEqual(getTrailingLines(5,4),0);
     assert.deepEqual(getTrailingLines(6,6),0);
   });
@@ -298,15 +298,24 @@ describe( 'getTrailingLines' , function() {
 
 describe('extractTailCharacters', function () {
   let text = 'jd djf \n kfd fdhj';
-  it('should return given number of tailing characters from the text', function () {
-    assert.deepEqual(extractTailCharacters(text, 2), 'hj');
-    assert.deepEqual(extractTailCharacters(text, 5), ' fdhj');
+  it('should return given number of characters from the bottom of the file', function () {
+    let actualOutput = extractTailCharacters(text, 2);
+    let expectedOutput = 'hj';
+    assert.deepEqual(actualOutput,expectedOutput);
+
+    actualOutput = extractTailCharacters(text, 5);
+    expectedOutput = ' fdhj';
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it( 'should return given no of characters and should work for blank characters also' , function() {
-    assert.deepEqual(extractTailCharacters(text, 8), 'kfd fdhj');
+    let actualOutput = extractTailCharacters(text, 8);
+    let expectedOutput = 'kfd fdhj';
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it( 'should return whole file if no of characters is greater than or equal to no of characters in file' , function() {
-    assert.deepEqual(extractTailCharacters(text, 20), text);
+    let actualOutput = extractTailCharacters(text, 20);
+    let expectedOutput = text;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
