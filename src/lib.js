@@ -2,8 +2,8 @@
 
 const extractInputs = function(userArgs) {
   let headDetails = new Object();
-  headDetails.option = extractOption(userArgs[2]);
-  let { lines, index } = extractNoOfLinesWithIndex(userArgs.slice(2, 4));
+  headDetails.option = extractOption(userArgs[0]);
+  let { lines, index } = noOfLinesWithFileIndex(userArgs.slice(0, 2));
   headDetails.noOfLines = lines;
   headDetails.files = userArgs.slice(index, userArgs.length);
   return headDetails;
@@ -14,70 +14,37 @@ exports.extractInputs = extractInputs;
 //--------------------------extractOption---------------
 
 const extractOption = function(optionCandidate) {
-  return getOption(optionCandidate) || 'n';
+  return userOption(optionCandidate) || 'n';
 };
 
 exports.extractOption = extractOption;
 
-//----------------------------getOption----------------------
+//----------------------------userOption----------------------
 
-const getOption = function (optionCandidate) {
+const userOption = function (optionCandidate) {
   if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
     return optionCandidate[1];
   }
 }
 
-exports.getOption = getOption;
+exports.userOption = userOption;
 
-//-------------------------extractNoOfLinesWithIndex-------------------
+//-------------------------noOfLinesWithFileIndex-------------------
 
-const extractNoOfLinesWithIndex = function (userArgs) {
-  let array = userArgs[0].split("");
-  let lines = { lines: "10", index: 2 };
-  return extractNumber(userArgs) || getNoOfLines(array[1], 3) || noOfLinesWithFileIndex(array[2], userArgs[1], 3, 4) || lines;
+const noOfLinesWithFileIndex = function (userArgs) {
+  if(userArgs[0].match(/^-[0-9]/)) {
+    return {lines:userArgs[0].slice(1),index:1};
+  }
+  if(userArgs[0].match(/^-.[0-9]/)) {
+    return {lines:userArgs[0].slice(2),index:1};
+  }
+  if(userArgs[0].match(/^-/) && userArgs[1].match(/[0-9]/)) {
+    return {lines:userArgs[1],index:2}
+  }
+  return {lines:'10',index:0};
 };
-
-exports.extractNoOfLinesWithIndex = extractNoOfLinesWithIndex;
-
-//--------------------------------noOfLines---------------------
-
-const noOfLinesWithFileIndex = function(firstNumber,secondNumber,firstIndex,secondIndex) {
-  return getNoOfLines(firstNumber,firstIndex) || getNoOfLines(secondNumber,secondIndex);
-}
 
 exports.noOfLinesWithFileIndex = noOfLinesWithFileIndex;
-
-//-----------------------------getNoOfLines-------------------------------
-
-const getNoOfLines = function(number,index) {
-  if(parseInt(number) || parseInt(number) == 0) {
-    return {lines:number,index:index};
-  } 
-}
-
-exports.getNoOfLines = getNoOfLines;
-
-//--------------------------getNumberWithIndex-------------------------
-
-const getNumberWithIndex = function(numberCandidate,index) {
-  if(parseInt(numberCandidate)) {
-    return {lines:numberCandidate , index:index};
-  }
-}
-
-exports.getNumberWithIndex = getNumberWithIndex;
-
-//---------------------------extractNumber-------------------
-
-const extractNumber = function(userArgs) {
-  let array = userArgs[0].split("");
-  let numberCandidate1 = array.slice(1,4).join('');
-  let numberCandidate2 = array.slice(2,5).join('');
-  let number = getNumberWithIndex(numberCandidate1,3) || getNumberWithIndex(numberCandidate2,3);
-  return number;
-};
-
-exports.extractNumber = extractNumber;
 
 //-------------------------createHeadLines--------------
 

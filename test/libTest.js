@@ -9,19 +9,15 @@ const {
   greaterNumber,
   getInvalidCountError,
   getInvalidHeadOptionError,
-  getOption,
-  getNoOfLines,
+  userOption,
   getTail,
   handleTailErrors,
   extractTailCharacters,
   extractTailLines,
-  noOfLinesWithFileIndex,
-  getNumberWithIndex,
   handleHeadErrors,
-  extractNumber,
   getHead,
   extractOption,
-  extractNoOfLinesWithIndex,
+  noOfLinesWithFileIndex,
   extractHeadCharacters,
   extractHeadLines,
   extractInputs,
@@ -31,31 +27,31 @@ const {
 //---------------------extractInputs tests-------------------
 describe("extractInputs", function () {
   it("should return headDetails including option when option is given", function () {
-    let userArgs = [, , "-n5", "file1"];
+    let userArgs = ["-n5", "file1"];
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
 
-    userArgs = [, , "-n", "5", "file1"];
+    userArgs = ["-n", "5", "file1"];
     expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
 
-    userArgs = [, , "-c5", "file1", "file2"];
+    userArgs = ["-c5", "file1", "file2"];
     expectedOutput = { option: "c", noOfLines: 5, files: ["file1", "file2"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
   });
 
   it("should return headDetails excluding option when option is not given", function () {
-    let userArgs = [, , "-5", "file1"];
+    let userArgs = ["-5", "file1"];
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
 
-    userArgs = [, , "-5", "file1", "file2"];
+    userArgs = ["-5", "file1", "file2"];
     expectedOutput = { option: "n", noOfLines: 5, files: ["file1", "file2"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
   });
 
   it("should return headDetails including all the files when multiple files as an input", function () {
-    let userArgs = [, , "file1", "file2"];
+    let userArgs = ["file1", "file2"];
     let expectedOutput = {
       option: "n",
       noOfLines: 10,
@@ -130,31 +126,31 @@ describe("extractOption", function () {
   });
 });
 
-//----------------------------getOption tests--------------------
+//----------------------------userOption tests--------------------
 
-describe( 'getOption' , function() {
+describe( 'userOption' , function() {
   it( 'should return option if the option is given with number' , function() {
-    assert.deepEqual(getOption('-s5'),'s');
+    assert.deepEqual(userOption('-s5'),'s');
   });
   it( 'should return option if the option is given alone' , function() {
-    assert.deepEqual(getOption('-s'),'s');
+    assert.deepEqual(userOption('-s'),'s');
   });
   it( 'should return nothing if the option is not there' , function() {
-    assert.deepEqual(getOption('-5'));
+    assert.deepEqual(userOption('-5'));
   });
 })
 
-//-------------------------extractNoOfLinesWithIndex tests-------------------
-describe("extractNoOfLinesWithIndex", function () {
+//-------------------------noOfLinesWithFileIndex tests-------------------
+describe("noOfLinesWithFileIndex", function () {
   it("should extract no of lines if it is given along with character", function () {
-    assert.deepEqual(extractNoOfLinesWithIndex(["-c5", ""]), { lines: 5, index: 3 });
+    assert.deepEqual(noOfLinesWithFileIndex(["-c5", ""]), { lines: 5, index: 1 });
   });
   it( 'should extract no of lines if no of lines is given alone' , function() {
-    assert.deepEqual(extractNoOfLinesWithIndex(["-5", ""]), { lines: 5, index: 3 });
-    assert.deepEqual(extractNoOfLinesWithIndex(["-c", "2"]), { lines: 2, index: 4 });
+    assert.deepEqual(noOfLinesWithFileIndex(["-5", ""]), { lines: 5, index: 1 });
+    assert.deepEqual(noOfLinesWithFileIndex(["-c", "2"]), { lines: 2, index: 2 });
   });
   it( 'should return default no of lines if it is not given' , function() {
-    assert.deepEqual(extractNoOfLinesWithIndex(["file1", "file2"]), { lines: 10, index: 2 });
+    assert.deepEqual(noOfLinesWithFileIndex(["file1", "file2"]), { lines: 10, index: 0 });
   });
 });
 
@@ -167,33 +163,14 @@ describe("getHead", function () {
 
   it("should return head of the file for option n with given no of lines", function () {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
-    let userArgs = [, , "-n2", data];
+    let userArgs = ["-n2", data];
     assert.deepEqual(getHead(userArgs, fs), "fsdjfhsdh\ndfjkshjk");
   });
 
   it( 'should return head of the file for option c with given no of characters' , function() {
     let data = "grldfjd";
-    let userArgs = [, , "-c", "4", data];
+    let userArgs = ["-c", "4", data];
     assert.deepEqual(getHead(userArgs, fs), "grld");
-  });
-});
-
-//----------------------validateNoOfLines tests--------------
-describe("extractNumber", function () {
-  it("should extract Number from list when number is given at first index", function () {
-    assert.deepEqual(extractNumber(["-n", "1"]));
-  });
-  it( 'should extract number from list when number is given along with character' , function() {
-    assert.deepEqual(extractNumber(["-n12", "temp.js"]), {
-      lines: "12",
-      index: 3
-    });
-  });
-  it( 'should extract number from list when number is given at 0th index' , function() {
-    assert.deepEqual(extractNumber(["-100", "temp.js"]), {
-      lines: "100",
-      index: 3
-    });
   });
 });
 
@@ -245,25 +222,6 @@ describe( 'getInvalidCountError' , function() {
   it( 'should return illegal line count error for invalid line count' , function() {
     let lineError = "head: illegal line count -- " + "-1";
     assert.deepEqual(getInvalidCountError(-1,'n'),lineError);
-  });
-})
-
-//-------------------------------------getNumberWithIndex tests-------------------------
-
-describe('getNumberWithIndex', function () {
-  it('should return number and index if the given input is a number', function () {
-    assert.deepEqual(getNumberWithIndex('12', 3), { lines: '12', index: 3 });
-    assert.deepEqual(getNumberWithIndex('1', 3), { lines: '1', index: 3 });
-  });
-})
-
-//----------------------------------noOfLines tests----------------------------
-
-describe('noOfLinesWithFileIndex', function () {
-  it('should return noOfLines from the given input', function () {
-    assert.deepEqual(noOfLinesWithFileIndex('5', '', 3, 4), { lines: '5', index: 3 });
-    assert.deepEqual(noOfLinesWithFileIndex("c", "5", 3, 4), { lines: '5', index: 4 });
-    assert.deepEqual(noOfLinesWithFileIndex("d", "0", 3, 4), { lines: '0', index: 4 });
   });
 })
 
@@ -359,21 +317,12 @@ describe('getTail', function () {
   let fs = { readFileSync, existsSync };
   it('should return tail of the file with given specifications' , function() {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
-    let userArgs = [, , "-n2", data];
+    let userArgs = ["-n2", data];
     assert.deepEqual(getTail(userArgs, fs), "dfjkshjk\ndsfjdfdkjfs");
 
     data = "grldfjd";
-    userArgs = [, , "-c", "4", data];
+    userArgs = ["-c", "4", data];
     assert.deepEqual(getTail(userArgs, fs), "dfjd"); 
-  });
-})
-
-//-------------------------------------getNoOfLines tests---------------------------
-
-describe( 'getNoOfLines' , function() {
-  it( 'should return number of the lines from the given input' , function() {
-    assert.deepEqual(getNoOfLines('5',3),{lines:'5',index:3});
-    assert.deepEqual(getNoOfLines('fd',3),);
   });
 })
 
