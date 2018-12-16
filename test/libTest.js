@@ -192,25 +192,39 @@ describe("getHead", function () {
 describe("handleHeadErrors", function () {
   it("should return error message for illegal option", function () {
     let optionError =
-      "head: illegal option -- " +
-      "s" +
+      "head: illegal option -- " + "s" +
       "\nusage:head [-n lines | -c bytes] [file ...]";
-    assert.deepEqual(handleHeadErrors("s", "12"), optionError);
-    assert.deepEqual(handleHeadErrors("sd", "1"), optionError);
+    let actualOutput = handleHeadErrors("s", "12");
+    let expectedOutput = optionError;
+    assert.deepEqual(actualOutput, expectedOutput);
+
+    actualOutput = handleHeadErrors("sd", "1");
+    expectedOutput = optionError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 
   it("should return error message for illegal line count", function () {
     let lineError = "head: illegal line count -- " + "0";
-    assert.deepEqual(handleHeadErrors("n", 0), lineError);
+    let actualOutput = handleHeadErrors("n", 0);
+    let expectedOutput = lineError;
+    assert.deepEqual(actualOutput,expectedOutput);
+
     lineError = "head: illegal line count -- " + "-1";
-    assert.deepEqual(handleHeadErrors("n", -1), lineError);
+    actualOutput = handleHeadErrors("n", -1);
+    expectedOutput = lineError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 
   it("should return error message for illegal byte count", function () {
     let byteError = "head: illegal byte count -- " + "0";
-    assert.deepEqual(handleHeadErrors("c", 0), byteError);
+    let actualOutput = handleHeadErrors("c", 0);
+    let expectedOutput = byteError;
+    assert.deepEqual(actualOutput,expectedOutput);
+
     byteError = "head: illegal byte count -- " + "-1";
-    assert.deepEqual(handleHeadErrors("c", -1), byteError);
+    actualOutput = handleHeadErrors("c", -1);
+    expectedOutput = byteError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 });
 
