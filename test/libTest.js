@@ -1,7 +1,7 @@
 const assert = require("assert");
 const {
   getSingleFileHead,
-  getMissingFileError,
+  missingFileError,
   illegalOffsetError,
   isNoOfLinesZero,
   invalidTailOptionError,
@@ -398,9 +398,9 @@ describe('getTail', function () {
   });
 })
 
-//------------------------------------getMissingFileError tests----------------------
+//------------------------------------missingFileError tests----------------------
 
-describe('getMissingFileError' , function() {
+describe('missingFileError' , function() {
   const isExists = function(data) {
     if(data) {
       return true;
@@ -410,10 +410,14 @@ describe('getMissingFileError' , function() {
   let headError = "head: " + data + ": No such file or directory";
   let tailError = "tail: " + data + ": No such file or directory";
   it('should return error for missing file for head' , function() {
-    assert.deepEqual(getMissingFileError(data,isExists,'head'),headError);
+    let actualOutput = missingFileError(data,isExists,'head');
+    let expectedOutput = headError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it('should return error for missing file for tail' , function() {
-    assert.deepEqual(getMissingFileError(data,isExists,'tail'),tailError);  
+    let actualOutput = missingFileError(data,isExists,'tail');
+    let expectedOutput = tailError;
+    assert.deepEqual(actualOutput,expectedOutput);  
   });
 })
 

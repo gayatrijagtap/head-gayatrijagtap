@@ -182,7 +182,9 @@ const illegalOffsetError = function(noOfLines) {
 
 exports.illegalOffsetError = illegalOffsetError;
 
-const getMissingFileError = function(file,existsSync,command) {
+//------------------------------missingFileError-------------------
+
+const missingFileError = function(file,existsSync,command) {
   let head = "head: " + file + ": No such file or directory";
   let tail = 'tail: ' + file + ": No such file or directory";
   let error = {head,tail};
@@ -191,12 +193,12 @@ const getMissingFileError = function(file,existsSync,command) {
   }
 };
 
-exports.getMissingFileError = getMissingFileError;
+exports.missingFileError = missingFileError;
 
 const getSingleFileHead = function(headDetails,type,fs,command) {
   let {files,option,noOfLines} = headDetails;
   if(files.length == 1 && fs.existsSync(files[0])) {
-    return getMissingFileError(files[0],fs.existsSync,command) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
+    return missingFileError(files[0],fs.existsSync,command) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
   }
 }
 
@@ -215,7 +217,7 @@ const head = function(headDetails,fs) {
   let type = {n:extractHeadLines , c:extractHeadCharacters};
   let linesAtTop = "";
   for(let file of files) { 
-    linesAtTop = linesAtTop + (getMissingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
+    linesAtTop = linesAtTop + (missingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
   }
   return getSingleFileHead(headDetails,type,fs,'head') || linesAtTop;
 }
@@ -235,7 +237,7 @@ const tail = function(tailDetails,fs) {
   let type = {n:extractTailLines , c:extractTailCharacters};
   let linesAtBottom = "";
   for(let file of files) { 
-    linesAtBottom = linesAtBottom + (getMissingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
+    linesAtBottom = linesAtBottom + (missingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
   }
   return getSingleFileHead(tailDetails,type,fs,'tail') || linesAtBottom;
 }
