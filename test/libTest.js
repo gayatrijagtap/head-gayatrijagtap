@@ -26,38 +26,39 @@ const {
 
 //---------------------extractInputs tests-------------------
 describe("extractInputs", function () {
-  it("should return headDetails including option when option is given", function () {
-    let userArgs = ["-n5", "file1"];
+  it('should return headDetails for single file with default option and no of lines' , function() {
+    let actualOutput = extractInputs(['file1']);
+    let expectedOutput = {option:'n',noOfLines:10,files:['file1']};
+    assert.deepEqual(actualOutput,expectedOutput);
+  });
+  it("should return headDetails with given option , no of lines and file", function () {
+    let actualOutput = extractInputs(["-n5", "file1"]);
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+    assert.deepEqual(actualOutput, expectedOutput);
 
-    userArgs = ["-n", "5", "file1"];
+    actualOutput = extractInputs(["-n", "5", "file1"]);
     expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+    assert.deepEqual(actualOutput, expectedOutput);
 
-    userArgs = ["-c5", "file1", "file2"];
+    actualOutput = extractInputs(["-c5", "file1", "file2"]);
     expectedOutput = { option: "c", noOfLines: 5, files: ["file1", "file2"] };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return headDetails excluding option when option is not given", function () {
-    let userArgs = ["-5", "file1"];
+  it("should return headDetails with default option when option is not passed", function () {
+    let actualOutput = extractInputs(["-5", "file1"]);
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+    assert.deepEqual(actualOutput, expectedOutput);
 
     userArgs = ["-5", "file1", "file2"];
     expectedOutput = { option: "n", noOfLines: 5, files: ["file1", "file2"] };
     assert.deepEqual(extractInputs(userArgs), expectedOutput);
   });
 
-  it("should return headDetails including all the files when multiple files as an input", function () {
-    let userArgs = ["file1", "file2"];
-    let expectedOutput = {
-      option: "n",
-      noOfLines: 10,
-      files: ["file1", "file2"]
-    };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+  it("should return headDetails with default option and no of lines when multiple files are passed", function () {
+    let actualOutput = extractInputs(["file1", "file2"]);
+    let expectedOutput = { option: "n",noOfLines: 10,files: ["file1", "file2"] };
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 });
 
