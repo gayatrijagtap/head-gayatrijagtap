@@ -104,11 +104,11 @@ describe( 'smallerNumber' , function() {
 //----------------------extractHeadCharacters tests---------------
 describe("extractHeadCharacters", function () {
   let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk";
-  it("should return the head with the given number of characters", function () {
+  it("should return given number of characters from the top of the file", function () {
     let expectedOutput = "fha";
     assert.deepEqual(extractHeadCharacters(data, 3), expectedOutput);
   });  
-  it( 'should work for new line also' , function() {
+  it( 'should return given number of characters including new line' , function() {
     let expectedOutput = "fhash\nh";
     assert.deepEqual(extractHeadCharacters(data, 7), expectedOutput);
   });
