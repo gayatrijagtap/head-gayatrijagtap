@@ -174,13 +174,17 @@ describe("getHead", function () {
   it("should return head of the file for option n with given no of lines", function () {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
     let userArgs = ["-n2", data];
-    assert.deepEqual(getHead(userArgs, fs), "fsdjfhsdh\ndfjkshjk");
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = "fsdjfhsdh\ndfjkshjk"; 
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 
   it( 'should return head of the file for option c with given no of characters' , function() {
     let data = "grldfjd";
     let userArgs = ["-c", "4", data];
-    assert.deepEqual(getHead(userArgs, fs), "grld");
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = "grld";
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 });
 
