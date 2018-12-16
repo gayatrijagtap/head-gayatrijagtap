@@ -324,14 +324,20 @@ describe('extractTailCharacters', function () {
 describe('handleTailErrors', function () {
   it('should give error for illegal option', function () {
     let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-    assert.deepEqual(handleTailErrors('s', 1), optionError);
+    let actualOutput = handleTailErrors('s', 1);
+    let expectedOutput = optionError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it('should give error for illegal offset', function () {
     let errorMessage = 'tail: illegal offset -- ' + '5d';
-    assert.deepEqual(handleTailErrors('n', '5d'), errorMessage);
+    let actualOutput = handleTailErrors('n', '5d');
+    let expectedOutput = errorMessage;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it('should return empty string if the number of lines is 0', function () {
-    assert.deepEqual(handleTailErrors('n', '0'),' ');
+    let actualOutput = handleTailErrors('n', '0');
+    let expectedOutput = ' ';
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
