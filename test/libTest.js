@@ -1,6 +1,6 @@
 const assert = require("assert");
 const {
-  getSingleFileHead,
+  singleFileOutput,
   missingFileError,
   illegalOffsetError,
   isNoOfLinesZero,
@@ -421,13 +421,13 @@ describe('missingFileError' , function() {
   });
 })
 
-//----------------------------------getSingleFileHead tests----------------------
+//----------------------------------singleFileOutput tests----------------------
 
-describe('getSingleFileHead' , function() {
+describe('singleFileOutput' , function() {
   let data;
   let content;
   let fs = {existsSync:x=>false};
   it('should return head without headline if there is only one file in user inputs' , function() {
-    assert.deepEqual(getSingleFileHead({files:[data,content],option:'n',noOfLines:1},fs,'head'),);
+    assert.deepEqual(singleFileOutput({files:[data,content],option:'n',noOfLines:1},fs,'head'),);
   });
 })

@@ -195,14 +195,16 @@ const missingFileError = function(file,existsSync,command) {
 
 exports.missingFileError = missingFileError;
 
-const getSingleFileHead = function(headDetails,type,fs,command) {
+//-----------------------------singleFileOutput-----------------------
+
+const singleFileOutput = function(headDetails,type,fs,command) {
   let {files,option,noOfLines} = headDetails;
   if(files.length == 1 && fs.existsSync(files[0])) {
     return missingFileError(files[0],fs.existsSync,command) || type[option](fs.readFileSync(files[0],'utf8'),noOfLines);
   }
 }
 
-exports.getSingleFileHead = getSingleFileHead;
+exports.singleFileOutput = singleFileOutput;
 
 const getHead = function(userArgs,fs) {
   let headDetails = extractInputs(userArgs);
@@ -219,7 +221,7 @@ const head = function(headDetails,fs) {
   for(let file of files) { 
     linesAtTop = linesAtTop + (missingFileError(file,fs.existsSync,'head') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
   }
-  return getSingleFileHead(headDetails,type,fs,'head') || linesAtTop;
+  return singleFileOutput(headDetails,type,fs,'head') || linesAtTop;
 }
 
 exports.head = head;
@@ -239,7 +241,7 @@ const tail = function(tailDetails,fs) {
   for(let file of files) { 
     linesAtBottom = linesAtBottom + (missingFileError(file,fs.existsSync,'tail') || createHeadLines(file) +'\n'+ type[option](fs.readFileSync(file,'utf8'),noOfLines))+'\n\n';
   }
-  return getSingleFileHead(tailDetails,type,fs,'tail') || linesAtBottom;
+  return singleFileOutput(tailDetails,type,fs,'tail') || linesAtBottom;
 }
 
 exports.tail = tail;
