@@ -428,6 +428,8 @@ describe('singleFileOutput' , function() {
   let content;
   let fs = {existsSync:x=>false};
   it('should return head without headline if there is only one file in user inputs' , function() {
-    assert.deepEqual(singleFileOutput({files:[data,content],option:'n',noOfLines:1},fs,'head'),);
+    let actualOutput = singleFileOutput({files:[data,content],option:'n',noOfLines:1},fs,'head');
+    let expectedOutput = undefined;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
