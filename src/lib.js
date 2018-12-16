@@ -145,7 +145,7 @@ exports.extractTailCharacters = extractTailCharacters;
 //------------------------------handleTailErrors------------------------
   
 const handleTailErrors = function(option, noOfLines) {
-  return invalidTailOptionError(option) || isNoOfLinesZero(noOfLines) || getIllegalOffsetError(noOfLines);
+  return invalidTailOptionError(option) || isNoOfLinesZero(noOfLines) || illegalOffsetError(noOfLines);
 };
 
 exports.handleTailErrors = handleTailErrors;
@@ -171,16 +171,16 @@ const isNoOfLinesZero = function(noOfLines) {
 
 exports.isNoOfLinesZero = isNoOfLinesZero;
 
-//---------------------------------getIllegalOffsetError-----------------------
+//---------------------------------illegalOffsetError-----------------------
 
-const getIllegalOffsetError = function(noOfLines) {
+const illegalOffsetError = function(noOfLines) {
   let errorMessage = 'tail: illegal offset -- ' + noOfLines;
   if (noOfLines.match(/[a-z A-Z]/)) {
     return errorMessage;
   }
 }
 
-exports.getIllegalOffsetError = getIllegalOffsetError;
+exports.illegalOffsetError = illegalOffsetError;
 
 const getMissingFileError = function(file,existsSync,command) {
   let head = "head: " + file + ": No such file or directory";
