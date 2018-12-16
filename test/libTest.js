@@ -265,12 +265,20 @@ describe( 'invalidCountError' , function() {
 
 describe('extractTailLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
-  it('should return given number of tailing lines when the file is larger than no of lines', function () {
-    assert.deepEqual(extractTailLines(text, 2), 'gre\ngfe');
-    assert.deepEqual(extractTailLines(text, 1), 'gfe');
+  it('should return given number of lines from bottom of the file when the file is larger than no of lines', function () {
+    let actualOutput = extractTailLines(text, 2);
+    let expectedOutput = 'gre\ngfe';
+    assert.deepEqual(actualOutput,expectedOutput);
+
+    actualOutput = extractTailLines(text, 1);
+    expectedOutput = 'gfe';
+    assert.deepEqual(actualOutput,expectedOutput);
   });
+
   it( 'should return whole file when no of lines is greater than or equal to lines in file' , function() {
-    assert.deepEqual(extractTailLines(text, 6), text);
+    let actualOutput = extractTailLines(text, 6);
+    let expectedOutput = text;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
