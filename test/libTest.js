@@ -7,7 +7,7 @@ const {
   getInvalidTailOptionError,
   getTrailingLines,
   smallerNumber,
-  getInvalidCountError,
+  invalidCountError,
   invalidHeadOptionError,
   userOption,
   getTail,
@@ -244,16 +244,20 @@ describe( 'invalidHeadOptionError' , function() {
   });
 })
 
-//---------------------------------------getInvalidCountError tests------------------------
+//---------------------------------------invalidCountError tests------------------------
 
-describe( 'getInvalidCountError' , function() {
+describe( 'invalidCountError' , function() {
   it( 'should return illegal byte count error for invalid byte count' , function() {
     let byteError = "head: illegal byte count -- " + "0";
-    assert.deepEqual(getInvalidCountError(0,'c'),byteError);
+    let actualOutput = invalidCountError(0,'c');
+    let expectedOutput = byteError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
   it( 'should return illegal line count error for invalid line count' , function() {
     let lineError = "head: illegal line count -- " + "-1";
-    assert.deepEqual(getInvalidCountError(-1,'n'),lineError);
+    let actualOutput = invalidCountError(-1,'n');
+    let expectedOutput = lineError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
