@@ -59,19 +59,19 @@ exports.createHeadLines = createHeadLines;
 
 const extractHeadLines = function(text, noOfLines) {
   let lines = text.split("\n");
-  noOfLines = greaterNumber(noOfLines,lines.length);
+  noOfLines = smallerNumber(noOfLines,lines.length);
   return lines.slice(0, noOfLines).join("\n");
 };
 
 exports.extractHeadLines = extractHeadLines;
 
-//-----------------------------greaterNumber------------------
+//-----------------------------smallerNumber------------------
 
-const greaterNumber = function(noOfLines,length) {
-  return noOfLines >= length ? length : noOfLines;
+const smallerNumber = function(firstNumber,secondNumber) {
+  return firstNumber >= secondNumber ? secondNumber : firstNumber;
 }
 
-exports.greaterNumber = greaterNumber;
+exports.smallerNumber = smallerNumber;
 
 //----------------------extractHeadCharacters---------------
 

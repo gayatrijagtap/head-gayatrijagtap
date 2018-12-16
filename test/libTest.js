@@ -6,7 +6,7 @@ const {
   isNoOfLinesZero,
   getInvalidTailOptionError,
   getTrailingLines,
-  greaterNumber,
+  smallerNumber,
   getInvalidCountError,
   getInvalidHeadOptionError,
   userOption,
@@ -85,19 +85,19 @@ describe("extractHeadLines", function () {
   });
 });
 
-//------------------------------greaterNumber tests--------------
+//------------------------------smallerNumber tests--------------
 
-describe( 'greaterNumber' , function() {
-  it( 'should modify noOfLines to given length if the noOfLines is greater than length' , function() {
-    assert.deepEqual(greaterNumber(10,6),6);
+describe( 'smallerNumber' , function() {
+  it( 'should return second number if firstNumber is greater than second number' , function() {
+    assert.deepEqual(smallerNumber(10,6),6);
   });
 
-  it( 'should return noOfLines if the noOfLines is less than the given length' , function() {
-    assert.deepEqual(greaterNumber(2,6),2);
+  it( 'should return first numbers if second number is greater than first number' , function() {
+    assert.deepEqual(smallerNumber(2,6),2);
   });
 
-  it( 'should return noOfLines if the noOf lines and length are equal' , function() {
-  assert.deepEqual(greaterNumber(6, 6), 6);
+  it( 'should return first number if both are equal' , function() {
+  assert.deepEqual(smallerNumber(6, 6), 6);
   });
 })
 
