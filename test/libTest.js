@@ -116,13 +116,13 @@ describe("extractHeadCharacters", function () {
 
 //--------------------------extractOption tests---------------
 describe("extractOption", function () {
-  it("should extract option when option is given with number of lines", function () {
+  it("should return byte option from the given input", function () {
     assert.deepEqual(extractOption("-c5"), "c");
   });
-  it('should extract option when option is given alone' , function() {
-    assert.deepEqual(extractOption("-c"), "c");
+  it('should extract line option from the given input' , function() {
+    assert.deepEqual(extractOption("-n"), "n");
   });
-  it('should return default option when no option is given' , function() {
+  it('should return default option when no option is passed' , function() {
       assert.deepEqual(extractOption("-5"), "n");
   });
 });
