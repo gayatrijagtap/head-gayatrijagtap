@@ -145,21 +145,21 @@ exports.extractTailCharacters = extractTailCharacters;
 //------------------------------handleTailErrors------------------------
   
 const handleTailErrors = function(option, noOfLines) {
-  return getInvalidTailOptionError(option) || isNoOfLinesZero(noOfLines) || getIllegalOffsetError(noOfLines);
+  return invalidTailOptionError(option) || isNoOfLinesZero(noOfLines) || getIllegalOffsetError(noOfLines);
 };
 
 exports.handleTailErrors = handleTailErrors;
 
-//-----------------------------------getInvalidTailOptionError--------------------
+//-----------------------------------invalidTailOptionError--------------------
 
-const getInvalidTailOptionError = function(option) {
+const invalidTailOptionError = function(option) {
   let optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
   if(option != 'c' && option != 'n') {
     return optionError;
   }
 }
 
-exports.getInvalidTailOptionError = getInvalidTailOptionError;
+exports.invalidTailOptionError = invalidTailOptionError;
 
 //--------------------------------isNoOfLinesZero-----------------------------
 

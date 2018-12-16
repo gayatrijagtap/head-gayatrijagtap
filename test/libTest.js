@@ -4,7 +4,7 @@ const {
   getMissingFileError,
   getIllegalOffsetError,
   isNoOfLinesZero,
-  getInvalidTailOptionError,
+  invalidTailOptionError,
   getTrailingLines,
   smallerNumber,
   invalidCountError,
@@ -341,12 +341,14 @@ describe('handleTailErrors', function () {
   });
 })
 
-//----------------------------------getInvalidTailOptionError tests----------------------
+//----------------------------------invalidTailOptionError tests----------------------
 
-describe( 'getInvalidTailOptionError' , function() {
+describe( 'invalidTailOptionError' , function() {
   it( 'should give error for illegal option' , function() {
     let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-    assert.deepEqual(getInvalidTailOptionError('s'),optionError);
+    let actualOutput = invalidTailOptionError('s');
+    let expectedOutput = optionError;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
@@ -354,8 +356,13 @@ describe( 'getInvalidTailOptionError' , function() {
 
 describe( 'isNoOfLinesZero' , function() {
   it( 'should return empty string if given number of lines is zero' , function() {
-    assert.deepEqual(isNoOfLinesZero('0'),' ');
-    assert.deepEqual(isNoOfLinesZero('1'));
+    let actualOutput = isNoOfLinesZero('0');
+    let expectedOutput = ' '; 
+    assert.deepEqual(actualOutput,expectedOutput);
+
+    actualOutput = isNoOfLinesZero('1');
+    expectedOutput = undefined;
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 })
 
