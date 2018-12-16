@@ -143,10 +143,10 @@ describe( 'userOption' , function() {
 
 //-------------------------noOfLinesWithFileIndex tests-------------------
 describe("noOfLinesWithFileIndex", function () {
-  it("should extract no of lines if it is given along with character", function () {
+  it("should extract no of lines with file starting index if it is given along with character", function () {
     assert.deepEqual(noOfLinesWithFileIndex(["-c5", ""]), { lines: 5, index: 1 });
   });
-  it( 'should extract no of lines if no of lines is given alone' , function() {
+  it( 'should extract no of lines with file starting index from the given input' , function() {
     assert.deepEqual(noOfLinesWithFileIndex(["-5", ""]), { lines: 5, index: 1 });
     assert.deepEqual(noOfLinesWithFileIndex(["-c", "2"]), { lines: 2, index: 2 });
   });
