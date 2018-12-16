@@ -386,11 +386,15 @@ describe('getTail', function () {
   it('should return tail of the file with given specifications' , function() {
     let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
     let userArgs = ["-n2", data];
-    assert.deepEqual(getTail(userArgs, fs), "dfjkshjk\ndsfjdfdkjfs");
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = "dfjkshjk\ndsfjdfdkjfs";
+    assert.deepEqual(actualOutput,expectedOutput);
 
     data = "grldfjd";
     userArgs = ["-c", "4", data];
-    assert.deepEqual(getTail(userArgs, fs), "dfjd"); 
+    actualOutput = getTail(userArgs, fs);
+    expectedOutput = "dfjd";
+    assert.deepEqual(actualOutput,expectedOutput); 
   });
 })
 
