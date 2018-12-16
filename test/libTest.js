@@ -51,8 +51,9 @@ describe("extractInputs", function () {
     assert.deepEqual(actualOutput, expectedOutput);
 
     userArgs = ["-5", "file1", "file2"];
+    actualOutput = extractInputs(userArgs);
     expectedOutput = { option: "n", noOfLines: 5, files: ["file1", "file2"] };
-    assert.deepEqual(extractInputs(userArgs), expectedOutput);
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it("should return headDetails with default option and no of lines when multiple files are passed", function () {
@@ -65,8 +66,13 @@ describe("extractInputs", function () {
 //-------------------------createHeadLines tests--------------
 describe("createHeadLines", function () {
   it("should return the heading for the given file name", function () {
-    assert.deepEqual(createHeadLines("mars"), "==> mars <==");
-    assert.deepEqual(createHeadLines("sample"), "==> sample <==");
+    let actualOutput = createHeadLines("mars");
+    let expectedOutput = "==> mars <==";
+    assert.deepEqual(actualOutput,expectedOutput);
+
+    actualOutput = createHeadLines("sample");
+    expectedOutput = "==> sample <==";
+    assert.deepEqual(actualOutput,expectedOutput);
   });
 });
 
