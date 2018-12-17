@@ -6,7 +6,6 @@ const {
   iscountZero,
   invalidTailOptionError,
   getTrailingLines,
-  smallerNumber,
   invalidCountError,
   invalidHeadOptionError,
   userOption,
@@ -90,22 +89,6 @@ describe("extractHeadLines", function () {
     assert.deepEqual(extractHeadLines(data, 7), expectedOutput);
   });
 });
-
-//------------------------------smallerNumber tests--------------
-
-describe('smallerNumber', function () {
-  it('should return second number if firstNumber is greater than second number', function () {
-    assert.deepEqual(smallerNumber(10, 6), 6);
-  });
-
-  it('should return first numbers if second number is greater than first number', function () {
-    assert.deepEqual(smallerNumber(2, 6), 2);
-  });
-
-  it('should return first number if both are equal', function () {
-    assert.deepEqual(smallerNumber(6, 6), 6);
-  });
-})
 
 //----------------------extractHeadCharacters tests---------------
 describe("extractHeadCharacters", function () {

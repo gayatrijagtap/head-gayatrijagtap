@@ -59,19 +59,11 @@ exports.createHeadLines = createHeadLines;
 
 const extractHeadLines = function (text, count) {
   let lines = text.split("\n");
-  count = smallerNumber(count, lines.length);
+  count = Math.min(count, lines.length);
   return lines.slice(0, count).join("\n");
 };
 
 exports.extractHeadLines = extractHeadLines;
-
-//-----------------------------smallerNumber------------------
-
-const smallerNumber = function (firstNumber, secondNumber) {
-  return firstNumber >= secondNumber ? secondNumber : firstNumber;
-}
-
-exports.smallerNumber = smallerNumber;
 
 //----------------------extractHeadCharacters---------------
 
@@ -261,7 +253,6 @@ module.exports = {
   iscountZero,
   invalidTailOptionError,
   getTrailingLines,
-  smallerNumber,
   invalidCountError,
   invalidHeadOptionError,
   userOption,
