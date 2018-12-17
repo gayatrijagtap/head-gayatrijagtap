@@ -16,9 +16,9 @@
 - [x] 166- isNoOfLinesZero // poor name
 - [x] 178- regex can be reduced
 - [x] 188- command variable can be used
-- [ ] 203- line length more than 80 characters
-- [ ] 211- unused variable files
-- [ ] 222- variable defn can be simplified
+- [X] 203- line length more than 80 characters
+- [X] 211- unused variable files
+- [X] 222- variable defn can be simplified
 - [ ] 229- duplications in functions head and tail
 
 ### libTest.js
