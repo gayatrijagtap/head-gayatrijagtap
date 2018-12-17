@@ -3,8 +3,8 @@
 const parseInput = function (userArgs) {
   let commandDetails = new Object();
   commandDetails.option = extractOption(userArgs[0]);
-  let { lines, index } = noOfLinesWithFileIndex(userArgs.slice(0, 2));
-  commandDetails.noOfLines = lines;
+  let { count, index } = countWithFileIndex(userArgs.slice(0, 2));
+  commandDetails.count = count;
   commandDetails.files = userArgs.slice(index, userArgs.length);
   return commandDetails;
 };
@@ -29,22 +29,22 @@ const userOption = function (optionCandidate) {
 
 exports.userOption = userOption;
 
-//-------------------------noOfLinesWithFileIndex-------------------
+//-------------------------countWithFileIndex-------------------
 
-const noOfLinesWithFileIndex = function (userArgs) {
+const countWithFileIndex = function (userArgs) {
   if (userArgs[0].match(/^-[0-9]/)) {
-    return { lines: userArgs[0].slice(1), index: 1 };
+    return { count: userArgs[0].slice(1), index: 1 };
   }
   if (userArgs[0].match(/^-.[0-9]/)) {
-    return { lines: userArgs[0].slice(2), index: 1 };
+    return { count: userArgs[0].slice(2), index: 1 };
   }
   if (userArgs[0].match(/^-/) && userArgs[1].match(/[0-9]/)) {
-    return { lines: userArgs[1], index: 2 }
+    return { count: userArgs[1], index: 2 }
   }
-  return { lines: '10', index: 0 };
+  return { count: '10', index: 0 };
 };
 
-exports.noOfLinesWithFileIndex = noOfLinesWithFileIndex;
+exports.countWithFileIndex = countWithFileIndex;
 
 //-------------------------createHeadLines--------------
 
@@ -57,10 +57,10 @@ exports.createHeadLines = createHeadLines;
 
 //-----------------------------extractHeadLines------------
 
-const extractHeadLines = function (text, noOfLines) {
+const extractHeadLines = function (text, count) {
   let lines = text.split("\n");
-  noOfLines = smallerNumber(noOfLines, lines.length);
-  return lines.slice(0, noOfLines).join("\n");
+  count = smallerNumber(count, lines.length);
+  return lines.slice(0, count).join("\n");
 };
 
 exports.extractHeadLines = extractHeadLines;
@@ -84,8 +84,8 @@ exports.extractHeadCharacters = extractHeadCharacters;
 
 //----------------------handleHeadErrors---------------------
 
-const handleHeadErrors = function (option, noOfLines) {
-  return invalidHeadOptionError(option) || invalidCountError(noOfLines, option);
+const handleHeadErrors = function (option, count) {
+  return invalidHeadOptionError(option) || invalidCountError(count, option);
 };
 
 exports.handleHeadErrors = handleHeadErrors;
@@ -116,9 +116,9 @@ exports.invalidCountError = invalidCountError;
 
 //-----------------------------------extractTailLines---------------------------
 
-const extractTailLines = function (text, noOfLines) {
+const extractTailLines = function (text, count) {
   let lines = text.split('\n')
-  let trailingLines = getTrailingLines(noOfLines, lines.length);
+  let trailingLines = getTrailingLines(count, lines.length);
   return lines.slice(trailingLines, lines.length).join('\n');
 }
 
@@ -126,8 +126,8 @@ exports.extractTailLines = extractTailLines;
 
 //---------------------------getTrailingLines-------------------------
 
-const getTrailingLines = function (noOfLines, length) {
-  return noOfLines >= length ? 0 : Math.abs(length - noOfLines);
+const getTrailingLines = function (count, length) {
+  return count >= length ? 0 : Math.abs(length - count);
 }
 
 exports.getTrailingLines = getTrailingLines;
@@ -144,8 +144,8 @@ exports.extractTailCharacters = extractTailCharacters;
 
 //------------------------------handleTailErrors------------------------
 
-const handleTailErrors = function (option, noOfLines) {
-  return invalidTailOptionError(option) || isNoOfLinesZero(noOfLines) || illegalOffsetError(noOfLines);
+const handleTailErrors = function (option, count) {
+  return invalidTailOptionError(option) || iscountZero(count) || illegalOffsetError(count);
 };
 
 exports.handleTailErrors = handleTailErrors;
@@ -161,21 +161,21 @@ const invalidTailOptionError = function (option) {
 
 exports.invalidTailOptionError = invalidTailOptionError;
 
-//--------------------------------isNoOfLinesZero-----------------------------
+//--------------------------------iscountZero-----------------------------
 
-const isNoOfLinesZero = function (noOfLines) {
-  if (noOfLines == 0) {
+const iscountZero = function (count) {
+  if (count == 0) {
     return ' ';
   }
 }
 
-exports.isNoOfLinesZero = isNoOfLinesZero;
+exports.iscountZero = iscountZero;
 
 //---------------------------------illegalOffsetError-----------------------
 
-const illegalOffsetError = function (noOfLines) {
-  let errorMessage = 'tail: illegal offset -- ' + noOfLines;
-  if (noOfLines.match(/[a-z A-Z]/)) {
+const illegalOffsetError = function (count) {
+  let errorMessage = 'tail: illegal offset -- ' + count;
+  if (count.match(/[a-z A-Z]/)) {
     return errorMessage;
   }
 }
@@ -198,9 +198,9 @@ exports.missingFileError = missingFileError;
 //-----------------------------singleFileOutput-----------------------
 
 const singleFileOutput = function (commandDetails, type, fs, command) {
-  let { files, option, noOfLines } = commandDetails;
+  let { files, option, count } = commandDetails;
   if (files.length == 1 && fs.existsSync(files[0])) {
-    return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), noOfLines);
+    return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), count);
   }
 }
 
@@ -210,8 +210,8 @@ exports.singleFileOutput = singleFileOutput;
 
 const getHead = function (userArgs, fs) {
   let commandDetails = parseInput(userArgs);
-  let { files, option, noOfLines } = commandDetails;
-  return handleHeadErrors(option, noOfLines) || head(commandDetails, fs);
+  let { files, option, count } = commandDetails;
+  return handleHeadErrors(option, count) || head(commandDetails, fs);
 };
 
 exports.getHead = getHead;
@@ -219,11 +219,11 @@ exports.getHead = getHead;
 //-------------------------------head---------------------------
 
 const head = function (commandDetails, fs) {
-  let { files, option, noOfLines } = commandDetails;
+  let { files, option, count } = commandDetails;
   let type = { n: extractHeadLines, c: extractHeadCharacters };
   let linesAtTop = "";
   for (let file of files) {
-    linesAtTop = linesAtTop + (missingFileError(file, fs.existsSync, 'head') || createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), noOfLines)) + '\n\n';
+    linesAtTop = linesAtTop + (missingFileError(file, fs.existsSync, 'head') || createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
   return singleFileOutput(commandDetails, type, fs, 'head') || linesAtTop;
 }
@@ -234,8 +234,8 @@ exports.head = head;
 
 const getTail = function (userArgs, fs) {
   let tailDetails = parseInput(userArgs);
-  let { files, option, noOfLines } = tailDetails;
-  return handleTailErrors(option, noOfLines) || tail(tailDetails, fs);
+  let { files, option, count } = tailDetails;
+  return handleTailErrors(option, count) || tail(tailDetails, fs);
 };
 
 exports.getTail = getTail;
@@ -243,11 +243,11 @@ exports.getTail = getTail;
 //------------------------------------tail------------------------
 
 const tail = function (tailDetails, fs) {
-  let { files, option, noOfLines } = tailDetails;
+  let { files, option, count } = tailDetails;
   let type = { n: extractTailLines, c: extractTailCharacters };
   let linesAtBottom = "";
   for (let file of files) {
-    linesAtBottom = linesAtBottom + (missingFileError(file, fs.existsSync, 'tail') || createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), noOfLines)) + '\n\n';
+    linesAtBottom = linesAtBottom + (missingFileError(file, fs.existsSync, 'tail') || createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
   return singleFileOutput(tailDetails, type, fs, 'tail') || linesAtBottom;
 }
@@ -258,7 +258,7 @@ module.exports = {
   singleFileOutput,
   missingFileError,
   illegalOffsetError,
-  isNoOfLinesZero,
+  iscountZero,
   invalidTailOptionError,
   getTrailingLines,
   smallerNumber,
@@ -272,7 +272,7 @@ module.exports = {
   handleHeadErrors,
   getHead,
   extractOption,
-  noOfLinesWithFileIndex,
+  countWithFileIndex,
   extractHeadCharacters,
   extractHeadLines,
   parseInput,
