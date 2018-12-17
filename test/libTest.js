@@ -207,24 +207,26 @@ describe("handleHeadErrors", function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return error message for illegal line count", function () {
+  it("should return error message for illegal line count when count is zero", function () {
     let lineError = "head: illegal line count -- " + "0";
     let actualOutput = handleHeadErrors("n", 0);
     let expectedOutput = lineError;
     assert.deepEqual(actualOutput, expectedOutput);
-
+  });
+  it('should return error message for illegal line count when count is negative', function () {
     lineError = "head: illegal line count -- " + "-1";
     actualOutput = handleHeadErrors("n", -1);
     expectedOutput = lineError;
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return error message for illegal byte count", function () {
+  it("should return error message for illegal byte count when count is zero", function () {
     let byteError = "head: illegal byte count -- " + "0";
     let actualOutput = handleHeadErrors("c", 0);
     let expectedOutput = byteError;
     assert.deepEqual(actualOutput, expectedOutput);
-
+  });
+  it('should return error message for illegal byte count when count is negative', function () {
     byteError = "head: illegal byte count -- " + "-1";
     actualOutput = handleHeadErrors("c", -1);
     expectedOutput = byteError;
@@ -251,13 +253,13 @@ describe('invalidHeadOptionError', function () {
 //---------------------------------------invalidCountError tests------------------------
 
 describe('invalidCountError', function () {
-  it('should return illegal byte count error for invalid byte count', function () {
+  it('should return illegal byte count error for invalid byte count and count zero', function () {
     let byteError = "head: illegal byte count -- " + "0";
     let actualOutput = invalidCountError(0, 'c');
     let expectedOutput = byteError;
     assert.deepEqual(actualOutput, expectedOutput);
   });
-  it('should return illegal line count error for invalid line count', function () {
+  it('should return illegal line count error for invalid line count and negative count', function () {
     let lineError = "head: illegal line count -- " + "-1";
     let actualOutput = invalidCountError(-1, 'n');
     let expectedOutput = lineError;
@@ -269,17 +271,23 @@ describe('invalidCountError', function () {
 
 describe('extractTailLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
-  it('should return given number of lines from bottom of the file when the file is larger than no of lines', function () {
+  it('should return 0 lines from bottom of the file when count is 0', function () {
+    let actualOutput = extractTailLines(text, 0)
+    let expectedOutput = '';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return given number of lines from bottom of the file when the file is larger than count', function () {
     let actualOutput = extractTailLines(text, 2);
     let expectedOutput = 'gre\ngfe';
     assert.deepEqual(actualOutput, expectedOutput);
-
+  });
+  it('should return single line from bottom of the file when count is 1', function () {
     actualOutput = extractTailLines(text, 1);
     expectedOutput = 'gfe';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it('should return whole file when no of lines is greater than or equal to lines in file', function () {
+  it('should return whole file when count is greater than or equal to lines in file', function () {
     let actualOutput = extractTailLines(text, 6);
     let expectedOutput = text;
     assert.deepEqual(actualOutput, expectedOutput);
