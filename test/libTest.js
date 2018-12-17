@@ -189,16 +189,21 @@ describe("getHead", function () {
 
 //-------------------------handleHeadErrors tests----------------
 describe("handleHeadErrors", function () {
-  it("should return error message for illegal option", function () {
+
+  it("should return error message for illegal option when optionCandidate is character", function () {
     let optionError =
       "head: illegal option -- " + "s" +
       "\nusage:head [-n lines | -c bytes] [file ...]";
     let actualOutput = handleHeadErrors("s", "12");
     let expectedOutput = optionError;
     assert.deepEqual(actualOutput, expectedOutput);
-
-    actualOutput = handleHeadErrors("sd", "1");
-    expectedOutput = optionError;
+  });
+  it('should return error message for illegal option when optionCandidate is alphaNumeric', function () {
+    let optionError =
+      "head: illegal option -- " + "a" +
+      "\nusage:head [-n lines | -c bytes] [file ...]";
+    let actualOutput = handleHeadErrors("a1", "1");
+    let expectedOutput = optionError;
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
