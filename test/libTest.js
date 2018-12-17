@@ -394,9 +394,15 @@ describe('countZeroError', function () {
 //------------------------------------illegalOffsetError tests--------------------------
 
 describe('illegalOffsetError', function () {
-  it('should return error for the given illegal offset', function () {
+  it('should return error when the given offset is alphaNumeric', function () {
     let errorMessage = 'tail: illegal offset -- ' + '5d';
     let actualOutput = illegalOffsetError('5d');
+    let expectedOutput = errorMessage;
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return error when the given offset is character', function () {
+    let errorMessage = 'tail: illegal offset -- ' + 'd';
+    let actualOutput = illegalOffsetError('d');
     let expectedOutput = errorMessage;
     assert.deepEqual(actualOutput, expectedOutput);
   });
