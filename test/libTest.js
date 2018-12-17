@@ -379,13 +379,14 @@ describe('invalidTailOptionError', function () {
 //----------------------------------countZeroError tests------------------------------
 
 describe('countZeroError', function () {
-  it('should return empty string if given number of lines is zero', function () {
+  it('should return empty string if given count is zero', function () {
     let actualOutput = countZeroError('0');
     let expectedOutput = ' ';
     assert.deepEqual(actualOutput, expectedOutput);
-
-    actualOutput = countZeroError('1');
-    expectedOutput = undefined;
+  });
+  it('should return undefined when count is greater than zero', function () {
+    let actualOutput = countZeroError('1');
+    let expectedOutput = undefined;
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
