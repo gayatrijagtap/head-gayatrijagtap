@@ -271,7 +271,7 @@ describe('invalidCountError', function () {
 
 describe('extractTailLines', function () {
   let text = 'dfs\ndfs\nfd\ngre\ngfe';
-  it('should return 0 lines from bottom of the file when count is 0', function () {
+  it('should return empty string lines from bottom of the file when count is 0', function () {
     let actualOutput = extractTailLines(text, 0)
     let expectedOutput = '';
     assert.deepEqual(actualOutput, expectedOutput);
@@ -310,11 +310,17 @@ describe('getTrailingLines', function () {
 
 describe('extractTailCharacters', function () {
   let text = 'jd djf \n kfd fdhj';
+  it('should return empty string when count is 0', function () {
+    let actualOutput = extractTailCharacters(text, 0);
+    let expectedOutput = '';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
   it('should return given number of characters from the bottom of the file', function () {
     let actualOutput = extractTailCharacters(text, 2);
     let expectedOutput = 'hj';
     assert.deepEqual(actualOutput, expectedOutput);
-
+  });
+  it('should return given number of characters from bottom of the file and should work for new line also', function () {
     actualOutput = extractTailCharacters(text, 5);
     expectedOutput = ' fdhj';
     assert.deepEqual(actualOutput, expectedOutput);
@@ -359,6 +365,12 @@ describe('invalidTailOptionError', function () {
   it('should give error for illegal option', function () {
     let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
     let actualOutput = invalidTailOptionError('s');
+    let expectedOutput = optionError;
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should give error when option is alphaNumeric', function () {
+    let optionError = 'tail: illegal option -- ' + 's1' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+    let actualOutput = invalidTailOptionError('s1');
     let expectedOutput = optionError;
     assert.deepEqual(actualOutput, expectedOutput);
   });
