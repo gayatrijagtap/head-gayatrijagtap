@@ -22,14 +22,14 @@
 - [ ] 229- duplications in functions head and tail
 
 ### libTest.js
-- [ ] identity () and existsSync() could be replaced 
-- [ ] input data could be meaningful
-- [ ] could have declared input data globally
+- [x] identity () and existsSync() could be replaced 
+- [x] input data could be meaningful
+- [x] could have declared input data globally
 
-- [ ] 44- could have used different it blocks
-- [ ] 67- redundant test cases // test cases for undefined and empty string can be written
-- [ ] 80- more test cases can be added // such as empty string, 0 or undefined
-- [ ] 177- more test cases can be added
-- [ ] 371- poor nesting
+- [x] 44- could have used different it blocks
+- [x] 67- redundant test cases // test cases for undefined and empty string can be written
+- [x] 80- more test cases can be added // such as empty string, 0 or undefined
+- [x] 177- more test cases can be added
+- [x] 371- poor nesting
 - [ ] 413- unnecessary if
-- [ ] 434- add more test cases
+- [x] 434- add more test cases
