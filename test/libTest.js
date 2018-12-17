@@ -96,15 +96,15 @@ describe("generateHeading", function () {
 //-----------------------------extractHeadLines tests------------
 describe("extractHeadLines", function () {
   it("should return the head with given number of lines if the length of file is greater than number of lines", function () {
-    let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
-    let expectedOutput = "fhash\nhsakh\nfkdsh";
-    assert.deepEqual(extractHeadLines(data, 3), expectedOutput);
+    let actualOutput = extractHeadLines(files.file1, 3);
+    let expectedOutput = '1\n2\n3';
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it('should return whole file if the length of file is smaller than or equal to given number of lines', function () {
-    let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
-    let expectedOutput = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk\n";
-    assert.deepEqual(extractHeadLines(data, 7), expectedOutput);
+    let actualOutput = extractHeadLines(files.file2, 7);
+    let expectedOutput = 'abc def\n ghij \nklmn';
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 });
 
