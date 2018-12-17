@@ -3,7 +3,7 @@ const {
   singleFileOutput,
   missingFileError,
   illegalOffsetError,
-  iscountZero,
+  countZeroError,
   invalidTailOptionError,
   getTrailingLines,
   invalidCountError,
@@ -343,15 +343,15 @@ describe('invalidTailOptionError', function () {
   });
 })
 
-//----------------------------------iscountZero tests------------------------------
+//----------------------------------countZeroError tests------------------------------
 
-describe('iscountZero', function () {
+describe('countZeroError', function () {
   it('should return empty string if given number of lines is zero', function () {
-    let actualOutput = iscountZero('0');
+    let actualOutput = countZeroError('0');
     let expectedOutput = ' ';
     assert.deepEqual(actualOutput, expectedOutput);
 
-    actualOutput = iscountZero('1');
+    actualOutput = countZeroError('1');
     expectedOutput = undefined;
     assert.deepEqual(actualOutput, expectedOutput);
   });

@@ -137,7 +137,7 @@ exports.extractTailCharacters = extractTailCharacters;
 //------------------------------handleTailErrors------------------------
 
 const handleTailErrors = function (option, count) {
-  return invalidTailOptionError(option) || iscountZero(count) || illegalOffsetError(count);
+  return invalidTailOptionError(option) || countZeroError(count) || illegalOffsetError(count);
 };
 
 exports.handleTailErrors = handleTailErrors;
@@ -153,15 +153,15 @@ const invalidTailOptionError = function (option) {
 
 exports.invalidTailOptionError = invalidTailOptionError;
 
-//--------------------------------iscountZero-----------------------------
+//--------------------------------countZeroError-----------------------------
 
-const iscountZero = function (count) {
+const countZeroError = function (count) {
   if (count == 0) {
     return ' ';
   }
 }
 
-exports.iscountZero = iscountZero;
+exports.countZeroError = countZeroError;
 
 //---------------------------------illegalOffsetError-----------------------
 
@@ -250,7 +250,7 @@ module.exports = {
   singleFileOutput,
   missingFileError,
   illegalOffsetError,
-  iscountZero,
+  countZeroError,
   invalidTailOptionError,
   getTrailingLines,
   invalidCountError,
