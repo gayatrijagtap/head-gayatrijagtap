@@ -1,4 +1,4 @@
-#code review
+# code review
 ```unnecessary file getHead.js
 inconsistency in commenting
 can extract parsing and error handling functions to different file
@@ -6,7 +6,7 @@ exports can be written at the end of the file using module.exports
 nyc output and coverage should be added to .gitignore
 ```
 
-###lib.js
+### lib.js
 ```4- headDetails // misleading name
 6- lines // poor name
 25- regex can be reduced
@@ -23,7 +23,7 @@ nyc output and coverage should be added to .gitignore
 229- duplications in functions head and tail
 ```
 
-###libTest.js
+### libTest.js
 ```identity () and existsSync() could be replaced 
 input data could be meaningful
 could have declared input data globally
