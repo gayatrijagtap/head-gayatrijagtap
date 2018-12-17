@@ -22,7 +22,7 @@ exports.extractOption = extractOption;
 //----------------------------userOption----------------------
 
 const userOption = function (optionCandidate) {
-  if (optionCandidate.match(/^-[a-m o-z A-M O-Z]/)) {
+  if (optionCandidate.match(/^-[A-m O-z]/)) {
     return optionCandidate[1];
   }
 }
