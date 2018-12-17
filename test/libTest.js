@@ -333,30 +333,29 @@ describe('getTrailingLines', function () {
 //-------------------------------------extractTailCharacters------------------------------
 
 describe('extractTailCharacters', function () {
-  let text = 'jd djf \n kfd fdhj';
   it('should return empty string when count is 0', function () {
-    let actualOutput = extractTailCharacters(text, 0);
+    let actualOutput = extractTailCharacters(files.file1, 0);
     let expectedOutput = '';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return given number of characters from the bottom of the file', function () {
-    let actualOutput = extractTailCharacters(text, 2);
-    let expectedOutput = 'hj';
+    let actualOutput = extractTailCharacters(files.file1, 2);
+    let expectedOutput = '12';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return given number of characters from bottom of the file and should work for new line also', function () {
-    actualOutput = extractTailCharacters(text, 5);
-    expectedOutput = ' fdhj';
+    actualOutput = extractTailCharacters(files.file1, 5);
+    expectedOutput = '11\n12';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return given no of characters and should work for blank characters also', function () {
-    let actualOutput = extractTailCharacters(text, 8);
-    let expectedOutput = 'kfd fdhj';
+    let actualOutput = extractTailCharacters(files.file2, 8);
+    let expectedOutput = 'ij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return whole file if no of characters is greater than or equal to no of characters in file', function () {
-    let actualOutput = extractTailCharacters(text, 20);
-    let expectedOutput = text;
+    let actualOutput = extractTailCharacters(files.file2, 20);
+    let expectedOutput = 'abc def\n ghij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
