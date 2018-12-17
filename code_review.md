@@ -4,7 +4,7 @@ can extract parsing and error handling functions to different file
 exports can be written at the end of the file using module.exports
 nyc output and coverage should be added to .gitignore
 
-lib.js
+###lib.js
 4- headDetails // misleading name
 6- lines // poor name
 25- regex can be reduced
@@ -20,7 +20,7 @@ lib.js
 222- variable defn can be simplified
 229- duplications in functions head and tail
 
-libTest.js
+###libTest.js
 identity () and existsSync() could be replaced 
 input data could be meaningful
 could have declared input data globally
