@@ -20,7 +20,7 @@ const {
   extractHeadCharacters,
   extractHeadLines,
   parseInput,
-  createHeadLines
+  generateHeading
 } = require("../src/lib.js");
 
 //---------------------parseInput tests-------------------
@@ -63,15 +63,21 @@ describe("parseInput", function () {
   });
 });
 
-//-------------------------createHeadLines tests--------------
-describe("createHeadLines", function () {
+//-------------------------generateHeading tests--------------
+describe("generateHeading", function () {
   it("should return the heading for the given file name", function () {
-    let actualOutput = createHeadLines("mars");
+    let actualOutput = generateHeading("mars");
     let expectedOutput = "==> mars <==";
     assert.deepEqual(actualOutput, expectedOutput);
-
-    actualOutput = createHeadLines("sample");
-    expectedOutput = "==> sample <==";
+  });
+  it('should return heading for empty string', function () {
+    let actualOutput = generateHeading('');
+    let expectedOutput = '==>  <==';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return heading for undefined', function () {
+    let actualOutput = generateHeading(undefined);
+    let expectedOutput = '==> undefined <==';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });

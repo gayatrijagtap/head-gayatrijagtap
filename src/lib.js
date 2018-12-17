@@ -46,13 +46,13 @@ const countWithFileIndex = function (userArgs) {
 
 exports.countWithFileIndex = countWithFileIndex;
 
-//-------------------------createHeadLines--------------
+//-------------------------generateHeading--------------
 
-const createHeadLines = function (filename) {
+const generateHeading = function (filename) {
   return "==> " + filename + " <==";
 };
 
-exports.createHeadLines = createHeadLines;
+exports.generateHeading = generateHeading;
 
 
 //-----------------------------extractHeadLines------------
@@ -214,7 +214,7 @@ const head = function (commandDetails, fs) {
   let linesAtTop = "";
   for (let file of files) {
     linesAtTop = linesAtTop + (missingFileError(file, fs.existsSync, 'head') ||
-      createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
+      generateHeading(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
   return singleFileOutput(commandDetails, type, fs, 'head') || linesAtTop;
 }
@@ -239,7 +239,7 @@ const tail = function (tailDetails, fs) {
   let linesAtBottom = "";
   for (let file of files) {
     linesAtBottom = linesAtBottom + (missingFileError(file, fs.existsSync, 'tail') ||
-      createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
+      generateHeading(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
   return singleFileOutput(tailDetails, type, fs, 'tail') || linesAtBottom;
 }
@@ -267,5 +267,5 @@ module.exports = {
   extractHeadCharacters,
   extractHeadLines,
   parseInput,
-  createHeadLines
+  generateHeading
 };
