@@ -110,15 +110,14 @@ describe("extractHeadLines", function () {
 
 //----------------------extractHeadCharacters tests---------------
 describe("extractHeadCharacters", function () {
-  let data = "fhash\nhsakh\nfkdsh\nhsaklf\nkjfdhs\ndkfsfk";
   it("should return given number of characters from the top of the file", function () {
-    let actualOutput = extractHeadCharacters(data, 3);
-    let expectedOutput = "fha";
+    let actualOutput = extractHeadCharacters(files.file1, 3);
+    let expectedOutput = "1\n2";
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return given number of characters including new line', function () {
-    let actualOutput = extractHeadCharacters(data, 7);
-    let expectedOutput = "fhash\nh";
+    let actualOutput = extractHeadCharacters(files.file2, 7);
+    let expectedOutput = 'abc def';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
@@ -297,26 +296,25 @@ describe('invalidCountError', function () {
 //--------------------------------------extractTailLines tests------------------------
 
 describe('extractTailLines', function () {
-  let text = 'dfs\ndfs\nfd\ngre\ngfe';
   it('should return empty string lines from bottom of the file when count is 0', function () {
-    let actualOutput = extractTailLines(text, 0)
+    let actualOutput = extractTailLines(files.file1, 0);
     let expectedOutput = '';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return given number of lines from bottom of the file when the file is larger than count', function () {
-    let actualOutput = extractTailLines(text, 2);
-    let expectedOutput = 'gre\ngfe';
+    let actualOutput = extractTailLines(files.file1, 2);
+    let expectedOutput = '11\n12';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return single line from bottom of the file when count is 1', function () {
-    actualOutput = extractTailLines(text, 1);
-    expectedOutput = 'gfe';
+    actualOutput = extractTailLines(files.file2, 1);
+    expectedOutput = 'klmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it('should return whole file when count is greater than or equal to lines in file', function () {
-    let actualOutput = extractTailLines(text, 6);
-    let expectedOutput = text;
+    let actualOutput = extractTailLines(files.file2, 6);
+    let expectedOutput = 'abc def\n ghij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
