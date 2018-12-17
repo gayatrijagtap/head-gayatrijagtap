@@ -1,6 +1,6 @@
-//---------------------extractInputs-------------------
+//---------------------parseInput-------------------
 
-const extractInputs = function (userArgs) {
+const parseInput = function (userArgs) {
   let headDetails = new Object();
   headDetails.option = extractOption(userArgs[0]);
   let { lines, index } = noOfLinesWithFileIndex(userArgs.slice(0, 2));
@@ -9,7 +9,7 @@ const extractInputs = function (userArgs) {
   return headDetails;
 };
 
-exports.extractInputs = extractInputs;
+exports.parseInput = parseInput;
 
 //--------------------------extractOption---------------
 
@@ -209,7 +209,7 @@ exports.singleFileOutput = singleFileOutput;
 //----------------------------getHead-------------------------------
 
 const getHead = function (userArgs, fs) {
-  let headDetails = extractInputs(userArgs);
+  let headDetails = parseInput(userArgs);
   let { files, option, noOfLines } = headDetails;
   return handleHeadErrors(option, noOfLines) || head(headDetails, fs);
 };
@@ -233,7 +233,7 @@ exports.head = head;
 //----------------------------------getTail------------------------
 
 const getTail = function (userArgs, fs) {
-  let tailDetails = extractInputs(userArgs);
+  let tailDetails = parseInput(userArgs);
   let { files, option, noOfLines } = tailDetails;
   return handleTailErrors(option, noOfLines) || tail(tailDetails, fs);
 };
@@ -275,6 +275,6 @@ module.exports = {
   noOfLinesWithFileIndex,
   extractHeadCharacters,
   extractHeadLines,
-  extractInputs,
+  parseInput,
   createHeadLines
 };
