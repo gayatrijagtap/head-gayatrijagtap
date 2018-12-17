@@ -328,7 +328,6 @@ describe('getTrailingLines', function () {
     assert.deepEqual(getTrailingLines(5, 6), 1);
   });
   it('should return 0 if there are no trailing lines', function () {
-    assert.deepEqual(getTrailingLines(5, 4), 0);
     assert.deepEqual(getTrailingLines(6, 6), 0);
   });
 })
@@ -438,23 +437,43 @@ describe('illegalOffsetError', function () {
 //---------------------------------getTail tests----------------------------------
 
 describe('getTail', function () {
-  let readFileSync = file => file;
-  let existsSync = file => true;
-  let fs = { readFileSync, existsSync };
-  it('should return tail of the file with given specifications', function () {
-    let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
-    let userArgs = ["-n2", data];
+  it('should return tail of the single file for default arguments', function () {
+    let userArgs = ['file1'];
     let actualOutput = getTail(userArgs, fs);
-    let expectedOutput = "dfjkshjk\ndsfjdfdkjfs";
-    assert.deepEqual(actualOutput, expectedOutput);
-
-    data = "grldfjd";
-    userArgs = ["-c", "4", data];
-    actualOutput = getTail(userArgs, fs);
-    expectedOutput = "dfjd";
+    let expectedOutput = "3\n4\n5\n6\n7\n8\n9\n10\n11\n12";
     assert.deepEqual(actualOutput, expectedOutput);
   });
-})
+  it("should return tail of the single file for option n with given no of lines", function () {
+    let userArgs = ["-n2", 'file1'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = "11\n12";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return tail of the single file for option c with given no of characters', function () {
+    let userArgs = ["-c", "4", 'file2'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = 'klmn';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return tail of the multiple files for default arguments', function () {
+    let userArgs = ['file1', 'file2'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n\n==> file2 <==\nabc def\n ghij \nklmn\n\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it("should return tail of the multiple files for option n with given no of lines", function () {
+    let userArgs = ["-n2", 'file1', 'file2'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n11\n12\n\n==> file2 <==\n ghij \nklmn\n\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return tail of the multiple files for option c with given no of characters', function () {
+    let userArgs = ["-c", "4", 'file1', 'file2'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n1\n12\n\n==> file2 <==\nklmn\n\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+});
 
 //------------------------------------missingFileError tests----------------------
 
