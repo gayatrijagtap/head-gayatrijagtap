@@ -177,11 +177,9 @@ exports.illegalOffsetError = illegalOffsetError;
 //------------------------------missingFileError-------------------
 
 const missingFileError = function (file, existsSync, command) {
-  let head = "head: " + file + ": No such file or directory";
-  let tail = 'tail: ' + file + ": No such file or directory";
-  let error = { head, tail };
+  let error = command + ": " + file + ": No such file or directory";
   if (!existsSync(file)) {
-    return error[command];
+    return error;
   }
 };
 
