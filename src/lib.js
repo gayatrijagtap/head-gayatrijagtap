@@ -1,12 +1,12 @@
 //---------------------parseInput-------------------
 
 const parseInput = function (userArgs) {
-  let headDetails = new Object();
-  headDetails.option = extractOption(userArgs[0]);
+  let commandDetails = new Object();
+  commandDetails.option = extractOption(userArgs[0]);
   let { lines, index } = noOfLinesWithFileIndex(userArgs.slice(0, 2));
-  headDetails.noOfLines = lines;
-  headDetails.files = userArgs.slice(index, userArgs.length);
-  return headDetails;
+  commandDetails.noOfLines = lines;
+  commandDetails.files = userArgs.slice(index, userArgs.length);
+  return commandDetails;
 };
 
 exports.parseInput = parseInput;
@@ -197,8 +197,8 @@ exports.missingFileError = missingFileError;
 
 //-----------------------------singleFileOutput-----------------------
 
-const singleFileOutput = function (headDetails, type, fs, command) {
-  let { files, option, noOfLines } = headDetails;
+const singleFileOutput = function (commandDetails, type, fs, command) {
+  let { files, option, noOfLines } = commandDetails;
   if (files.length == 1 && fs.existsSync(files[0])) {
     return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), noOfLines);
   }
@@ -209,23 +209,23 @@ exports.singleFileOutput = singleFileOutput;
 //----------------------------getHead-------------------------------
 
 const getHead = function (userArgs, fs) {
-  let headDetails = parseInput(userArgs);
-  let { files, option, noOfLines } = headDetails;
-  return handleHeadErrors(option, noOfLines) || head(headDetails, fs);
+  let commandDetails = parseInput(userArgs);
+  let { files, option, noOfLines } = commandDetails;
+  return handleHeadErrors(option, noOfLines) || head(commandDetails, fs);
 };
 
 exports.getHead = getHead;
 
 //-------------------------------head---------------------------
 
-const head = function (headDetails, fs) {
-  let { files, option, noOfLines } = headDetails;
+const head = function (commandDetails, fs) {
+  let { files, option, noOfLines } = commandDetails;
   let type = { n: extractHeadLines, c: extractHeadCharacters };
   let linesAtTop = "";
   for (let file of files) {
     linesAtTop = linesAtTop + (missingFileError(file, fs.existsSync, 'head') || createHeadLines(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), noOfLines)) + '\n\n';
   }
-  return singleFileOutput(headDetails, type, fs, 'head') || linesAtTop;
+  return singleFileOutput(commandDetails, type, fs, 'head') || linesAtTop;
 }
 
 exports.head = head;

@@ -26,12 +26,12 @@ const {
 
 //---------------------parseInput tests-------------------
 describe("parseInput", function () {
-  it('should return headDetails for single file with default option and no of lines', function () {
+  it('should return commandDetails for single file with default option and no of lines', function () {
     let actualOutput = parseInput(['file1']);
     let expectedOutput = { option: 'n', noOfLines: 10, files: ['file1'] };
     assert.deepEqual(actualOutput, expectedOutput);
   });
-  it("should return headDetails with given option , no of lines and file", function () {
+  it("should return commandDetails with given option , no of lines and file", function () {
     let actualOutput = parseInput(["-n5", "file1"]);
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
     assert.deepEqual(actualOutput, expectedOutput);
@@ -45,7 +45,7 @@ describe("parseInput", function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return headDetails with default option when option is not passed", function () {
+  it("should return commandDetails with default option when option is not passed", function () {
     let actualOutput = parseInput(["-5", "file1"]);
     let expectedOutput = { option: "n", noOfLines: 5, files: ["file1"] };
     assert.deepEqual(actualOutput, expectedOutput);
@@ -56,7 +56,7 @@ describe("parseInput", function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return headDetails with default option and no of lines when multiple files are passed", function () {
+  it("should return commandDetails with default option and no of lines when multiple files are passed", function () {
     let actualOutput = parseInput(["file1", "file2"]);
     let expectedOutput = { option: "n", noOfLines: 10, files: ["file1", "file2"] };
     assert.deepEqual(actualOutput, expectedOutput);
