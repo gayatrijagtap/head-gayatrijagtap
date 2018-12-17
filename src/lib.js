@@ -99,7 +99,7 @@ const invalidCountError = function (count, option) {
   let countError = new Object;
   countError['n'] = "head: illegal line count -- " + count;
   countError['c'] = "head: illegal byte count -- " + count;
-  if ((count <= 0 || count.match(/[a-z A-Z]/))) {
+  if ((count <= 0 || count.match(/[A-z]/))) {
     return countError[option];
   }
 }
