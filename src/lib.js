@@ -167,7 +167,7 @@ exports.countZeroError = countZeroError;
 
 const illegalOffsetError = function (count) {
   let errorMessage = 'tail: illegal offset -- ' + count;
-  if (count.match(/[a-z A-Z]/)) {
+  if (count.match(/[A-z]/)) {
     return errorMessage;
   }
 }
