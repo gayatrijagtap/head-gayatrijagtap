@@ -23,6 +23,17 @@ const {
   generateHeading
 } = require("../src/lib.js");
 
+const files = {
+  file1: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12",
+  file2: "abc def\n ghij \nklmn"
+};
+const fileNames = ['file1', 'file2'];
+const readFileSync = file => files[file];
+const existsSync = function (fileName) {
+  return fileNames.includes(fileName);
+}
+const fs = { readFileSync, existsSync };
+
 //---------------------parseInput tests-------------------
 describe("parseInput", function () {
   it('should return commandDetails for single file with default option and count', function () {
@@ -166,23 +177,40 @@ describe("countWithFileIndex", function () {
 //--------------------------getHead tests---------------------
 
 describe("getHead", function () {
-  let readFileSync = file => file;
-  let existsSync = file => true;
-  let fs = { readFileSync, existsSync };
-
-  it("should return head of the file for option n with given no of lines", function () {
-    let data = "fsdjfhsdh\ndfjkshjk\ndsfjdfdkjfs";
-    let userArgs = ["-n2", data];
+  it('should return head of the single file for default arguments', function () {
+    let userArgs = ['file1'];
     let actualOutput = getHead(userArgs, fs);
-    let expectedOutput = "fsdjfhsdh\ndfjkshjk";
+    let expectedOutput = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
     assert.deepEqual(actualOutput, expectedOutput);
   });
-
-  it('should return head of the file for option c with given no of characters', function () {
-    let data = "grldfjd";
-    let userArgs = ["-c", "4", data];
+  it("should return head of the single file for option n with given no of lines", function () {
+    let userArgs = ["-n2", 'file1'];
     let actualOutput = getHead(userArgs, fs);
-    let expectedOutput = "grld";
+    let expectedOutput = "1\n2";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return head of the single file for option c with given no of characters', function () {
+    let userArgs = ["-c", "4", 'file2'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = "abc ";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return head of the multiple files for default arguments', function () {
+    let userArgs = ['file1', 'file2'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n\n==> file2 <==\nabc def\n ghij \nklmn\n\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it("should return head of the multiple files for option n with given no of lines", function () {
+    let userArgs = ["-n2", 'file1', 'file2'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n1\n2\n\n==> file2 <==\nabc def\n ghij \n\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return head of the multiple files for option c with given no of characters', function () {
+    let userArgs = ["-c", "4", 'file1', 'file2'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n1\n2\n\n\n==> file2 <==\nabc \n\n';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
@@ -206,7 +234,6 @@ describe("handleHeadErrors", function () {
     let expectedOutput = optionError;
     assert.deepEqual(actualOutput, expectedOutput);
   });
-
   it("should return error message for illegal line count when count is zero", function () {
     let lineError = "head: illegal line count -- " + "0";
     let actualOutput = handleHeadErrors("n", 0);
