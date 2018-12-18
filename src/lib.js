@@ -55,6 +55,7 @@ const generateSingleFileOutput = function (commandDetails, type, fs, command) {
   if (files.length == 1 && fs.existsSync(files[0])) {
     return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), count);
   }
+  return '';
 }
 
 //----------------------------getHead-------------------------------

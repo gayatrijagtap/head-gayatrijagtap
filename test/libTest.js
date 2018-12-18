@@ -230,12 +230,12 @@ describe('generateSingleFileOutput', function () {
   let fs = { existsSync: x => false };
   it('should return undefined when there is only one file in user inputs', function () {
     let actualOutput = generateSingleFileOutput({ files: [data, content], option: 'n', count: 1 }, fs, 'head');
-    let expectedOutput = undefined;
+    let expectedOutput = '';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return undefined when there are more than one files', function () {
     let actualOutput = generateSingleFileOutput({ files: [data, content], option: 'n', count: 2 }, fs, 'tail');
-    let expectedOutput = undefined;
+    let expectedOutput = '';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
