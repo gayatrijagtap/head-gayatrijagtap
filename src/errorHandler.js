@@ -45,9 +45,11 @@ const invalidTailOptionError = function (option) {
 //--------------------------------countZeroError-----------------------------
 
 const countZeroError = function (count) {
+    let error = '';
     if (count == 0) {
-        return ' ';
+        error = ' ';
     }
+    return error;
 }
 
 //---------------------------------illegalOffsetError-----------------------

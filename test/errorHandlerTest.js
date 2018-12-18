@@ -148,7 +148,7 @@ describe('countZeroError', function () {
     });
     it('should return undefined when count is greater than zero', function () {
         let actualOutput = countZeroError('1');
-        let expectedOutput = undefined;
+        let expectedOutput = '';
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })
