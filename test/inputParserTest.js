@@ -68,8 +68,8 @@ describe('userOption', function () {
     it('should return option when option and count are not given together', function () {
         assert.deepEqual(userOption('-s'), 's');
     });
-    it('should return undefined if option is not passed', function () {
-        assert.deepEqual(userOption('-5'), undefined);
+    it('should return empty string if option is not passed', function () {
+        assert.deepEqual(userOption('-5'), '');
     });
 })
 

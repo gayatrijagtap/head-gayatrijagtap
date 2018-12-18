@@ -19,6 +19,7 @@ const userOption = function (optionCandidate) {
     if (optionCandidate.match(/^-[A-m O-z]/)) {
         return optionCandidate[1];
     }
+    return '';
 }
 
 //-------------------------extractCountWithFileIndex-------------------
