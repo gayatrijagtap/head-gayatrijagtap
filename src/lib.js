@@ -48,9 +48,9 @@ const extractTailCharacters = function (text, noOfChars) {
   return characters.slice(trailingChars, characters.length).join('')
 }
 
-//-----------------------------singleFileOutput-----------------------
+//-----------------------------generateSingleFileOutput-----------------------
 
-const singleFileOutput = function (commandDetails, type, fs, command) {
+const generateSingleFileOutput = function (commandDetails, type, fs, command) {
   let { files, option, count } = commandDetails;
   if (files.length == 1 && fs.existsSync(files[0])) {
     return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), count);
@@ -76,7 +76,7 @@ const requiredContent = function (commandDetails, typesOfOption, fs) {
     content = content + (missingFileError(file, fs.existsSync, commandDetails.command) ||
       generateHeading(file) + '\n' + typesOfOption[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
-  return singleFileOutput(commandDetails, typesOfOption, fs, commandDetails.command) || content;
+  return generateSingleFileOutput(commandDetails, typesOfOption, fs, commandDetails.command) || content;
 }
 
 //----------------------------------getTail------------------------
@@ -90,7 +90,7 @@ const getTail = function (userArgs, fs) {
 };
 
 module.exports = {
-  singleFileOutput,
+  generateSingleFileOutput,
   getTrailingLines,
   getTail,
   extractTailCharacters,

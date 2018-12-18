@@ -1,6 +1,6 @@
 const assert = require("assert");
 const {
-  singleFileOutput,
+  generateSingleFileOutput,
   getTrailingLines,
   getTail,
   extractTailCharacters,
@@ -222,19 +222,19 @@ describe('getTail', function () {
   });
 });
 
-//----------------------------------singleFileOutput tests----------------------
+//----------------------------------generateSingleFileOutput tests----------------------
 
-describe('singleFileOutput', function () {
+describe('generateSingleFileOutput', function () {
   let data;
   let content;
   let fs = { existsSync: x => false };
-  it('should return head without headline if there is only one file in user inputs', function () {
-    let actualOutput = singleFileOutput({ files: [data, content], option: 'n', count: 1 }, fs, 'head');
+  it('should return undefined when there is only one file in user inputs', function () {
+    let actualOutput = generateSingleFileOutput({ files: [data, content], option: 'n', count: 1 }, fs, 'head');
     let expectedOutput = undefined;
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return undefined when there are more than one files', function () {
-    let actualOutput = singleFileOutput({ files: [data, content], option: 'n', count: 2 }, fs, 'tail');
+    let actualOutput = generateSingleFileOutput({ files: [data, content], option: 'n', count: 2 }, fs, 'tail');
     let expectedOutput = undefined;
     assert.deepEqual(actualOutput, expectedOutput);
   });
