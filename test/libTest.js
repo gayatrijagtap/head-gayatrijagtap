@@ -23,6 +23,7 @@ const existsSync = function (fileName) {
 const fs = { readFileSync, existsSync };
 
 //-------------------------generateHeading tests--------------
+
 describe("generateHeading", function () {
   it("should return the heading for the given file name", function () {
     let actualOutput = generateHeading("mars");
@@ -42,6 +43,7 @@ describe("generateHeading", function () {
 });
 
 //-----------------------------extractHeadLines tests------------
+
 describe("extractHeadLines", function () {
   it("should return the head with given number of lines if the length of file is greater than number of lines", function () {
     let actualOutput = extractHeadLines(files.file1, 3);
@@ -57,6 +59,7 @@ describe("extractHeadLines", function () {
 });
 
 //----------------------extractHeadCharacters tests---------------
+
 describe("extractHeadCharacters", function () {
   it("should return given number of characters from the top of the file", function () {
     let actualOutput = extractHeadCharacters(files.file1, 3);

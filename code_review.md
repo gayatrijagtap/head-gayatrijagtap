@@ -1,7 +1,7 @@
 # code review
 - [x] unnecessary file getHead.js
 - [x] inconsistency in commenting
-- [ ] can extract parsing and error handling functions to different file
+- [x] can extract parsing and error handling functions to different file
 - [x] exports can be written at the end of the file using module.exports
 - [x] nyc output and coverage should be added to .gitignore
 
@@ -19,7 +19,7 @@
 - [X] 203- line length more than 80 characters
 - [X] 211- unused variable files
 - [X] 222- variable defn can be simplified
-- [ ] 229- duplications in functions head and tail
+- [x] 229- duplications in functions head and tail
 
 ### libTest.js
 - [x] identity () and existsSync() could be replaced 

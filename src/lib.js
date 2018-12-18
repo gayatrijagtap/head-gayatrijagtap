@@ -1,5 +1,9 @@
 const { parseInput } = require('./inputParser.js');
-const { handleHeadErrors, handleTailErrors, missingFileError } = require('./errorHandler.js');
+const {
+  handleHeadErrors,
+  handleTailErrors,
+  missingFileError
+} = require('./errorHandler.js');
 
 //-------------------------generateHeading--------------
 
@@ -57,43 +61,33 @@ const singleFileOutput = function (commandDetails, type, fs, command) {
 
 const getHead = function (userArgs, fs) {
   let commandDetails = parseInput(userArgs);
+  commandDetails.command = 'head';
   let { option, count } = commandDetails;
-  return handleHeadErrors(option, count) || head(commandDetails, fs);
+  let typesOfOption = { n: extractHeadLines, c: extractHeadCharacters };
+  return handleHeadErrors(option, count) || requiredContent(commandDetails, typesOfOption, fs);
 };
 
-//-------------------------------head---------------------------
+//------------------------------requiredContent-------------------------
 
-const head = function (commandDetails, fs) {
+const requiredContent = function (commandDetails, typesOfOption, fs) {
   let { files, option, count } = commandDetails;
-  let type = { n: extractHeadLines, c: extractHeadCharacters };
-  let linesAtTop = "";
+  let content = '';
   for (let file of files) {
-    linesAtTop = linesAtTop + (missingFileError(file, fs.existsSync, 'head') ||
-      generateHeading(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
+    content = content + (missingFileError(file, fs.existsSync, commandDetails.command) ||
+      generateHeading(file) + '\n' + typesOfOption[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
   }
-  return singleFileOutput(commandDetails, type, fs, 'head') || linesAtTop;
+  return singleFileOutput(commandDetails, typesOfOption, fs, commandDetails.command) || content;
 }
 
 //----------------------------------getTail------------------------
 
 const getTail = function (userArgs, fs) {
-  let tailDetails = parseInput(userArgs);
-  let { option, count } = tailDetails;
-  return handleTailErrors(option, count) || tail(tailDetails, fs);
+  let commandDetails = parseInput(userArgs);
+  commandDetails.command = 'tail';
+  let { option, count } = commandDetails;
+  let typesOfOption = { n: extractTailLines, c: extractTailCharacters };
+  return handleTailErrors(option, count) || requiredContent(commandDetails, typesOfOption, fs);
 };
-
-//------------------------------------tail------------------------
-
-const tail = function (tailDetails, fs) {
-  let { files, option, count } = tailDetails;
-  let type = { n: extractTailLines, c: extractTailCharacters };
-  let linesAtBottom = "";
-  for (let file of files) {
-    linesAtBottom = linesAtBottom + (missingFileError(file, fs.existsSync, 'tail') ||
-      generateHeading(file) + '\n' + type[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
-  }
-  return singleFileOutput(tailDetails, type, fs, 'tail') || linesAtBottom;
-}
 
 module.exports = {
   singleFileOutput,
