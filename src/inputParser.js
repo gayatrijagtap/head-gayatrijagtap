@@ -1,7 +1,7 @@
 const parseInput = function (userArgs) {
     let commandDetails = new Object();
     commandDetails.option = extractOption(userArgs[0]);
-    let { count, index } = countWithFileIndex(userArgs.slice(0, 2));
+    let { count, index } = extractCountWithFileIndex(userArgs.slice(0, 2));
     commandDetails.count = count;
     commandDetails.files = userArgs.slice(index, userArgs.length);
     return commandDetails;
@@ -21,9 +21,9 @@ const userOption = function (optionCandidate) {
     }
 }
 
-//-------------------------countWithFileIndex-------------------
+//-------------------------extractCountWithFileIndex-------------------
 
-const countWithFileIndex = function (userArgs) {
+const extractCountWithFileIndex = function (userArgs) {
     if (userArgs[0].match(/^-[0-9]/)) {
         return { count: userArgs[0].slice(1), index: 1 };
     }
@@ -40,5 +40,5 @@ module.exports = {
     parseInput,
     extractOption,
     userOption,
-    countWithFileIndex
+    extractCountWithFileIndex
 };

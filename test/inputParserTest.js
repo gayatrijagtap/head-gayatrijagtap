@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {
     parseInput,
-    countWithFileIndex,
+    extractCountWithFileIndex,
     extractOption,
     userOption
 } = require('../src/inputParser.js');
@@ -73,25 +73,25 @@ describe('userOption', function () {
     });
 })
 
-//-------------------------countWithFileIndex tests-------------------
-describe("countWithFileIndex", function () {
+//-------------------------extractCountWithFileIndex tests-------------------
+describe("extractCountWithFileIndex", function () {
     it("should return count with file starting index when count is given along with option", function () {
-        let actualOutput = countWithFileIndex(["-c5", ""]);
+        let actualOutput = extractCountWithFileIndex(["-c5", ""]);
         let expectedOutput = { count: 5, index: 1 };
         assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return count with file starting index when count is given without option', function () {
-        let actualOutput = countWithFileIndex(["-5", ""]);
+        let actualOutput = extractCountWithFileIndex(["-5", ""]);
         let expectedOutput = { count: 5, index: 1 };
         assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return count with file starting index when count and option are given seperately', function () {
-        actualOutput = countWithFileIndex(["-c", "2"]);
+        actualOutput = extractCountWithFileIndex(["-c", "2"]);
         expectedOutput = { count: 2, index: 2 };
         assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return default no of lines if it is not given', function () {
-        let actualOutput = countWithFileIndex(["file1", "file2"]);
+        let actualOutput = extractCountWithFileIndex(["file1", "file2"]);
         let expectedOutput = { count: 10, index: 0 };
         assert.deepEqual(actualOutput, expectedOutput);
     });
