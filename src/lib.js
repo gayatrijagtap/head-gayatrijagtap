@@ -1,59 +1,10 @@
-//---------------------parseInput-------------------
-
-const parseInput = function (userArgs) {
-  let commandDetails = new Object();
-  commandDetails.option = extractOption(userArgs[0]);
-  let { count, index } = countWithFileIndex(userArgs.slice(0, 2));
-  commandDetails.count = count;
-  commandDetails.files = userArgs.slice(index, userArgs.length);
-  return commandDetails;
-};
-
-exports.parseInput = parseInput;
-
-//--------------------------extractOption---------------
-
-const extractOption = function (optionCandidate) {
-  return userOption(optionCandidate) || 'n';
-};
-
-exports.extractOption = extractOption;
-
-//----------------------------userOption----------------------
-
-const userOption = function (optionCandidate) {
-  if (optionCandidate.match(/^-[A-m O-z]/)) {
-    return optionCandidate[1];
-  }
-}
-
-exports.userOption = userOption;
-
-//-------------------------countWithFileIndex-------------------
-
-const countWithFileIndex = function (userArgs) {
-  if (userArgs[0].match(/^-[0-9]/)) {
-    return { count: userArgs[0].slice(1), index: 1 };
-  }
-  if (userArgs[0].match(/^-.[0-9]/)) {
-    return { count: userArgs[0].slice(2), index: 1 };
-  }
-  if (userArgs[0].match(/^-/) && userArgs[1].match(/[0-9]/)) {
-    return { count: userArgs[1], index: 2 }
-  }
-  return { count: '10', index: 0 };
-};
-
-exports.countWithFileIndex = countWithFileIndex;
+const { parseInput } = require('./inputParser.js');
 
 //-------------------------generateHeading--------------
 
 const generateHeading = function (filename) {
   return "==> " + filename + " <==";
 };
-
-exports.generateHeading = generateHeading;
-
 
 //-----------------------------extractHeadLines------------
 
@@ -63,8 +14,6 @@ const extractHeadLines = function (text, count) {
   return lines.slice(0, count).join("\n");
 };
 
-exports.extractHeadLines = extractHeadLines;
-
 //----------------------extractHeadCharacters---------------
 
 const extractHeadCharacters = function (text, noOfChars) {
@@ -72,15 +21,11 @@ const extractHeadCharacters = function (text, noOfChars) {
   return characters.slice(0, noOfChars).join("");
 };
 
-exports.extractHeadCharacters = extractHeadCharacters;
-
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function (option, count) {
   return invalidHeadOptionError(option) || invalidCountError(count, option);
 };
-
-exports.handleHeadErrors = handleHeadErrors;
 
 //-------------------------------invalidHeadOptionError---------------------
 
@@ -90,8 +35,6 @@ const invalidHeadOptionError = function (optionCandidate) {
     return optionError;
   }
 }
-
-exports.invalidHeadOptionError = invalidHeadOptionError;
 
 //------------------------------invalidCountError-------------------------
 
@@ -104,8 +47,6 @@ const invalidCountError = function (count, option) {
   }
 }
 
-exports.invalidCountError = invalidCountError;
-
 //-----------------------------------extractTailLines---------------------------
 
 const extractTailLines = function (text, count) {
@@ -114,15 +55,11 @@ const extractTailLines = function (text, count) {
   return lines.slice(trailingLines, lines.length).join('\n');
 }
 
-exports.extractTailLines = extractTailLines;
-
 //---------------------------getTrailingLines-------------------------
 
 const getTrailingLines = function (count, length) {
   return count >= length ? 0 : Math.abs(length - count);
 }
-
-exports.getTrailingLines = getTrailingLines;
 
 //----------------------extractHeadCharacters---------------
 
@@ -132,15 +69,11 @@ const extractTailCharacters = function (text, noOfChars) {
   return characters.slice(trailingChars, characters.length).join('')
 }
 
-exports.extractTailCharacters = extractTailCharacters;
-
 //------------------------------handleTailErrors------------------------
 
 const handleTailErrors = function (option, count) {
   return invalidTailOptionError(option) || countZeroError(count) || illegalOffsetError(count);
 };
-
-exports.handleTailErrors = handleTailErrors;
 
 //-----------------------------------invalidTailOptionError--------------------
 
@@ -151,8 +84,6 @@ const invalidTailOptionError = function (option) {
   }
 }
 
-exports.invalidTailOptionError = invalidTailOptionError;
-
 //--------------------------------countZeroError-----------------------------
 
 const countZeroError = function (count) {
@@ -160,8 +91,6 @@ const countZeroError = function (count) {
     return ' ';
   }
 }
-
-exports.countZeroError = countZeroError;
 
 //---------------------------------illegalOffsetError-----------------------
 
@@ -172,8 +101,6 @@ const illegalOffsetError = function (count) {
   }
 }
 
-exports.illegalOffsetError = illegalOffsetError;
-
 //------------------------------missingFileError-------------------
 
 const missingFileError = function (file, existsSync, command) {
@@ -182,8 +109,6 @@ const missingFileError = function (file, existsSync, command) {
     return error;
   }
 };
-
-exports.missingFileError = missingFileError;
 
 //-----------------------------singleFileOutput-----------------------
 
@@ -194,8 +119,6 @@ const singleFileOutput = function (commandDetails, type, fs, command) {
   }
 }
 
-exports.singleFileOutput = singleFileOutput;
-
 //----------------------------getHead-------------------------------
 
 const getHead = function (userArgs, fs) {
@@ -203,8 +126,6 @@ const getHead = function (userArgs, fs) {
   let { option, count } = commandDetails;
   return handleHeadErrors(option, count) || head(commandDetails, fs);
 };
-
-exports.getHead = getHead;
 
 //-------------------------------head---------------------------
 
@@ -219,8 +140,6 @@ const head = function (commandDetails, fs) {
   return singleFileOutput(commandDetails, type, fs, 'head') || linesAtTop;
 }
 
-exports.head = head;
-
 //----------------------------------getTail------------------------
 
 const getTail = function (userArgs, fs) {
@@ -228,8 +147,6 @@ const getTail = function (userArgs, fs) {
   let { option, count } = tailDetails;
   return handleTailErrors(option, count) || tail(tailDetails, fs);
 };
-
-exports.getTail = getTail;
 
 //------------------------------------tail------------------------
 
@@ -244,8 +161,6 @@ const tail = function (tailDetails, fs) {
   return singleFileOutput(tailDetails, type, fs, 'tail') || linesAtBottom;
 }
 
-exports.tail = tail;
-
 module.exports = {
   singleFileOutput,
   missingFileError,
@@ -255,17 +170,13 @@ module.exports = {
   getTrailingLines,
   invalidCountError,
   invalidHeadOptionError,
-  userOption,
   getTail,
   handleTailErrors,
   extractTailCharacters,
   extractTailLines,
   handleHeadErrors,
   getHead,
-  extractOption,
-  countWithFileIndex,
   extractHeadCharacters,
   extractHeadLines,
-  parseInput,
   generateHeading
 };
