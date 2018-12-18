@@ -233,4 +233,9 @@ describe('singleFileOutput', function () {
     let expectedOutput = undefined;
     assert.deepEqual(actualOutput, expectedOutput);
   });
+  it('should return undefined when there are more than one files', function () {
+    let actualOutput = singleFileOutput({ files: [data, content], option: 'n', count: 2 }, fs, 'tail');
+    let expectedOutput = undefined;
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
 })
