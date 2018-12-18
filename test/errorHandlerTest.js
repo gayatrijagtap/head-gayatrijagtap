@@ -65,9 +65,9 @@ describe('invalidHeadOptionError', function () {
         let expectedOutput = optionError;
         assert.deepEqual(actualOutput, expectedOutput);
     });
-    it('should return undefined for the valid option', function () {
+    it('should return empty string for the valid option', function () {
         let actualOutput = invalidHeadOptionError('n');
-        let expectedOutput = undefined;
+        let expectedOutput = '';
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })

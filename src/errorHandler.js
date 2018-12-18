@@ -7,10 +7,11 @@ const handleHeadErrors = function (option, count) {
 //-------------------------------invalidHeadOptionError---------------------
 
 const invalidHeadOptionError = function (optionCandidate) {
-    let optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
+    let optionError = '';
     if (optionCandidate != 'c' && optionCandidate != 'n') {
-        return optionError;
+        optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
     }
+    return optionError;
 }
 
 //------------------------------invalidCountError-------------------------
