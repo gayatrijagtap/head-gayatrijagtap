@@ -168,6 +168,11 @@ describe('illegalOffsetError', function () {
         let expectedOutput = errorMessage;
         assert.deepEqual(actualOutput, expectedOutput);
     });
+    it('should return empty string for valid offset', function () {
+        let actualOutput = illegalOffsetError('1');
+        let expectedOutput = '';
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
 })
 
 //------------------------------------missingFileError tests----------------------

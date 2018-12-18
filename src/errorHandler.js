@@ -55,10 +55,11 @@ const countZeroError = function (count) {
 //---------------------------------illegalOffsetError-----------------------
 
 const illegalOffsetError = function (count) {
-    let errorMessage = 'tail: illegal offset -- ' + count;
+    let errorMessage = '';
     if (count.match(/[A-z]/)) {
-        return errorMessage;
+        errorMessage = 'tail: illegal offset -- ' + count;
     }
+    return errorMessage;
 }
 
 //------------------------------missingFileError-------------------
