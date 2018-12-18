@@ -196,4 +196,10 @@ describe('missingFileError', function () {
         let expectedOutput = tailError;
         assert.deepEqual(actualOutput, expectedOutput);
     });
+    it('should return empty string for valid file', function () {
+        data = true;
+        let actualOutput = missingFileError(data, isExists, 'tail');
+        let expectedOutput = '';
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
 })

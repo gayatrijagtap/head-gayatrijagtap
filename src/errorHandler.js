@@ -65,10 +65,11 @@ const illegalOffsetError = function (count) {
 //------------------------------missingFileError-------------------
 
 const missingFileError = function (file, existsSync, command) {
-    let error = command + ": " + file + ": No such file or directory";
+    let error = '';
     if (!existsSync(file)) {
-        return error;
+        error = command + ": " + file + ": No such file or directory";
     }
+    return error;
 };
 
 module.exports = {
