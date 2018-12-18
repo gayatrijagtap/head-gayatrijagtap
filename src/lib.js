@@ -1,4 +1,5 @@
 const { parseInput } = require('./inputParser.js');
+const { handleHeadErrors, handleTailErrors, missingFileError } = require('./errorHandler.js');
 
 //-------------------------generateHeading--------------
 
@@ -21,32 +22,6 @@ const extractHeadCharacters = function (text, noOfChars) {
   return characters.slice(0, noOfChars).join("");
 };
 
-//----------------------handleHeadErrors---------------------
-
-const handleHeadErrors = function (option, count) {
-  return invalidHeadOptionError(option) || invalidCountError(count, option);
-};
-
-//-------------------------------invalidHeadOptionError---------------------
-
-const invalidHeadOptionError = function (optionCandidate) {
-  let optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
-  if (optionCandidate != 'c' && optionCandidate != 'n') {
-    return optionError;
-  }
-}
-
-//------------------------------invalidCountError-------------------------
-
-const invalidCountError = function (count, option) {
-  let countError = new Object;
-  countError['n'] = "head: illegal line count -- " + count;
-  countError['c'] = "head: illegal byte count -- " + count;
-  if ((count <= 0 || count.match(/[A-z]/))) {
-    return countError[option];
-  }
-}
-
 //-----------------------------------extractTailLines---------------------------
 
 const extractTailLines = function (text, count) {
@@ -68,47 +43,6 @@ const extractTailCharacters = function (text, noOfChars) {
   let trailingChars = getTrailingLines(noOfChars, characters.length);
   return characters.slice(trailingChars, characters.length).join('')
 }
-
-//------------------------------handleTailErrors------------------------
-
-const handleTailErrors = function (option, count) {
-  return invalidTailOptionError(option) || countZeroError(count) || illegalOffsetError(count);
-};
-
-//-----------------------------------invalidTailOptionError--------------------
-
-const invalidTailOptionError = function (option) {
-  let optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-  if (option != 'c' && option != 'n') {
-    return optionError;
-  }
-}
-
-//--------------------------------countZeroError-----------------------------
-
-const countZeroError = function (count) {
-  if (count == 0) {
-    return ' ';
-  }
-}
-
-//---------------------------------illegalOffsetError-----------------------
-
-const illegalOffsetError = function (count) {
-  let errorMessage = 'tail: illegal offset -- ' + count;
-  if (count.match(/[A-z]/)) {
-    return errorMessage;
-  }
-}
-
-//------------------------------missingFileError-------------------
-
-const missingFileError = function (file, existsSync, command) {
-  let error = command + ": " + file + ": No such file or directory";
-  if (!existsSync(file)) {
-    return error;
-  }
-};
 
 //-----------------------------singleFileOutput-----------------------
 
@@ -163,18 +97,10 @@ const tail = function (tailDetails, fs) {
 
 module.exports = {
   singleFileOutput,
-  missingFileError,
-  illegalOffsetError,
-  countZeroError,
-  invalidTailOptionError,
   getTrailingLines,
-  invalidCountError,
-  invalidHeadOptionError,
   getTail,
-  handleTailErrors,
   extractTailCharacters,
   extractTailLines,
-  handleHeadErrors,
   getHead,
   extractHeadCharacters,
   extractHeadLines,
