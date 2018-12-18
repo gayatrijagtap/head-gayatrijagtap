@@ -77,14 +77,19 @@ describe('invalidHeadOptionError', function () {
 describe('invalidCountError', function () {
     it('should return illegal byte count error for invalid byte count and count zero', function () {
         let byteError = "head: illegal byte count -- " + "0";
-        let actualOutput = invalidCountError(0, 'c');
+        let actualOutput = invalidCountError('0', 'c');
         let expectedOutput = byteError;
         assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return illegal line count error for invalid line count and negative count', function () {
         let lineError = "head: illegal line count -- " + "-1";
-        let actualOutput = invalidCountError(-1, 'n');
+        let actualOutput = invalidCountError('-1', 'n');
         let expectedOutput = lineError;
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should return empty string if the count is valid', function () {
+        let actualOutput = invalidCountError('1', 'n');
+        let expectedOutput = '';
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })

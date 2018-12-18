@@ -23,6 +23,7 @@ const invalidCountError = function (count, option) {
     if ((count <= 0 || count.match(/[A-z]/))) {
         return countError[option];
     }
+    return '';
 }
 
 //------------------------------handleTailErrors------------------------
