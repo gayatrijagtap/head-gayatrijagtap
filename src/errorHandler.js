@@ -35,10 +35,11 @@ const handleTailErrors = function (option, count) {
 //-----------------------------------invalidTailOptionError--------------------
 
 const invalidTailOptionError = function (option) {
-    let optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+    let optionError = '';
     if (option != 'c' && option != 'n') {
-        return optionError;
+        optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
     }
+    return optionError;
 }
 
 //--------------------------------countZeroError-----------------------------

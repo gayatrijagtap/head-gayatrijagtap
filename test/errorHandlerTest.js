@@ -131,6 +131,11 @@ describe('invalidTailOptionError', function () {
         let expectedOutput = optionError;
         assert.deepEqual(actualOutput, expectedOutput);
     });
+    it('should return empty string for valid option', function () {
+        let actualOutput = invalidTailOptionError('n');
+        let expectedOutput = '';
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
 })
 
 //----------------------------------countZeroError tests------------------------------
