@@ -1,17 +1,19 @@
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function (option, count) {
-    return invalidHeadOptionError(option) || invalidCountError(count, option);
+    return generateInvalidOptionError(option, 'head') || invalidCountError(count, option);
 };
 
-//-------------------------------invalidHeadOptionError---------------------
+//-------------------------generateInvalidOptionError-------------------
 
-const invalidHeadOptionError = function (optionCandidate) {
-    let optionError = '';
+const generateInvalidOptionError = function (optionCandidate, command) {
+    let optionError = new Object;
+    optionError['head'] = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
+    optionError['tail'] = 'tail: illegal option -- ' + optionCandidate[0] + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
     if (optionCandidate != 'c' && optionCandidate != 'n') {
-        optionError = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
+        return optionError[command];
     }
-    return optionError;
+    return '';
 }
 
 //------------------------------invalidCountError-------------------------
@@ -29,18 +31,8 @@ const invalidCountError = function (count, option) {
 //------------------------------handleTailErrors------------------------
 
 const handleTailErrors = function (option, count) {
-    return invalidTailOptionError(option) || countZeroError(count) || illegalOffsetError(count);
+    return generateInvalidOptionError(option, 'tail') || countZeroError(count) || illegalOffsetError(count);
 };
-
-//-----------------------------------invalidTailOptionError--------------------
-
-const invalidTailOptionError = function (option) {
-    let optionError = '';
-    if (option != 'c' && option != 'n') {
-        optionError = 'tail: illegal option -- ' + option + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-    }
-    return optionError;
-}
 
 //--------------------------------countZeroError-----------------------------
 
@@ -78,7 +70,6 @@ module.exports = {
     missingFileError,
     illegalOffsetError,
     countZeroError,
-    invalidHeadOptionError,
-    invalidTailOptionError,
-    invalidCountError
+    invalidCountError,
+    generateInvalidOptionError
 };

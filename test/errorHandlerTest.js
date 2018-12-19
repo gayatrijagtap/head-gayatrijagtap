@@ -5,9 +5,8 @@ const {
     missingFileError,
     illegalOffsetError,
     countZeroError,
-    invalidHeadOptionError,
-    invalidTailOptionError,
-    invalidCountError
+    invalidCountError,
+    generateInvalidOptionError
 } = require('../src/errorHandler.js');
 
 //-------------------------handleHeadErrors tests----------------
@@ -58,15 +57,38 @@ describe("handleHeadErrors", function () {
 
 //--------------------------------------invalidHeadOptionError tests----------------------
 
-describe('invalidHeadOptionError', function () {
+describe('generateInvalidOptionError', function () {
     let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
-    it('should return error for the invalid option', function () {
-        let actualOutput = invalidHeadOptionError('s');
+    it('should return error for the invalid option for head', function () {
+        let actualOutput = generateInvalidOptionError('s', 'head');
         let expectedOutput = optionError;
         assert.deepEqual(actualOutput, expectedOutput);
     });
-    it('should return empty string for the valid option', function () {
-        let actualOutput = invalidHeadOptionError('n');
+    it('should return empty string for the valid option for head', function () {
+        let actualOutput = generateInvalidOptionError('n', 'head');
+        let expectedOutput = '';
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should give error when option is alphaNumeric for head', function () {
+        let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
+        let actualOutput = generateInvalidOptionError('sd', 'head');
+        let expectedOutput = optionError;
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should give error for illegal option for tail', function () {
+        let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+        let actualOutput = generateInvalidOptionError('s', 'tail');
+        let expectedOutput = optionError;
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should give error when option is alphaNumeric for tail', function () {
+        let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+        let actualOutput = generateInvalidOptionError('sd', 'tail');
+        let expectedOutput = optionError;
+        assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should return empty string for valid option for tail', function () {
+        let actualOutput = generateInvalidOptionError('n', 'tail');
         let expectedOutput = '';
         assert.deepEqual(actualOutput, expectedOutput);
     });
@@ -112,28 +134,6 @@ describe('handleTailErrors', function () {
     it('should return empty string if the number of lines is 0', function () {
         let actualOutput = handleTailErrors('n', '0');
         let expectedOutput = ' ';
-        assert.deepEqual(actualOutput, expectedOutput);
-    });
-})
-
-//----------------------------------invalidTailOptionError tests----------------------
-
-describe('invalidTailOptionError', function () {
-    it('should give error for illegal option', function () {
-        let optionError = 'tail: illegal option -- ' + 's' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-        let actualOutput = invalidTailOptionError('s');
-        let expectedOutput = optionError;
-        assert.deepEqual(actualOutput, expectedOutput);
-    });
-    it('should give error when option is alphaNumeric', function () {
-        let optionError = 'tail: illegal option -- ' + 's1' + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
-        let actualOutput = invalidTailOptionError('s1');
-        let expectedOutput = optionError;
-        assert.deepEqual(actualOutput, expectedOutput);
-    });
-    it('should return empty string for valid option', function () {
-        let actualOutput = invalidTailOptionError('n');
-        let expectedOutput = '';
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })
