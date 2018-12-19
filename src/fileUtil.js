@@ -50,8 +50,8 @@ const extractTailCharacters = function (text, noOfChars) {
 
 //-----------------------------generateSingleFileContent-----------------------
 
-const generateSingleFileContent = function (commandDetails, type, fs, command) {
-  let { files, option, count } = commandDetails;
+const generateSingleFileContent = function (commandDetails, type, fs) {
+  let { files, option, count, command } = commandDetails;
   if (files.length == 1 && fs.existsSync(files[0])) {
     return missingFileError(files[0], fs.existsSync, command) || type[option](fs.readFileSync(files[0], 'utf8'), count);
   }
@@ -71,10 +71,9 @@ const getHead = function (userArgs, fs) {
 //------------------------------getRequiredContent-------------------------
 
 const getRequiredContent = function (commandDetails, typeOfOption, fs) {
-  let { files, command } = commandDetails;
   let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
-  let requiredContent = files.map(contentGenerator);
-  let singleFileContent = generateSingleFileContent(commandDetails, typeOfOption, fs, command);
+  let requiredContent = commandDetails.files.map(contentGenerator);
+  let singleFileContent = generateSingleFileContent(commandDetails, typeOfOption, fs);
   return singleFileContent || requiredContent.join('');
 }
 
