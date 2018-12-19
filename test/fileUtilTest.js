@@ -9,7 +9,7 @@ const {
   extractHeadCharacters,
   extractHeadLines,
   generateHeading
-} = require("../src/lib.js");
+} = require("../src/fileUtil.js");
 
 const files = {
   file1: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12",
