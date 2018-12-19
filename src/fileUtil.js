@@ -70,14 +70,22 @@ const getHead = function (userArgs, fs) {
 
 //------------------------------getRequiredContent-------------------------
 
-const getRequiredContent = function (commandDetails, typesOfOption, fs) {
-  let { files, option, count } = commandDetails;
-  let content = '';
+const getRequiredContent = function (commandDetails, typeOfOption, fs) {
+  let { files, command } = commandDetails;
+  let content = [];
   for (let file of files) {
-    content = content + (missingFileError(file, fs.existsSync, commandDetails.command) ||
-      generateHeading(file) + '\n' + typesOfOption[option](fs.readFileSync(file, 'utf8'), count)) + '\n\n';
+    content.push(generateContent(commandDetails, fs, typeOfOption, file));
   }
-  return generateSingleFileOutput(commandDetails, typesOfOption, fs, commandDetails.command) || content;
+  return generateSingleFileOutput(commandDetails, typeOfOption, fs, command) || content.join('');
+}
+
+//----------------------------------generateContent-----------------------------
+
+const generateContent = function (commandDetails, fs, typeOfOption, file) {
+  let { option, count, command } = commandDetails;
+  let content = generateHeading(file) + '\n';
+  content = content + typeOfOption[option](fs.readFileSync(file, 'utf8'), count) + '\n\n';
+  return missingFileError(file, fs.existsSync, command) || content;
 }
 
 //----------------------------------getTail------------------------
