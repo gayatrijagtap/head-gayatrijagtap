@@ -8,7 +8,8 @@ const {
   getHead,
   extractHeadCharacters,
   extractHeadLines,
-  generateHeading
+  generateHeading,
+  getRequiredContent
 } = require("../src/fileUtil.js");
 
 const files = {
@@ -236,6 +237,37 @@ describe('generateSingleFileContent', function () {
   it('should return undefined when there are more than one files', function () {
     let actualOutput = generateSingleFileContent({ files: [data, content], option: 'n', count: 2 }, fs, 'tail');
     let expectedOutput = '';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+})
+
+describe('getRequiredContent', function () {
+  it('should return lines from the top of the file for given count', function () {
+    let typeOfOption = { n: extractHeadLines, c: extractHeadCharacters };
+    let commandDetails = { option: 'n', count: '2', files: ['file1'], command: 'head' };
+    let actualOutput = getRequiredContent(commandDetails, typeOfOption, fs);
+    let expectedOutput = '1\n2';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return characters from the top of the file for given count', function () {
+    let typeOfOption = { n: extractHeadLines, c: extractHeadCharacters };
+    let commandDetails = { option: 'c', count: '2', files: ['file2'], command: 'head' };
+    let actualOutput = getRequiredContent(commandDetails, typeOfOption, fs);
+    let expectedOutput = 'ab';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return lines from the bottom of the file for given count', function () {
+    let typeOfOption = { n: extractTailLines, c: extractTailCharacters };
+    let commandDetails = { option: 'n', count: '2', files: ['file1'], command: 'tail' };
+    let actualOutput = getRequiredContent(commandDetails, typeOfOption, fs);
+    let expectedOutput = '11\n12';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return characters from the bottom of the file for given count', function () {
+    let typeOfOption = { n: extractTailLines, c: extractTailCharacters };
+    let commandDetails = { option: 'c', count: '2', files: ['file2'], command: 'tail' };
+    let actualOutput = getRequiredContent(commandDetails, typeOfOption, fs);
+    let expectedOutput = 'mn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })

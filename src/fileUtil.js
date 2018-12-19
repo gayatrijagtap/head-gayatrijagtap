@@ -105,5 +105,6 @@ module.exports = {
   getHead,
   extractHeadCharacters,
   extractHeadLines,
-  generateHeading
+  generateHeading,
+  getRequiredContent
 };
