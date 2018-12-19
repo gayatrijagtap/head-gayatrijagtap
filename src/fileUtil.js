@@ -51,14 +51,20 @@ const extractTailCharacters = function (text, noOfChars) {
 //-----------------------------getSingleFileContent-----------------------
 
 const getSingleFileContent = function (commandDetails, type, fs) {
-  let { files, option, count, command } = commandDetails;
   let singleFileContent = '';
-  if (files.length == 1) {
-    let content = type[option](fs.readFileSync(files[0], 'utf8'), count);
-    let error = missingFileError(files[0], fs.existsSync, command);
-    singleFileContent = error || content;
+  if (commandDetails.files.length == 1) {
+    singleFileContent = generateSingleFileContent(commandDetails, type, fs);
   }
   return singleFileContent;
+}
+
+//-----------------------------generateSingleFileContent-----------------
+
+const generateSingleFileContent = function (commandDetails, type, fs) {
+  let { files, option, count, command } = commandDetails;
+  let content = type[option](fs.readFileSync(files[0], 'utf8'), count);
+  let error = missingFileError(files[0], fs.existsSync, command);
+  return error || content;
 }
 
 //----------------------------getHead-------------------------------
