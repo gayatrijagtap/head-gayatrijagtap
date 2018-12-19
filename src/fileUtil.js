@@ -48,9 +48,9 @@ const extractTailCharacters = function (text, noOfChars) {
   return characters.slice(trailingChars, characters.length).join('')
 }
 
-//-----------------------------generateSingleFileContent-----------------------
+//-----------------------------getSingleFileContent-----------------------
 
-const generateSingleFileContent = function (commandDetails, type, fs) {
+const getSingleFileContent = function (commandDetails, type, fs) {
   let { files, option, count, command } = commandDetails;
   let singleFileContent = '';
   if (files.length == 1) {
@@ -76,7 +76,7 @@ const getHead = function (userArgs, fs) {
 const getRequiredContent = function (commandDetails, typeOfOption, fs) {
   let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
   let requiredContent = commandDetails.files.map(contentGenerator);
-  let singleFileContent = generateSingleFileContent(commandDetails, typeOfOption, fs);
+  let singleFileContent = getSingleFileContent(commandDetails, typeOfOption, fs);
   return singleFileContent || requiredContent.join('');
 }
 
@@ -100,7 +100,7 @@ const getTail = function (userArgs, fs) {
 };
 
 module.exports = {
-  generateSingleFileContent,
+  getSingleFileContent,
   getTrailingLines,
   getTail,
   extractTailCharacters,
