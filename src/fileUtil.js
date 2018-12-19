@@ -72,11 +72,10 @@ const getHead = function (userArgs, fs) {
 
 const getRequiredContent = function (commandDetails, typeOfOption, fs) {
   let { files, command } = commandDetails;
-  let content = [];
-  for (let file of files) {
-    content.push(generateContent(commandDetails, fs, typeOfOption, file));
-  }
-  return generateSingleFileOutput(commandDetails, typeOfOption, fs, command) || content.join('');
+  let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
+  let requiredContent = files.map(contentGenerator);
+  let singleFileContent = generateSingleFileOutput(commandDetails, typeOfOption, fs, command);
+  return singleFileContent || requiredContent.join('');
 }
 
 //----------------------------------generateContent-----------------------------
