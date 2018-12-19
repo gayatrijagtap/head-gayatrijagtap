@@ -65,12 +65,12 @@ const getHead = function (userArgs, fs) {
   commandDetails.command = 'head';
   let { option, count } = commandDetails;
   let typesOfOption = { n: extractHeadLines, c: extractHeadCharacters };
-  return handleHeadErrors(option, count) || generateRequiredContent(commandDetails, typesOfOption, fs);
+  return handleHeadErrors(option, count) || getRequiredContent(commandDetails, typesOfOption, fs);
 };
 
-//------------------------------generateRequiredContent-------------------------
+//------------------------------getRequiredContent-------------------------
 
-const generateRequiredContent = function (commandDetails, typesOfOption, fs) {
+const getRequiredContent = function (commandDetails, typesOfOption, fs) {
   let { files, option, count } = commandDetails;
   let content = '';
   for (let file of files) {
@@ -87,7 +87,7 @@ const getTail = function (userArgs, fs) {
   commandDetails.command = 'tail';
   let { option, count } = commandDetails;
   let typesOfOption = { n: extractTailLines, c: extractTailCharacters };
-  return handleTailErrors(option, count) || generateRequiredContent(commandDetails, typesOfOption, fs);
+  return handleTailErrors(option, count) || getRequiredContent(commandDetails, typesOfOption, fs);
 };
 
 module.exports = {
