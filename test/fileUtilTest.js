@@ -145,10 +145,14 @@ describe('extractTailLines', function () {
 
 describe('getTrailingLines', function () {
   it('should return number of trailing lines for given length and number of lines', function () {
-    assert.deepEqual(getTrailingLines(5, 6), 1);
+    let actualOutput = getTrailingLines(5, 6);
+    let expectedOutput = 1;
+    assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return 0 if there are no trailing lines', function () {
-    assert.deepEqual(getTrailingLines(6, 6), 0);
+    let actualOutput = getTrailingLines(6, 6);
+    let expectedOutput = 0;
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 })
 
