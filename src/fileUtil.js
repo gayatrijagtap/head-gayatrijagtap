@@ -30,8 +30,8 @@ const extractHeadCharacters = function (text, noOfChars) {
 
 const extractTailLines = function (text, count) {
   let lines = text.split('\n')
-  let trailingLines = getLeadingCount(count, lines.length);
-  return lines.slice(trailingLines, lines.length).join('\n');
+  let leadingCount = getLeadingCount(count, lines.length);
+  return lines.slice(leadingCount, lines.length).join('\n');
 }
 
 //---------------------------getLeadingCount-------------------------
@@ -44,8 +44,8 @@ const getLeadingCount = function (count, length) {
 
 const extractTailCharacters = function (text, noOfChars) {
   let characters = text.split('')
-  let trailingChars = getLeadingCount(noOfChars, characters.length);
-  return characters.slice(trailingChars, characters.length).join('')
+  let leadingCount = getLeadingCount(noOfChars, characters.length);
+  return characters.slice(leadingCount, characters.length).join('')
 }
 
 //-----------------------------getSingleFileContent-----------------------
