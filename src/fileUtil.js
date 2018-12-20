@@ -37,7 +37,7 @@ const extractTailLines = function (text, count) {
 //---------------------------getLeadingCount-------------------------
 
 const getLeadingCount = function (count, length) {
-  return count >= length ? 0 : Math.abs(length - count);
+  return count >= length ? 0 : length - count;
 }
 
 //----------------------extractHeadCharacters---------------
