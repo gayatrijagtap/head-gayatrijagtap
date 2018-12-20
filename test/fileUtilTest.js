@@ -245,6 +245,8 @@ describe('getSingleFileContent', function () {
   });
 })
 
+//---------------------------------getRequiredContent-------------------
+
 describe('getRequiredContent', function () {
   it('should return lines from the top of the file for given count', function () {
     let typeOfOption = { n: extractHeadLines, c: extractHeadCharacters };

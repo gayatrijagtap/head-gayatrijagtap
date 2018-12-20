@@ -1,3 +1,4 @@
+//------------------------parseInput-----------------------
 const parseInput = function (userArgs) {
     let commandDetails = new Object();
     commandDetails.option = extractOption(userArgs[0]);
