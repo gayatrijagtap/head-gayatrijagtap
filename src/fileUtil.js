@@ -30,13 +30,13 @@ const extractHeadCharacters = function (text, noOfChars) {
 
 const extractTailLines = function (text, count) {
   let lines = text.split('\n')
-  let trailingLines = getTrailingLines(count, lines.length);
+  let trailingLines = getLeadingCount(count, lines.length);
   return lines.slice(trailingLines, lines.length).join('\n');
 }
 
-//---------------------------getTrailingLines-------------------------
+//---------------------------getLeadingCount-------------------------
 
-const getTrailingLines = function (count, length) {
+const getLeadingCount = function (count, length) {
   return count >= length ? 0 : Math.abs(length - count);
 }
 
@@ -44,7 +44,7 @@ const getTrailingLines = function (count, length) {
 
 const extractTailCharacters = function (text, noOfChars) {
   let characters = text.split('')
-  let trailingChars = getTrailingLines(noOfChars, characters.length);
+  let trailingChars = getLeadingCount(noOfChars, characters.length);
   return characters.slice(trailingChars, characters.length).join('')
 }
 
@@ -107,7 +107,7 @@ const getTail = function (userArgs, fs) {
 
 module.exports = {
   getSingleFileContent,
-  getTrailingLines,
+  getLeadingCount,
   getTail,
   extractTailCharacters,
   extractTailLines,

@@ -1,7 +1,7 @@
 const assert = require("assert");
 const {
   getSingleFileContent,
-  getTrailingLines,
+  getLeadingCount,
   getTail,
   extractTailCharacters,
   extractTailLines,
@@ -141,16 +141,16 @@ describe('extractTailLines', function () {
   });
 })
 
-//------------------------------------------getTrailingLines tests-------------------------
+//------------------------------------------getLeadingCount tests-------------------------
 
-describe('getTrailingLines', function () {
+describe('getLeadingCount', function () {
   it('should return number of trailing lines for given length and number of lines', function () {
-    let actualOutput = getTrailingLines(5, 6);
+    let actualOutput = getLeadingCount(5, 6);
     let expectedOutput = 1;
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return 0 if there are no trailing lines', function () {
-    let actualOutput = getTrailingLines(6, 6);
+    let actualOutput = getLeadingCount(6, 6);
     let expectedOutput = 0;
     assert.deepEqual(actualOutput, expectedOutput);
   });
