@@ -1,19 +1,27 @@
 const headUsageMessage = ["\nusage:head", "[-n", "lines", "|", "-c", "bytes]", "[file", "...]"].join(' ');
+
 const tailUsageMessage = ['usage:', 'tail', '[-F', '|', '-f', '|', '-r]', '[-q]', '[-b', '#', '|', '-c', '#', '|', '-n', '#]', '[file', '...]'].join(' ');
+
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function (option, count) {
     return generateInvalidOptionError(option, 'head') || invalidCountError(count, option);
 };
 
+//--------------------------------optionError--------------------------
+
+const optionError = function (optionCandidate, command) {
+    let errorMessage = new Object;
+    errorMessage['head'] = "head: illegal option -- " + optionCandidate[0] + headUsageMessage;
+    errorMessage['tail'] = 'tail: illegal option -- ' + optionCandidate[0] + tailUsageMessage;
+    return errorMessage[command];
+}
+
 //-------------------------generateInvalidOptionError-------------------
 
 const generateInvalidOptionError = function (optionCandidate, command) {
-    let optionError = new Object;
-    optionError['head'] = "head: illegal option -- " + optionCandidate[0] + headUsageMessage;
-    optionError['tail'] = 'tail: illegal option -- ' + optionCandidate[0] + tailUsageMessage;
     if (optionCandidate != 'c' && optionCandidate != 'n') {
-        return optionError[command];
+        return optionError(optionCandidate, command);
     }
     return '';
 }
