@@ -5,7 +5,7 @@ const tailUsageMessage = ['usage:', 'tail', '[-F', '|', '-f', '|', '-r]', '[-q]'
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function (option, count) {
-    return generateInvalidOptionError(option, 'head') || invalidCountError(count, option);
+    return generateInvalidOptionError(option, 'head') || generateInvalidCountError(count, option);
 };
 
 //--------------------------------optionError--------------------------
@@ -26,9 +26,9 @@ const generateInvalidOptionError = function (optionCandidate, command) {
     return '';
 }
 
-//------------------------------invalidCountError-------------------------
+//------------------------------generateInvalidCountError-------------------------
 
-const invalidCountError = function (count, option) {
+const generateInvalidCountError = function (count, option) {
     let countError = new Object;
     countError['n'] = "head: illegal line count -- " + count;
     countError['c'] = "head: illegal byte count -- " + count;
@@ -80,6 +80,6 @@ module.exports = {
     missingFileError,
     illegalOffsetError,
     countZeroError,
-    invalidCountError,
+    generateInvalidCountError,
     generateInvalidOptionError
 };
