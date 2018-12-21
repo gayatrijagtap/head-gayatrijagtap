@@ -1,0 +1,28 @@
+{
+  "name": "head",
+  "version": "1.0.0",
+  "description": "it will give the given number of lines from top of the file",
+  "main": "head.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/head-gayatrijagtap.git"
+  },
+  "keywords": [
+    "head"
+  ],
+  "author": "gayatri jagtap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/head-gayatrijagtap/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/head-gayatrijagtap#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
