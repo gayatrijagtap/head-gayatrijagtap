@@ -144,12 +144,12 @@ describe('extractTailLines', function () {
 //------------------------------------------getLeadingCount tests-------------------------
 
 describe('getLeadingCount', function () {
-  it('should return number of trailing lines for given length and number of lines', function () {
+  it('should return leading count when length of file and count is given', function () {
     let actualOutput = getLeadingCount(5, 6);
     let expectedOutput = 1;
     assert.deepEqual(actualOutput, expectedOutput);
   });
-  it('should return 0 if there are no trailing lines', function () {
+  it('should return 0 if the length of the file is less than the given count', function () {
     let actualOutput = getLeadingCount(6, 6);
     let expectedOutput = 0;
     assert.deepEqual(actualOutput, expectedOutput);
