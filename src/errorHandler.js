@@ -26,14 +26,18 @@ const generateInvalidOptionError = function (optionCandidate, command) {
     return '';
 }
 
-//------------------------------generateInvalidCountError-------------------------
-
-const generateInvalidCountError = function (count, option) {
+const invalidCountError = function (count, option) {
     let countError = new Object;
     countError['n'] = "head: illegal line count -- " + count;
     countError['c'] = "head: illegal byte count -- " + count;
+    return countError[option];
+}
+
+//------------------------------generateInvalidCountError-------------------------
+
+const generateInvalidCountError = function (count, option) {
     if ((count <= 0 || count.match(/[A-z]/))) {
-        return countError[option];
+        return invalidCountError(count, option);
     }
     return '';
 }
