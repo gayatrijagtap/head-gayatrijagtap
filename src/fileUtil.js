@@ -19,6 +19,12 @@ const extractHeadLines = function (text, count) {
   return lines.slice(0, count).join("\n");
 };
 
+extractHeadContent = function (text, count, delimeter) {
+  let contentArray = text.split(delimeter);
+  count = Math.min(count, contentArray.length);
+  return contentArray.slice(0, count).join(delimeter);
+}
+
 //----------------------extractHeadCharacters---------------
 
 const extractHeadCharacters = function (text, noOfChars) {
@@ -62,9 +68,8 @@ const getSingleFileContent = function (commandDetails, type, fs) {
 
 const generateSingleFileContent = function (commandDetails, type, fs) {
   let { files, option, count, command } = commandDetails;
-  let content = type[option](fs.readFileSync(files[0], 'utf8'), count);
   let error = missingFileError(files[0], fs.existsSync, command);
-  return error || content;
+  return error || type[option](fs.readFileSync(files[0], 'utf8'), count);
 }
 
 //----------------------------getHead-------------------------------
@@ -83,16 +88,14 @@ const getRequiredContent = function (commandDetails, typeOfOption, fs) {
   let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
   let requiredContent = commandDetails.files.map(contentGenerator);
   let singleFileContent = getSingleFileContent(commandDetails, typeOfOption, fs);
-  return singleFileContent || requiredContent.join('');
+  return singleFileContent || requiredContent.join('\n');
 }
 
 //----------------------------------generateContent-----------------------------
 
 const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;
-  let content = generateHeading(file) + '\n';
-  content = content + typeOfOption[option](fs.readFileSync(file, 'utf8'), count) + '\n\n';
-  return missingFileError(file, fs.existsSync, command) || content;
+  return missingFileError(file, fs.existsSync, command) || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
 }
 
 //----------------------------------getTail------------------------

@@ -98,19 +98,19 @@ describe("getHead", function () {
   it('should return head of the multiple files for default arguments', function () {
     let userArgs = ['file1', 'file2'];
     let actualOutput = getHead(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n\n==> file2 <==\nabc def\n ghij \nklmn\n\n';
+    let expectedOutput = '==> file1 <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n==> file2 <==\nabc def\n ghij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it("should return head of the multiple files for option n with given no of lines", function () {
     let userArgs = ["-n2", 'file1', 'file2'];
     let actualOutput = getHead(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n1\n2\n\n==> file2 <==\nabc def\n ghij \n\n';
+    let expectedOutput = '==> file1 <==\n1\n2\n==> file2 <==\nabc def\n ghij ';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return head of the multiple files for option c with given no of characters', function () {
     let userArgs = ["-c", "4", 'file1', 'file2'];
     let actualOutput = getHead(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n1\n2\n\n\n==> file2 <==\nabc \n\n';
+    let expectedOutput = '==> file1 <==\n1\n2\n\n==> file2 <==\nabc ';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
@@ -210,19 +210,19 @@ describe('getTail', function () {
   it('should return tail of the multiple files for default arguments', function () {
     let userArgs = ['file1', 'file2'];
     let actualOutput = getTail(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n\n==> file2 <==\nabc def\n ghij \nklmn\n\n';
+    let expectedOutput = '==> file1 <==\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n==> file2 <==\nabc def\n ghij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it("should return tail of the multiple files for option n with given no of lines", function () {
     let userArgs = ["-n2", 'file1', 'file2'];
     let actualOutput = getTail(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n11\n12\n\n==> file2 <==\n ghij \nklmn\n\n';
+    let expectedOutput = '==> file1 <==\n11\n12\n==> file2 <==\n ghij \nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it('should return tail of the multiple files for option c with given no of characters', function () {
     let userArgs = ["-c", "4", 'file1', 'file2'];
     let actualOutput = getTail(userArgs, fs);
-    let expectedOutput = '==> file1 <==\n1\n12\n\n==> file2 <==\nklmn\n\n';
+    let expectedOutput = '==> file1 <==\n1\n12\n==> file2 <==\nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
