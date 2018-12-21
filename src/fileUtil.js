@@ -19,12 +19,6 @@ const extractHeadLines = function (text, count) {
   return lines.slice(0, count).join("\n");
 };
 
-extractHeadContent = function (text, count, delimeter) {
-  let contentArray = text.split(delimeter);
-  count = Math.min(count, contentArray.length);
-  return contentArray.slice(0, count).join(delimeter);
-}
-
 //----------------------extractHeadCharacters---------------
 
 const extractHeadCharacters = function (text, noOfChars) {
