@@ -1,24 +1,19 @@
 const { parseInput } = require('./inputParser.js');
+
 const {
   handleHeadErrors,
   handleTailErrors,
   missingFileError
 } = require('./errorHandler.js');
 
-//-------------------------generateHeading--------------
-
 const generateHeading = function (filename) {
   return "==> " + filename + " <==";
 };
-
-//--------------------------extractHeadContent--------------------
 
 const extractHeadContent = function (delimeter, text, count) {
   let contentArray = text.split(delimeter);
   return contentArray.slice(0, Math.min(count, contentArray.length)).join(delimeter);
 }
-
-//---------------------------extractTailContent----------------------
 
 const extractTailContent = function (delimeter, text, count) {
   let contentArray = text.split(delimeter);
@@ -34,13 +29,9 @@ const extractTailLines = extractTailContent.bind(null, '\n');
 
 const extractTailCharacters = extractTailContent.bind(null, '');
 
-//---------------------------getLeadingCount-------------------------
-
 const getLeadingCount = function (count, length) {
   return Math.max(length - count, 0);
 }
-
-//-----------------------------getSingleFileContent-----------------------
 
 const getSingleFileContent = function (commandDetails, type, fs) {
   let singleFileContent = '';
@@ -49,8 +40,6 @@ const getSingleFileContent = function (commandDetails, type, fs) {
   }
   return singleFileContent;
 }
-
-//-----------------------------generateSingleFileContent-----------------
 
 const generateSingleFileContent = function (commandDetails, type, fs) {
   let { files, option, count, command } = commandDetails;
@@ -73,17 +62,12 @@ const getHead = getContent.bind(null, 'head', typeOfOptionHead, handleHeadErrors
 
 const getTail = getContent.bind(null, 'tail', typeOfOptionTail, handleTailErrors);
 
-//------------------------------getRequiredContent-------------------------
-
 const getRequiredContent = function (commandDetails, typeOfOption, fs) {
   let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
   let requiredContent = commandDetails.files.map(contentGenerator);
   let singleFileContent = getSingleFileContent(commandDetails, typeOfOption, fs);
   return singleFileContent || requiredContent.join('\n');
 }
-
-//----------------------------------generateContent-----------------------------
-
 
 const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;

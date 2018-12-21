@@ -6,7 +6,6 @@ const {
     userOption
 } = require('../src/inputParser.js');
 
-//---------------------parseInput tests-------------------
 describe("parseInput", function () {
     it('should return commandDetails for single file with default option and count', function () {
         let actualOutput = parseInput(['file1']);
@@ -46,7 +45,6 @@ describe("parseInput", function () {
     });
 });
 
-//--------------------------extractOption tests---------------
 describe("extractOption", function () {
     it("should return byte option from the given input when option and count are given together", function () {
         assert.deepEqual(extractOption("-c5"), "c");
@@ -58,8 +56,6 @@ describe("extractOption", function () {
         assert.deepEqual(extractOption("-5"), "n");
     });
 });
-
-//----------------------------userOption tests--------------------
 
 describe('userOption', function () {
     it('should return option when option and count are given together', function () {
@@ -73,7 +69,6 @@ describe('userOption', function () {
     });
 })
 
-//-------------------------extractCountWithFileIndex tests-------------------
 describe("extractCountWithFileIndex", function () {
     it("should return count with file starting index when count is given along with option", function () {
         let actualOutput = extractCountWithFileIndex(["-c5", ""]);

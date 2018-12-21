@@ -9,7 +9,6 @@ const {
     generateInvalidOptionError
 } = require('../src/errorHandler.js');
 
-//-------------------------handleHeadErrors tests----------------
 describe("handleHeadErrors", function () {
 
     it("should return error message for illegal option when optionCandidate is character", function () {
@@ -55,8 +54,6 @@ describe("handleHeadErrors", function () {
     });
 });
 
-//--------------------------------------invalidHeadOptionError tests----------------------
-
 describe('generateInvalidOptionError', function () {
     let optionError = "head: illegal option -- " + 's' + "\nusage:head [-n lines | -c bytes] [file ...]";
     it('should return error for the invalid option for head', function () {
@@ -94,8 +91,6 @@ describe('generateInvalidOptionError', function () {
     });
 })
 
-//---------------------------------------generateInvalidCountError tests------------------------
-
 describe('generateInvalidCountError', function () {
     it('should return illegal byte count error for invalid byte count and count zero', function () {
         let byteError = "head: illegal byte count -- " + "0";
@@ -115,8 +110,6 @@ describe('generateInvalidCountError', function () {
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })
-
-//----------------------------------handleTailErrors tests---------------------------------
 
 describe('handleTailErrors', function () {
     it('should give error for illegal option', function () {
@@ -138,8 +131,6 @@ describe('handleTailErrors', function () {
     });
 })
 
-//----------------------------------countZeroError tests------------------------------
-
 describe('countZeroError', function () {
     it('should return empty string if given count is zero', function () {
         let actualOutput = countZeroError('0');
@@ -152,8 +143,6 @@ describe('countZeroError', function () {
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })
-
-//------------------------------------illegalOffsetError tests--------------------------
 
 describe('illegalOffsetError', function () {
     it('should return error when the given offset is alphaNumeric', function () {
@@ -174,8 +163,6 @@ describe('illegalOffsetError', function () {
         assert.deepEqual(actualOutput, expectedOutput);
     });
 })
-
-//------------------------------------missingFileError tests----------------------
 
 describe('missingFileError', function () {
     const isExists = function (data) {

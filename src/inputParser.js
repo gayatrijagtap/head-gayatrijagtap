@@ -1,4 +1,3 @@
-//------------------------parseInput-----------------------
 const parseInput = function (userArgs) {
     let commandDetails = new Object();
     commandDetails.option = extractOption(userArgs[0]);
@@ -8,13 +7,9 @@ const parseInput = function (userArgs) {
     return commandDetails;
 };
 
-//--------------------------extractOption---------------
-
 const extractOption = function (optionCandidate) {
     return userOption(optionCandidate) || 'n';
 };
-
-//----------------------------userOption----------------------
 
 const userOption = function (optionCandidate) {
     if (optionCandidate.match(/^-[A-m O-z]/)) {
@@ -22,8 +17,6 @@ const userOption = function (optionCandidate) {
     }
     return '';
 }
-
-//-------------------------extractCountWithFileIndex-------------------
 
 const extractCountWithFileIndex = function (userArgs) {
     if (userArgs[0].match(/^-[0-9]/)) {

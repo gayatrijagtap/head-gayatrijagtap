@@ -23,8 +23,6 @@ const existsSync = function (fileName) {
 }
 const fs = { readFileSync, existsSync };
 
-//-------------------------generateHeading tests--------------
-
 describe("generateHeading", function () {
   it("should return the heading for the given file name", function () {
     let actualOutput = generateHeading("mars");
@@ -43,8 +41,6 @@ describe("generateHeading", function () {
   });
 });
 
-//-----------------------------extractHeadLines tests------------
-
 describe("extractHeadLines", function () {
   it("should return the head with given number of lines if the length of file is greater than number of lines", function () {
     let actualOutput = extractHeadLines(files.file1, 3);
@@ -59,8 +55,6 @@ describe("extractHeadLines", function () {
   });
 });
 
-//----------------------extractHeadCharacters tests---------------
-
 describe("extractHeadCharacters", function () {
   it("should return given number of characters from the top of the file", function () {
     let actualOutput = extractHeadCharacters(files.file1, 3);
@@ -73,8 +67,6 @@ describe("extractHeadCharacters", function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
-
-//--------------------------getHead tests---------------------
 
 describe("getHead", function () {
   it('should return head of the single file for default arguments', function () {
@@ -127,8 +119,6 @@ describe("getHead", function () {
   });
 });
 
-//--------------------------------------extractTailLines tests------------------------
-
 describe('extractTailLines', function () {
   it('should return empty string lines from bottom of the file when count is 0', function () {
     let actualOutput = extractTailLines(files.file1, 0);
@@ -153,8 +143,6 @@ describe('extractTailLines', function () {
   });
 })
 
-//------------------------------------------getLeadingCount tests-------------------------
-
 describe('getLeadingCount', function () {
   it('should return leading count when length of file and count is given', function () {
     let actualOutput = getLeadingCount(5, 6);
@@ -167,8 +155,6 @@ describe('getLeadingCount', function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
-
-//-------------------------------------extractTailCharacters------------------------------
 
 describe('extractTailCharacters', function () {
   it('should return empty string when count is 0', function () {
@@ -197,8 +183,6 @@ describe('extractTailCharacters', function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
-
-//---------------------------------getTail tests----------------------------------
 
 describe('getTail', function () {
   it('should return tail of the single file for default arguments', function () {
@@ -251,8 +235,6 @@ describe('getTail', function () {
   });
 });
 
-//----------------------------------getSingleFileContent tests----------------------
-
 describe('getSingleFileContent', function () {
   let data;
   let content;
@@ -268,8 +250,6 @@ describe('getSingleFileContent', function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
-
-//---------------------------------getRequiredContent-------------------
 
 describe('getRequiredContent', function () {
   it('should return lines from the top of the file for given count', function () {
