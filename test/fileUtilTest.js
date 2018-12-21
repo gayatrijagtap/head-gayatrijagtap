@@ -237,6 +237,18 @@ describe('getTail', function () {
     let expectedOutput = '==> file1 <==\n1\n12\n==> file2 <==\nklmn';
     assert.deepEqual(actualOutput, expectedOutput);
   });
+  it('should return error message if the first file is missing and give tail of all the valid files', function () {
+    let userArgs = ['-c', '2', 'file3', 'file1'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = 'tail: file3: No such file or directory\n==> file1 <==\n12';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return tail of the valid files and should give error message for missing file listed at ', function () {
+    let userArgs = ['-c', '2', 'file1', 'file3'];
+    let actualOutput = getTail(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n12\ntail: file3: No such file or directory';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
 });
 
 //----------------------------------getSingleFileContent tests----------------------
