@@ -58,14 +58,20 @@ const generateSingleFileContent = function (commandDetails, type, fs) {
   return error || type[option](fs.readFileSync(files[0], 'utf8'), count);
 }
 
-//----------------------------getHead-------------------------------
+const typeOfOptionHead = { n: extractHeadLines, c: extractHeadCharacters };
 
-const getHead = function (userArgs, fs) {
+const typeOfOptionTail = { n: extractTailLines, c: extractTailCharacters };
+
+const getContent = function (command, typeOfOption, errorHandler, userArgs, fs) {
   let commandDetails = parseInput(userArgs);
-  commandDetails.command = 'head';
+  commandDetails.command = command;
   let { option, count } = commandDetails;
-  return handleHeadErrors(option, count) || getRequiredContent(commandDetails, typeOfOptionHead, fs);
-};
+  return errorHandler(option, count) || getRequiredContent(commandDetails, typeOfOption, fs);
+}
+
+const getHead = getContent.bind(null, 'head', typeOfOptionHead, handleHeadErrors);
+
+const getTail = getContent.bind(null, 'tail', typeOfOptionTail, handleTailErrors);
 
 //------------------------------getRequiredContent-------------------------
 
@@ -77,24 +83,13 @@ const getRequiredContent = function (commandDetails, typeOfOption, fs) {
 }
 
 //----------------------------------generateContent-----------------------------
-const typeOfOptionHead = { n: extractHeadLines, c: extractHeadCharacters };
 
-const typeOfOptionTail = { n: extractTailLines, c: extractTailCharacters };
 
 const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;
   let errorMessage = missingFileError(file, fs.existsSync, command);
   return errorMessage || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
 }
-
-//----------------------------------getTail------------------------
-
-const getTail = function (userArgs, fs) {
-  let commandDetails = parseInput(userArgs);
-  commandDetails.command = 'tail';
-  let { option, count } = commandDetails;
-  return handleTailErrors(option, count) || getRequiredContent(commandDetails, typeOfOptionTail, fs);
-};
 
 module.exports = {
   getSingleFileContent,
