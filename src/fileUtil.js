@@ -11,10 +11,14 @@ const generateHeading = function (filename) {
   return "==> " + filename + " <==";
 };
 
+//--------------------------extractHeadContent--------------------
+
 const extractHeadContent = function (delimeter, text, count) {
   let contentArray = text.split(delimeter);
   return contentArray.slice(0, Math.min(count, contentArray.length)).join(delimeter);
 }
+
+//---------------------------extractTailContent----------------------
 
 const extractTailContent = function (delimeter, text, count) {
   let contentArray = text.split(delimeter);
@@ -33,7 +37,7 @@ const extractTailCharacters = extractTailContent.bind(null, '');
 //---------------------------getLeadingCount-------------------------
 
 const getLeadingCount = function (count, length) {
-  return count >= length ? 0 : length - count;
+  return Math.max(length - count, 0);
 }
 
 //-----------------------------getSingleFileContent-----------------------
@@ -60,8 +64,7 @@ const getHead = function (userArgs, fs) {
   let commandDetails = parseInput(userArgs);
   commandDetails.command = 'head';
   let { option, count } = commandDetails;
-  let typesOfOption = { n: extractHeadLines, c: extractHeadCharacters };
-  return handleHeadErrors(option, count) || getRequiredContent(commandDetails, typesOfOption, fs);
+  return handleHeadErrors(option, count) || getRequiredContent(commandDetails, typeOfOptionHead, fs);
 };
 
 //------------------------------getRequiredContent-------------------------
@@ -74,6 +77,9 @@ const getRequiredContent = function (commandDetails, typeOfOption, fs) {
 }
 
 //----------------------------------generateContent-----------------------------
+const typeOfOptionHead = { n: extractHeadLines, c: extractHeadCharacters };
+
+const typeOfOptionTail = { n: extractTailLines, c: extractTailCharacters };
 
 const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;
@@ -87,8 +93,7 @@ const getTail = function (userArgs, fs) {
   let commandDetails = parseInput(userArgs);
   commandDetails.command = 'tail';
   let { option, count } = commandDetails;
-  let typesOfOption = { n: extractTailLines, c: extractTailCharacters };
-  return handleTailErrors(option, count) || getRequiredContent(commandDetails, typesOfOption, fs);
+  return handleTailErrors(option, count) || getRequiredContent(commandDetails, typeOfOptionTail, fs);
 };
 
 module.exports = {
