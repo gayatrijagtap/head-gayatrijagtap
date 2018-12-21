@@ -113,6 +113,18 @@ describe("getHead", function () {
     let expectedOutput = '==> file1 <==\n1\n2\n\n==> file2 <==\nabc ';
     assert.deepEqual(actualOutput, expectedOutput);
   });
+  it('should return error message if the first file is missing and give head of all the valid files', function () {
+    let userArgs = ['-c', '2', 'file3', 'file1'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = 'head: file3: No such file or directory\n==> file1 <==\n1\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return head of the valid files and should give error message for missing file listed at ', function () {
+    let userArgs = ['-c', '2', 'file1', 'file3'];
+    let actualOutput = getHead(userArgs, fs);
+    let expectedOutput = '==> file1 <==\n1\n\nhead: file3: No such file or directory';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
 });
 
 //--------------------------------------extractTailLines tests------------------------

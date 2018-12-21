@@ -95,7 +95,8 @@ const getRequiredContent = function (commandDetails, typeOfOption, fs) {
 
 const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;
-  return missingFileError(file, fs.existsSync, command) || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
+  let errorMessage = missingFileError(file, fs.existsSync, command);
+  return errorMessage || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
 }
 
 //----------------------------------getTail------------------------
