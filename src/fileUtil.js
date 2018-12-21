@@ -11,25 +11,19 @@ const generateHeading = function (filename) {
   return "==> " + filename + " <==";
 };
 
-//-----------------------------extractHeadLines------------
+const extractHeadContent = function (delimeter, text, count) {
+  let contentArray = text.split(delimeter);
+  return contentArray.slice(0, Math.min(count, contentArray.length)).join(delimeter);
+}
 
-const extractHeadLines = function (text, count) {
-  let lines = text.split("\n");
-  count = Math.min(count, lines.length);
-  return lines.slice(0, count).join("\n");
-};
+const extractHeadLines = extractHeadContent.bind(null, '\n');
 
-//----------------------extractHeadCharacters---------------
-
-const extractHeadCharacters = function (text, noOfChars) {
-  let characters = text.split("");
-  return characters.slice(0, noOfChars).join("");
-};
+const extractHeadCharacters = extractHeadContent.bind(null, '');
 
 //-----------------------------------extractTailLines---------------------------
 
 const extractTailLines = function (text, count) {
-  let lines = text.split('\n');
+  let lines = text.split('\n')
   let leadingCount = getLeadingCount(count, lines.length);
   return lines.slice(leadingCount, lines.length).join('\n');
 }
@@ -37,15 +31,16 @@ const extractTailLines = function (text, count) {
 //---------------------------getLeadingCount-------------------------
 
 const getLeadingCount = function (count, length) {
-  return count >= length ? 0 : length - count;
+  //return count >= length ? 0 : length - count;
+  return Math.max(length - count, 0);
 }
 
 //----------------------extractHeadCharacters---------------
 
 const extractTailCharacters = function (text, noOfChars) {
-  let characters = text.split('');
+  let characters = text.split('')
   let leadingCount = getLeadingCount(noOfChars, characters.length);
-  return characters.slice(leadingCount, characters.length).join('');
+  return characters.slice(leadingCount, characters.length).join('')
 }
 
 //-----------------------------getSingleFileContent-----------------------
