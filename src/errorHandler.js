@@ -1,3 +1,5 @@
+const headUsageMessage = ["\nusage:head", "[-n", "lines", "|", "-c", "bytes]", "[file", "...]"].join(' ');
+const tailUsageMessage = ['usage:', 'tail', '[-F', '|', '-f', '|', '-r]', '[-q]', '[-b', '#', '|', '-c', '#', '|', '-n', '#]', '[file', '...]'].join(' ');
 //----------------------handleHeadErrors---------------------
 
 const handleHeadErrors = function (option, count) {
@@ -8,8 +10,8 @@ const handleHeadErrors = function (option, count) {
 
 const generateInvalidOptionError = function (optionCandidate, command) {
     let optionError = new Object;
-    optionError['head'] = "head: illegal option -- " + optionCandidate[0] + "\nusage:head [-n lines | -c bytes] [file ...]";
-    optionError['tail'] = 'tail: illegal option -- ' + optionCandidate[0] + 'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]';
+    optionError['head'] = "head: illegal option -- " + optionCandidate[0] + headUsageMessage;
+    optionError['tail'] = 'tail: illegal option -- ' + optionCandidate[0] + tailUsageMessage;
     if (optionCandidate != 'c' && optionCandidate != 'n') {
         return optionError[command];
     }
