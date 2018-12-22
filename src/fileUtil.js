@@ -37,6 +37,17 @@ const multipleFilesHeader = function (file) {
   return "==> " + file + " <==" + '\n';
 }
 
+const generateContent = function (headingGenerator, commandDetails, typeOfOption, fs, file) {
+  let { option, count, command } = commandDetails;
+  let heading = headingGenerator(file);
+  let errorMessage = missingFileError(file, fs.existsSync, command);
+  return errorMessage || heading + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
+}
+
+const generateSingleFileContent = generateContent.bind(null, singleFileHeader);
+
+const generateMultipleFileContent = generateContent.bind(null, multipleFilesHeader);
+
 const getSingleFileContent = function (commandDetails, type, fs) {
   let singleFileContent = '';
   if (commandDetails.files.length == 1) {
@@ -44,12 +55,6 @@ const getSingleFileContent = function (commandDetails, type, fs) {
     singleFileContent = generateSingleFileContent(commandDetails, type, fs, file);
   }
   return singleFileContent;
-}
-
-const generateSingleFileContent = function (commandDetails, type, fs) {
-  let { files, option, count, command } = commandDetails;
-  let error = missingFileError(files[0], fs.existsSync, command);
-  return error || type[option](fs.readFileSync(files[0], 'utf8'), count);
 }
 
 const typeOfOptionHead = { n: extractHeadLines, c: extractHeadCharacters };
@@ -68,17 +73,17 @@ const getHead = getContent.bind(null, 'head', typeOfOptionHead, handleHeadErrors
 const getTail = getContent.bind(null, 'tail', typeOfOptionTail, handleTailErrors);
 
 const getRequiredContent = function (commandDetails, typeOfOption, fs) {
-  let contentGenerator = generateContent.bind(null, commandDetails, fs, typeOfOption);
+  let contentGenerator = generateMultipleFileContent.bind(null, commandDetails, typeOfOption, fs);
   let requiredContent = commandDetails.files.map(contentGenerator);
   let singleFileContent = getSingleFileContent(commandDetails, typeOfOption, fs);
   return singleFileContent || requiredContent.join('\n');
 }
 
-const generateContent = function (commandDetails, fs, typeOfOption, file) {
+/*const generateContent = function (commandDetails, fs, typeOfOption, file) {
   let { option, count, command } = commandDetails;
   let errorMessage = missingFileError(file, fs.existsSync, command);
   return errorMessage || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
-}
+}*/
 
 module.exports = {
   getSingleFileContent,
