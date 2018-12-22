@@ -85,5 +85,6 @@ module.exports = {
   extractHeadLines,
   getRequiredContent,
   singleFileHeader,
-  multipleFilesHeader
+  multipleFilesHeader,
+  generateSingleFileContent
 };

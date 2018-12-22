@@ -9,7 +9,8 @@ const {
   extractHeadLines,
   getRequiredContent,
   singleFileHeader,
-  multipleFilesHeader
+  multipleFilesHeader,
+  generateSingleFileContent
 } = require("../src/fileUtil.js");
 
 const files = {
@@ -286,3 +287,20 @@ describe("multipleFilesHeader", function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
+
+describe('generateSingleFileContent', function () {
+  it('should return line content with empty header when there is only one file in user inputs', function () {
+    let typeOfOption = { n: extractHeadLines, c: extractHeadCharacters };
+    let commandDetails = { option: 'n', count: '2', files: ['file1'], command: 'head' };
+    let actualOutput = generateSingleFileContent(commandDetails, typeOfOption, fs, 'file1');
+    let expectedOutput = '1\n2';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return byte content with empty header when there is only one file in user inputs', function () {
+    let typeOfOption = { n: extractHeadLines, c: extractHeadCharacters };
+    let commandDetails = { option: 'c', count: '2', files: ['file2'], command: 'head' };
+    let actualOutput = generateSingleFileContent(commandDetails, typeOfOption, fs, 'file2');
+    let expectedOutput = 'ab';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+})
