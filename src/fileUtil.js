@@ -29,6 +29,14 @@ const extractTailLines = extractTailContent.bind(null, '\n');
 
 const extractTailCharacters = extractTailContent.bind(null, '');
 
+const singleFileHeader = function (file) {
+  return '';
+}
+
+const multipleFilesHeader = function (file) {
+  return "==> " + file + " <==" + '\n';
+}
+
 const getSingleFileContent = function (commandDetails, type, fs) {
   let singleFileContent = '';
   if (commandDetails.files.length == 1) {
@@ -80,5 +88,7 @@ module.exports = {
   extractHeadCharacters,
   extractHeadLines,
   generateHeading,
-  getRequiredContent
+  getRequiredContent,
+  singleFileHeader,
+  multipleFilesHeader
 };

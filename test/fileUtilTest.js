@@ -8,7 +8,9 @@ const {
   extractHeadCharacters,
   extractHeadLines,
   generateHeading,
-  getRequiredContent
+  getRequiredContent,
+  singleFileHeader,
+  multipleFilesHeader
 } = require("../src/fileUtil.js");
 
 const files = {
@@ -267,3 +269,39 @@ describe('getRequiredContent', function () {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
+
+describe("singleFileHeader", function () {
+  it("should return empty string for the given file name", function () {
+    let actualOutput = singleFileHeader("mars");
+    let expectedOutput = "";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return empty string for empty string', function () {
+    let actualOutput = singleFileHeader('');
+    let expectedOutput = '';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return empty string for undefined', function () {
+    let actualOutput = singleFileHeader(undefined);
+    let expectedOutput = '';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+});
+
+describe("multipleFilesHeader", function () {
+  it("should return the heading for the given file name", function () {
+    let actualOutput = multipleFilesHeader("mars");
+    let expectedOutput = "==> mars <==" + '\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return heading for empty string', function () {
+    let actualOutput = multipleFilesHeader('');
+    let expectedOutput = '==>  <==' + '\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it('should return heading for undefined', function () {
+    let actualOutput = multipleFilesHeader(undefined);
+    let expectedOutput = '==> undefined <==' + '\n';
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+});
