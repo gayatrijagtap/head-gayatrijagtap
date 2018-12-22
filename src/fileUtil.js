@@ -40,7 +40,8 @@ const multipleFilesHeader = function (file) {
 const getSingleFileContent = function (commandDetails, type, fs) {
   let singleFileContent = '';
   if (commandDetails.files.length == 1) {
-    singleFileContent = generateSingleFileContent(commandDetails, type, fs);
+    let file = commandDetails.files[0];
+    singleFileContent = generateSingleFileContent(commandDetails, type, fs, file);
   }
   return singleFileContent;
 }
