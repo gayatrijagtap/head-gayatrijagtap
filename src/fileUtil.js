@@ -29,10 +29,6 @@ const extractTailLines = extractTailContent.bind(null, '\n');
 
 const extractTailCharacters = extractTailContent.bind(null, '');
 
-const getLeadingCount = function (count, length) {
-  return Math.max(length - count, 0);
-}
-
 const getSingleFileContent = function (commandDetails, type, fs) {
   let singleFileContent = '';
   if (commandDetails.files.length == 1) {
@@ -77,7 +73,6 @@ const generateContent = function (commandDetails, fs, typeOfOption, file) {
 
 module.exports = {
   getSingleFileContent,
-  getLeadingCount,
   getTail,
   extractTailCharacters,
   extractTailLines,

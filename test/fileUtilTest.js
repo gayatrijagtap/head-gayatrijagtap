@@ -1,7 +1,6 @@
 const assert = require("assert");
 const {
   getSingleFileContent,
-  getLeadingCount,
   getTail,
   extractTailCharacters,
   extractTailLines,
@@ -139,19 +138,6 @@ describe('extractTailLines', function () {
   it('should return whole file when count is greater than or equal to lines in file', function () {
     let actualOutput = extractTailLines(files.file2, 6);
     let expectedOutput = 'abc def\n ghij \nklmn';
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-})
-
-describe('getLeadingCount', function () {
-  it('should return leading count when length of file and count is given', function () {
-    let actualOutput = getLeadingCount(5, 6);
-    let expectedOutput = 1;
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-  it('should return 0 if the length of the file is less than the given count', function () {
-    let actualOutput = getLeadingCount(6, 6);
-    let expectedOutput = 0;
     assert.deepEqual(actualOutput, expectedOutput);
   });
 })
