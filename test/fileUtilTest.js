@@ -7,7 +7,6 @@ const {
   getHead,
   extractHeadCharacters,
   extractHeadLines,
-  generateHeading,
   getRequiredContent,
   singleFileHeader,
   multipleFilesHeader
@@ -23,24 +22,6 @@ const existsSync = function (fileName) {
   return fileNames.includes(fileName);
 }
 const fs = { readFileSync, existsSync };
-
-describe("generateHeading", function () {
-  it("should return the heading for the given file name", function () {
-    let actualOutput = generateHeading("mars");
-    let expectedOutput = "==> mars <==";
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-  it('should return heading for empty string', function () {
-    let actualOutput = generateHeading('');
-    let expectedOutput = '==>  <==';
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-  it('should return heading for undefined', function () {
-    let actualOutput = generateHeading(undefined);
-    let expectedOutput = '==> undefined <==';
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-});
 
 describe("extractHeadLines", function () {
   it("should return the head with given number of lines if the length of file is greater than number of lines", function () {

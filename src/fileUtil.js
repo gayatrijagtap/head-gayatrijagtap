@@ -6,10 +6,6 @@ const {
   missingFileError
 } = require('./errorHandler.js');
 
-const generateHeading = function (filename) {
-  return "==> " + filename + " <==";
-};
-
 const extractHeadContent = function (delimeter, text, count) {
   let contentArray = text.split(delimeter);
   return contentArray.slice(0, Math.min(count, contentArray.length)).join(delimeter);
@@ -87,7 +83,6 @@ module.exports = {
   getHead,
   extractHeadCharacters,
   extractHeadLines,
-  generateHeading,
   getRequiredContent,
   singleFileHeader,
   multipleFilesHeader
