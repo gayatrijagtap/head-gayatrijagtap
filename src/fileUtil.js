@@ -79,12 +79,6 @@ const getRequiredContent = function (commandDetails, typeOfOption, fs) {
   return singleFileContent || requiredContent.join('\n');
 }
 
-/*const generateContent = function (commandDetails, fs, typeOfOption, file) {
-  let { option, count, command } = commandDetails;
-  let errorMessage = missingFileError(file, fs.existsSync, command);
-  return errorMessage || generateHeading(file) + '\n' + typeOfOption[option](fs.readFileSync(file, 'utf8'), count);
-}*/
-
 module.exports = {
   getSingleFileContent,
   getTail,
