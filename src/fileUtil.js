@@ -86,5 +86,6 @@ module.exports = {
   getRequiredContent,
   singleFileHeader,
   multipleFilesHeader,
-  generateSingleFileContent
+  generateSingleFileContent,
+  generateMultipleFileContent
 };
