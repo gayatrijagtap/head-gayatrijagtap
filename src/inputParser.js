@@ -1,3 +1,6 @@
+const configs = require('./configs')
+const constants = require('./constants')
+
 const parseInput = function (userArgs) {
     let commandDetails = new Object();
     commandDetails.option = extractOption(userArgs[0]);
@@ -8,14 +11,14 @@ const parseInput = function (userArgs) {
 };
 
 const extractOption = function (optionCandidate) {
-    return userOption(optionCandidate) || 'n';
+    return userOption(optionCandidate) || configs.lineOption;
 };
 
 const userOption = function (optionCandidate) {
     if (optionCandidate.match(/^-[A-m O-z]/)) {
         return optionCandidate[1];
     }
-    return '';
+    return constants.EMPTY_CHAR;
 }
 
 const extractCountWithFileIndex = function (userArgs) {
@@ -28,7 +31,7 @@ const extractCountWithFileIndex = function (userArgs) {
     if (userArgs[0].match(/^-/) && userArgs[1].match(/[0-9]/)) {
         return { count: userArgs[1], index: 2 }
     }
-    return { count: '10', index: 0 };
+    return { count: configs.defaultCount, index: 0 };
 };
 
 module.exports = {
